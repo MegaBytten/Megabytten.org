@@ -8,7 +8,7 @@ const server = http.createServer( (req, res) => {
   console.log('request made: ', req.url, req.method);
   //set header content type, can be HTML, text/plain, json
 
-  const htmlResponsePath = './';
+  let htmlResponsePath = './';
 
   switch (req.url) {
     case '/' || '/home':
