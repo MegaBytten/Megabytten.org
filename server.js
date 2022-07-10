@@ -1,13 +1,35 @@
 const http = require('http');
+const fs = require('fs');
+
 
 //creates server and stores the server instance
 const server = http.createServer( (req, res) => {
   //will log to server console
-  console.log('request made');
+  console.log('request made: ', req.url, req.method);
   //set header content type, can be HTML, text/plain, json
-  res.setHeader('Content-Type', 'text/plain');
-  res.write('this is my node server!')
-  res.end();
+
+  const htmlResponsePath = './';
+
+  switch (req.url) {
+    case '/' || '/home':
+      htmlResponsePath += 'Main/Pages/Home/home.html'
+      break;
+    case '/eutrcapp/verification' || '/eutrcapp':
+      htmlResponsePath += 'EUTRCApp/verification.html'
+      break;
+    default:
+      htmlResponsePath += 'Main/Pages/404.html'
+      break;
+  }
+
+  fs.readFile(htmlResponsePath, (error, data) =>{
+    if (error) {
+      console.log(error);
+      res.end()
+    } else {
+      res.end(data);
+    }
+  })
 });
 
 //server does not listen for requests until explicitly told to
