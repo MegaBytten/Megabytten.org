@@ -83,7 +83,7 @@
 
 <script type="text/javascript">
   function checkEmail(e){
-    var emailAddress = document.getElementById('emailInput')
+    var emailAddress = document.getElementById('emailInput').value;
     console.log('Logging email: ', emailAddress);
     if (!emailAddress.includes('@exeter.ac.uk')){
       console.log('Email not suffixed with "@exeter.ac.uk"!');
