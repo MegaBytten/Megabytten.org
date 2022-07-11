@@ -9,10 +9,10 @@ app.listen(80, 'megabytten.org');
 
 //listens for any HTTP GET request on '/' || '/home' url
 app.get('/',  (req, res) => {
-  res.sendFile('./home.html', dirName);
+  res.sendFile('/Main/home.html', dirName);
 });
 app.get('/home', (req, res) => {
-  res.sendFile('./home.html', dirName);
+  res.sendFile('/Main/home.html', dirName);
 });
 
 app.get('/about', function (req, res) {
@@ -23,5 +23,5 @@ app.get('/about', function (req, res) {
 
 //404 handler
 app.use( (req, res) => {
-  res.status(404).sendFile('./Main/Pages/404.html', dirName);
+  res.status(404).sendFile('/Main/404.html', dirName);
 });
