@@ -58,10 +58,7 @@
 <div class="center">
   <img src="/Main/imgs/mbproductionsbanner.png" alt="MegaByttenProductions">
   <!-- <script src="js/scripts.js"></script> -->
-  <h1 text-align='center'>MegaBytten.org</h1>
-  <br>
-  <h2>EUTRC App</h2>
-  <br>
+  <!-- <h1 text-align='center'>MegaBytten.org</h1>  -->
   <div class="topnav">
     <a href="home">Home</a>
     <a class="active" href="eutrcapp">EUTRC App</a>
@@ -69,6 +66,8 @@
     <a href="about">About</a>
   </div>
   <hr>
+  <h2>EUTRC App</h2>
+  <br>
 </div>
 
 <div class='center'>
@@ -84,9 +83,10 @@
 
 <script type="text/javascript">
   function checkEmail(e){
-    //e.preventDefault()
     var emailAddress = document.getElementById('emailInput')
+    console.log('Logging email: ', emailAddress);
     if (!emailAddress.includes('@exeter.ac.uk')){
+      console.log('Email not suffixed with "@exeter.ac.uk"!');
       alert("Email must be verified @exeter.ac.uk address!");
       returnToPreviousPage();
       return false;
