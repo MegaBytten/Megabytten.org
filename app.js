@@ -7,11 +7,6 @@ const dirName = { root: __dirname };
 //might need to listen on IP instead of domain
 app.listen(80, 'megabytten.org');
 
-const sendHome = function (req, res) {
-  //res.send() is combination of both res.write() and res.end()
-  res.sendFile('./Main/Home/home.html', dirName);
-})
-
 //listens for any HTTP GET request on '/' || '/home' url
 app.get('/',  (req, res) => {
   res.sendFile('./Main/Pages/Home/home.html', dirName);
