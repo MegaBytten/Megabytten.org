@@ -60,7 +60,7 @@
   <!-- <script src="js/scripts.js"></script> -->
   <h1 text-align='center'>MegaBytten.org</h1>
   <br>
-  <h2>Home page</h2>
+  <h2>EUTRC App/h2>
   <br>
   <div class="topnav">
     <a class="active" href="home">Home</a>
@@ -71,9 +71,30 @@
   <hr>
 </div>
 
-
-
+<div>
+  <h3>EUTRC App Verification</h3>
+  <hr>
+  <form onsubmit="return checkEmail(event)" action="http://megabytten.org/eutrcapp/verification" method='post'>
+    <input type="email" name="EUTRCApp Verify" placeholder="@exeter.ac.uk" id="emailInput" required>
+    <input type="submit" value="Verify Email" />
+  </form>
+</div>
 
 </body>
+
+<script type="text/javascript">
+  function checkEmail(e){
+    e.preventDefault()
+    var emailAddress = document.getElementById('emailInput')
+    if (!emailAddress.includes('@exeter.ac.uk')){
+      alert("Email must be verified @exeter.ac.uk address!");
+      returnToPreviousPage();
+      return false;
+    }
+    alert("If email has been registered on EUTRC App, verification email sent!");
+    return true;
+  }
+
+</script>
 
 </html>
