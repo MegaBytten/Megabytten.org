@@ -19,8 +19,8 @@ app.get('/eutrcapp', (req, res) => {
   res.sendFile('/eutrcapp/main.html', dirName);
 });
 
-app.get('/Main/mbproductions.png', (req, res) => {
-  res.sendFile('/Main/mbproductions.png', dirName);
+app.get('/Main/imgs/mbproductionsbanner.png', (req, res) => {
+  res.sendFile('/Main/imgs/mbproductionsbanner.png', dirName);
 });
 
 app.get('/about', function (req, res) {
