@@ -15,10 +15,32 @@
   <br>
   <h2>Home page</h2>
   <br>
-
-  <form action="http://megabytten.org/eutrcapp/verification">
+  <hr>
+<div text-align="center">
+  <h3>EUTRC App Verification</h3>
+  <hr>
+  <form onsubmit="return checkEmail(event)" action="http://megabytten.org/eutrcapp/verification">
+    <input type="email" name="EUTRCApp Verify" value="@exeter.ac.uk email" id="emailInput" required>
     <input type="submit" value="EUTRC APP: Verify Email" />
   </form>
+</div>
+
 
 </body>
+
+<script type="text/javascript">
+  function checkEmail(e){
+    e.preventDefault()
+    var emailAddress = document.getElementById('emailInput')
+    if (!emailAddress.includes('@exeter.ac.uk')){
+      alert("Email must be verified @exeter.ac.uk address!");
+      returnToPreviousPage();
+      return false;
+    }
+    alert("If email has been registered on EUTRC App, verification email sent!");
+    return true;
+    }
+  }
+</script>
+
 </html>

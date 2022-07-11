@@ -17,6 +17,7 @@ const server = http.createServer( (req, res) => {
       break;
     case '/eutrcapp/verification':
     case '/eutrcapp/verification?':
+      
       htmlResponsePath += 'EUTRCApp/verification.html';
       break;
     default:
