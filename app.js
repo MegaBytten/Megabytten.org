@@ -15,6 +15,10 @@ app.get('/home', (req, res) => {
   res.sendFile('/Main/home.html', dirName);
 });
 
+app.get('/eutrcapp', (req, res) => {
+  res.sendFile('/eutrcapp/main.html', dirName);
+});
+
 app.get('/about', function (req, res) {
   //res.send('about world!');
   //res.sendFile() does not take a RELATIVE path, takes absolute
