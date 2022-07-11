@@ -11,10 +11,12 @@ const server = http.createServer( (req, res) => {
   let htmlResponsePath = './';
 
   switch (req.url) {
-    case '/' || '/home':
+    case '/':
+    case '/home':
       htmlResponsePath += 'Main/Pages/Home/home.html';
       break;
-    case '/eutrcapp/verification' || '/eutrcapp/verification?':
+    case '/eutrcapp/verification':
+    case '/eutrcapp/verification?':
       htmlResponsePath += 'EUTRCApp/verification.html';
       break;
     default:
