@@ -27,7 +27,7 @@ app.get('/eutrcapp', (req, res) => {
 
 app.post('/eutrcapp/verification', (req, res) => {
   console.log('verification log reached!');
-  const userEmail = req.body.email.value;
+  const userEmail = req.body.email
   console.log(req.body);
   console.log('userEmail = ', userEmail);
   res.sendFile('/EUTRCApp/verification-success.html', dirName);
