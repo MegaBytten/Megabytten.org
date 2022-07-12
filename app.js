@@ -1,7 +1,7 @@
 //dependencies
 const express = require('express');
 const app = express();
-const mySQLConnection = require('/EUTRCApp/verification')
+const mySQLConnection = require('./EUTRCApp/verification.js')
 
 //class variables
 const dirName = { root: __dirname };
