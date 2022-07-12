@@ -38,15 +38,21 @@ app.post('/eutrcapp/verification', (req, res) => {
 
   pool.getConnection(function(err, connection) {
     console.log('Pool: Connection got.');
-  });
 
-  pool.query('SELECT * FROM users', (error, rows) => {
+    pool.query('SELECT * FROM users', (error, rows) => {
+      console.log('Query launched.');
       if (error) {
+        console.log(error);
         return;
       }
       this.init();
       console.log(rows);
-    });
+      });
+
+    connnection.release();
+  });
+
+
 
 /*
   connection.query('SELECT * FROM users', (err,rows) => {
@@ -56,7 +62,7 @@ app.post('/eutrcapp/verification', (req, res) => {
     console.log(rows);
   });
 */
-  connnection.release();
+
 
   res.sendFile('/EUTRCApp/verification-success.html', dirName);
 
