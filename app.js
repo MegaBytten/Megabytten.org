@@ -8,7 +8,7 @@ const dirName = { root: __dirname };
 app.listen(80, 'megabytten.org');
 
 //middleware
-app.use(express.urlencoded( {extended: true}));
+app.use(express.urlencoded( {extended: true} ));
 
 //listens for any HTTP GET request on '/' || '/home' url
 //home or main responses
@@ -29,7 +29,7 @@ app.post('/eutrcapp/verification', (req, res) => {
   console.log('verification log reached!');
   const userEmail = req.body.email.value;
   console.log(req.body);
-  console.log('userEmail = 'userEmail);
+  console.log('userEmail = ', userEmail);
   res.sendFile('/EUTRCApp/verification-success.html', dirName);
 
   //pull MySQL Data - if user is verified do:
