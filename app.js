@@ -38,14 +38,26 @@ app.post('/eutrcapp/verification', (req, res) => {
 
   pool.getConnection(function(err, connection) {
     console.log('Pool: Connection got.');
-    connection.query('SELECT * FROM users', (err,rows) => {
-      if(err)  console.log(err);
+  });
 
-      console.log('Data received from Db:');
+  pool.query('SELECT * FROM users'', (error, rows) => {
+      if (error) {
+        console.log(chalk.bgYellow.bold('Warning:') + ' Cannot connect to the MySQL server. Error Code: ' + error.code);
+        return;
+      }
+      this.init();
       console.log(rows);
     });
-    connnection.release();
+
+/*
+  connection.query('SELECT * FROM users', (err,rows) => {
+    if(err)  console.log(err);
+
+    console.log('Data received from Db:');
+    console.log(rows);
   });
+*/
+  connnection.release();
 
   res.sendFile('/EUTRCApp/verification-success.html', dirName);
 
