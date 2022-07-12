@@ -20,6 +20,6 @@ var pool = mysql.createPool({
 });
 
 console.log('Exporting "MySQL Connection + Pool" - - -');
-export {
+module.exports = {
   connection, pool
 }
