@@ -23,7 +23,7 @@ app.get('/eutrcapp', (req, res) => {
 });
 
 app.post('/eutrcapp/verification', (req, res) => {
-  const userEmail = req.body.email
+  const userEmail = req.body.email.value;
   console.log(userEmail);
   res.sendFile('/EUTRCApp/verification-success.html', dirName);
 
