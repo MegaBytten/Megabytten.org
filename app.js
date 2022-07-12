@@ -23,9 +23,9 @@ app.get('/eutrcapp', (req, res) => {
 });
 
 app.post('/eutrcapp/verification', (req, res) => {
-  //const userEmail = req.body.email
+  const userEmail = req.body.email
   console.log(userEmail);
-  res.send('received with thanks! go back to ' <a href='megabytten.org/home'>home</a>)
+  res.sendFile('/EUTRCApp/verification-success.html', dirName);
 
   //pull MySQL Data - if user is verified do:
   //if user has been sent verification email ask to confirm resend
