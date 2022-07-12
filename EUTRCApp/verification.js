@@ -19,7 +19,7 @@ var pool = mysql.createPool({
     database: 'exeter_touch_app'
 });
 
-console.log('Exporting "MySQL Connection + Pool" - - -'');
+console.log('Exporting "MySQL Connection + Pool" - - -');
 export {
   connection, pool
 }
