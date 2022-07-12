@@ -73,8 +73,8 @@
 <div class='center'>
   <h3>EUTRC App Verification</h3>
   <hr>
-  /*action="http://megabytten.org/eutrcapp/verification" method='post'/*
-  <form onsubmit="return checkEmail(event)" >
+  <!--action="http://megabytten.org/eutrcapp/verification" method='post'-->
+  <form onsubmit="checkEmail(event)" >
     <input type="email" name="EUTRCApp Verify" placeholder="@exeter.ac.uk" id="emailInput" required>
     <input type="submit" value="Verify Email" />
   </form>
@@ -90,10 +90,10 @@
       console.log('Email not suffixed with "@exeter.ac.uk"!');
       alert("Email must be verified @exeter.ac.uk address!");
       returnToPreviousPage();
-      return false;
+      //return false;
     }
     alert("If email has been registered on EUTRC App, verification email sent!");
-    return true;
+    //return true;
   }
 
 </script>
