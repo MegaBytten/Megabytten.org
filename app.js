@@ -8,6 +8,7 @@ const dirName = { root: __dirname };
 app.listen(80, 'megabytten.org');
 
 //listens for any HTTP GET request on '/' || '/home' url
+//home or main responses
 app.get('/',  (req, res) => {
   res.sendFile('/Main/home.html', dirName);
 });
@@ -15,10 +16,25 @@ app.get('/home', (req, res) => {
   res.sendFile('/Main/home.html', dirName);
 });
 
+
+//eutrc responses
 app.get('/eutrcapp', (req, res) => {
   res.sendFile('/eutrcapp/main.html', dirName);
 });
 
+app.post('/eutrcapp/verification', (req, res) => {
+  const userEmail = req.body.email
+  console.log(userEmail);
+  res.send('received with thanks! go back to ' <a href='megabytten.org/home'>home</a>)
+
+  //pull MySQL Data - if user is verified do:
+  //if user has been sent verification email ask to confirm resend
+  //if user has successfully been sent first time verif, congrats!
+
+});
+
+
+//image responses
 app.get('/Main/imgs/mbproductionsbanner.png', (req, res) => {
   res.sendFile('/Main/imgs/mbproductionsbanner.png', dirName);
 });
