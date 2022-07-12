@@ -23,8 +23,9 @@ app.get('/eutrcapp', (req, res) => {
 });
 
 app.post('/eutrcapp/verification', (req, res) => {
-  const userEmail = req.body.email.value;
-  console.log(userEmail);
+  console.log('verification log reached!');
+  //const userEmail = req.body.email.value;
+  //console.log(userEmail);
   res.sendFile('/EUTRCApp/verification-success.html', dirName);
 
   //pull MySQL Data - if user is verified do:
