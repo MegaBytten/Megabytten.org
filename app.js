@@ -49,7 +49,7 @@ app.post('/eutrcapp/verification', (req, res) => {
       console.log(rows);
       });
 
-    connnection.release();
+    //connnection.release();
   });
 
 
