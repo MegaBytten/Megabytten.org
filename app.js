@@ -1,6 +1,9 @@
+//dependencies
 const express = require('express');
 const app = express();
+const mySQLConnection = require('/EUTRCApp/verification')
 
+//class variables
 const dirName = { root: __dirname };
 
 
@@ -28,14 +31,27 @@ app.get('/eutrcapp', (req, res) => {
 app.post('/eutrcapp/verification', (req, res) => {
   console.log('verification log reached!');
   const userEmail = req.body.email
-  console.log(req.body);
   console.log('userEmail = ', userEmail);
+
+  let pool = mySQLConnection.pool;
+  let connection = mySQLConnection.connection;
+
+  pool.getConnection(function(err, connection) {
+    console.log('Pool: Connection got.');
+    con.query('SELECT * FROM users', (err,rows) => {
+      if(err) throw err;
+
+      console.log('Data received from Db:');
+      console.log(rows);
+    });
+    connnection.release();
+  });
+
   res.sendFile('/EUTRCApp/verification-success.html', dirName);
 
   //pull MySQL Data - if user is verified do:
   //if user has been sent verification email ask to confirm resend
   //if user has successfully been sent first time verif, congrats!
-
 });
 
 
