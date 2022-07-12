@@ -39,7 +39,7 @@ app.post('/eutrcapp/verification', (req, res) => {
   pool.getConnection(function(err, connection) {
     console.log('Pool: Connection got.');
     connection.query('SELECT * FROM users', (err,rows) => {
-      if(err) throw err;
+      if(err)  console.log(err);
 
       console.log('Data received from Db:');
       console.log(rows);
