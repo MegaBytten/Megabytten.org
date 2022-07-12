@@ -42,7 +42,6 @@ app.post('/eutrcapp/verification', (req, res) => {
 
   pool.query('SELECT * FROM users', (error, rows) => {
       if (error) {
-        console.log(chalk.bgYellow.bold('Warning:') + ' Cannot connect to the MySQL server. Error Code: ' + error.code);
         return;
       }
       this.init();
