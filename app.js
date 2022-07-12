@@ -7,6 +7,9 @@ const dirName = { root: __dirname };
 //might need to listen on IP instead of domain
 app.listen(80, 'megabytten.org');
 
+//middleware
+app.use(express.urlencoded( {extended: true}));
+
 //listens for any HTTP GET request on '/' || '/home' url
 //home or main responses
 app.get('/',  (req, res) => {
@@ -24,8 +27,9 @@ app.get('/eutrcapp', (req, res) => {
 
 app.post('/eutrcapp/verification', (req, res) => {
   console.log('verification log reached!');
-  //const userEmail = req.body.email.value;
-  //console.log(userEmail);
+  const userEmail = req.body.email.value;
+  console.log(req.body);
+  console.log('userEmail = 'userEmail);
   res.sendFile('/EUTRCApp/verification-success.html', dirName);
 
   //pull MySQL Data - if user is verified do:
