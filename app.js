@@ -92,7 +92,7 @@ app.post('/eutrcapp/verification', (req, res) => {
   //& "python verfbot ${emailBotSender} ${emailBotPass} ${userEmail}"
 
   childPython.stdout.on('data', (data) => {
-  console.log('stdout: $(data)');
+  console.log('stdout: ${data}');
   });
 
   //stderr On 'Data' listens for any error output from .py, logged to console
