@@ -13,5 +13,5 @@ let connection = mysql.createConnection({
 
 console.log('Exporting "MySQL Connection + Pool" - - -');
 module.exports = {
-  connection, pool
+  connection
 }
