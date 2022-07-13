@@ -88,8 +88,7 @@ app.post('/eutrcapp/verification', (req, res) => {
 
   const exec = require("child_process").exec;
   //
-  const childPython = exec("cd C:\\NodeServer\Megabytten.org\EUTRCApp"
-  & '5+5=');
+  const childPython = exec("cd");
 //& "python verfbot ${emailBotSender} ${emailBotPass} ${userEmail}"
 
   //stderr On 'Data' listens for any error output from .py, logged to console
