@@ -16,9 +16,9 @@ import sys
 # you can restructure a python script so that one of the arguments decides
 # which function to call, and the other argument gets passed to that function, etc.
 
-email_sender = sys.argv[1]
-email_pswd = sys.argv[2]
-email_receiver = sys.argv[3]
+email_sender = sys.argv[0]
+email_pswd = sys.argv[1]
+email_receiver = sys.argv[2]
 
 subject = 'EUTRCApp Verification'
 body = """
