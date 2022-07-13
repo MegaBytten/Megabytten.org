@@ -77,6 +77,8 @@ app.post('/eutrcapp/verification', (req, res) => {
 
   const spawn = require("child_process").spawn;
   // const pythonProcess = spawn('python',["path/to/script.py", arg1, arg2, ...]);
+  const childPython = spawn( 'python', ["--version"] );
+  console.log("worked!");
   const childPython = spawn( 'python', ["/EUTRCApp/verfbot.py", userEmail] );
 
   childPython.stdout.on('data', (data) => {
