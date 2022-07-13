@@ -62,6 +62,7 @@ function checkVerification(userEmail) {
     console.log('Data received from Db:');
     console.log(rows);
   });
+  //testing change
 */
 
 }
