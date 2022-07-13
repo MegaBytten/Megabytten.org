@@ -74,10 +74,22 @@ app.post('/eutrcapp/verification', (req, res) => {
 
   //throws error, no check currently!
   //checkVerification(userEmail);
+
+  // const exec = require('child_process').exec;
+  // exec("cd ./folder2 & java MyFile", function(
+  //     error: string,
+  //     stdout: string,
+  //     stderr: string
+  // ) {
+
   require("dotenv").config();
-  const spawn = require("child_process").spawn;
+  const emailBotSender = process.env.emailBotSender;
+  const emailBotPass = process.env.emailBotPass;
+
+  const exec = require("child_process").exec;
   //
-  const childPython = spawn('python', ["C:\\NodeServer\Megabytten.org\EUTRCApp/verfbot.py", process.env.emailBotSender, process.env.emailBotPass, userEmail]);
+  const childPython = exec("cd C:\\NodeServer\Megabytten.org\EUTRCApp"
+    & "python verfbot.py ${emailBotSender} ${emailBotPass} ${userEmail}");
 
 
   //stderr On 'Data' listens for any error output from .py, logged to console
