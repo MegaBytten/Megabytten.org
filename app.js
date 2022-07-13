@@ -88,8 +88,11 @@ app.post('/eutrcapp/verification', (req, res) => {
 
   const exec = require("child_process").exec;
   //const childPython = exec("type nul > filename.txt");
-  console.log("Trace: " + "python verfbot.py " + emailBotSender + " " + emailBotPass + " " + userEmail);
-  const childPython = exec("python verfbot.py " + emailBotSender + " " + emailBotPass + " " + userEmail);
+  const command = "python verfbot.py " + emailBotSender + " " + emailBotPass + " " + userEmail;
+  console.log("Trace: " + command);
+  const childPython = exec(command);
+
+
   childPython.stdout.on('data', (data) => {
   console.log('stdout: ${data}');
   });
