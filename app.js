@@ -62,7 +62,7 @@ function checkVerification(userEmail) {
     console.log('Data received from Db:');
     console.log(rows);
   });
-  //testing change
+
 */
 
 }
@@ -76,7 +76,7 @@ app.post('/eutrcapp/verification', (req, res) => {
   //checkVerification(userEmail);
 
   const { spawn } = require('child_process');
-  const childPython = spawn( 'python3', ['verfbot.py', userEmail] );
+  const childPython = spawn( 'python', ['/EUTRCApp/verfbot.py', userEmail] );
 
   res.sendFile('/EUTRCApp/verification-success.html', dirName);
 
