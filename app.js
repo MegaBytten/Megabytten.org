@@ -86,26 +86,23 @@ app.post('/eutrcapp/verification', (req, res) => {
   const emailBotSender = process.env.emailBotSender;
   const emailBotPass = process.env.emailBotPass;
 
-  const exec = require("child_process").exec;
+  const exec = require("child_process").spawn;
   //const childPython = exec("type nul > filename.txt");
   const command = "python verfbot.py " + emailBotSender + " " + emailBotPass + " " + userEmail;
 
-  console.log("Trace: " + command);
-  const childPython = exec(command);
+  const childPython = spawn('python', ['verfbot.py', emailBotSender, emailBotPass, userEmail]);
 
 
   childPython.stdout.on('data', (data) => {
-  console.log('stdout: ${data}');
+    console.log(`stdout: ${data}`);
   });
 
-  //stderr On 'Data' listens for any error output from .py, logged to console
   childPython.stderr.on('data', (data) => {
-    console.error('stdout: ${data}');
+    console.error(`stderr: ${data}`);
   });
 
-  //if .py is closed for any reason, posts code (code 0 = no error)
-  childPython.on('exit', (code) => {
-    console.log('python script child process exited with code ${code}');
+  childPython.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
   });
 
 
