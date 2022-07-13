@@ -28,10 +28,11 @@ app.get('/eutrcapp', (req, res) => {
   res.sendFile('/eutrcapp/main.html', dirName);
 });
 
-app.post('/eutrcapp/verification', (req, res) => {
-  console.log('verification log reached!');
-  const userEmail = req.body.email
-  console.log('userEmail = ', userEmail);
+function checkVerification(userEmail) {
+
+  //pull MySQL Data - if user is verified do:
+  //if user has been sent verification email ask to confirm resend
+  //if user has successfully been sent first time verif, congrats!
 
   let pool = mySQLConnection.pool;
   let connection = mySQLConnection.connection;
@@ -63,12 +64,21 @@ app.post('/eutrcapp/verification', (req, res) => {
   });
 */
 
+}
+
+app.post('/eutrcapp/verification', (req, res) => {
+  console.log('verification log reached!');
+  const userEmail = req.body.email
+  console.log('userEmail = ', userEmail);
+
+  //throws error, no check currently!
+  //checkVerification(userEmail);
+
+  const { spawn } = require('child_process');
+  const childPython = spawn( 'python', ['/EUTRCApp/verfbot.py', userEmail] );
 
   res.sendFile('/EUTRCApp/verification-success.html', dirName);
 
-  //pull MySQL Data - if user is verified do:
-  //if user has been sent verification email ask to confirm resend
-  //if user has successfully been sent first time verif, congrats!
 });
 
 
