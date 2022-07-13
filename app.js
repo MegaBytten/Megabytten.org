@@ -78,7 +78,7 @@ app.post('/eutrcapp/verification', (req, res) => {
   const spawn = require("child_process").spawn;
   // const pythonProcess = spawn('python',["path/to/script.py", arg1, arg2, ...]);
 
-  childPython = spawn( 'python', ["/EUTRCApp/verfbot.py", process.env.emailBotSender, process.env.emailBotPass, userEmail] );
+  childPython = spawn( 'python', ["EUTRCApp/verfbot.py", process.env.emailBotSender, process.env.emailBotPass, userEmail] );
 
   childPython.stdout.on('data', (data) => {
     console.log('stdout: $(data)');
