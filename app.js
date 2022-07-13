@@ -76,8 +76,8 @@ app.post('/eutrcapp/verification', (req, res) => {
   //checkVerification(userEmail);
   require("dotenv").config();
   const spawn = require("child_process").spawn;
-  // const pythonProcess = spawn('python',["path/to/script.py", arg1, arg2, ...]);
-  const childPython = spawn( "EUTRCApp/verfbot.py", [process.env.emailBotSender, process.env.emailBotPass, userEmail] );
+  //, process.env.emailBotSender, process.env.emailBotPass, userEmail]
+  const childPython = spawn('python', ["EUTRCApp/verfbot.py"]);
 
 
   //stderr On 'Data' listens for any error output from .py, logged to console
