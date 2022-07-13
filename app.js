@@ -76,7 +76,23 @@ app.post('/eutrcapp/verification', (req, res) => {
   //checkVerification(userEmail);
 
   const { spawn } = require('child_process');
-  const childPython = spawn( 'python', ['verfbot.py', userEmail] );
+  // const childPython = spawn( 'python', ['verfbot.py', userEmail] );
+  const childPython = spawn( 'python', ['--version'] );
+
+  childPython.stdout.on('data', (data) => {
+    console.log('stdout: $(data)');
+  });
+
+  //stderr On 'Data' listens for any error output from .py, logged to console
+  childPython.stderr.on('data', (data) => {
+    console.error('stdout: $(data)');
+  });
+
+  //if .py is closed for any reason, posts code (code 0 = no error)
+  childPython.on(close, (code) => {
+    console.log('python script child process exited with code $(code)');
+  });
+
 
   res.sendFile('/EUTRCApp/verification-success.html', dirName);
 
