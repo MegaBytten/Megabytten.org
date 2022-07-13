@@ -86,7 +86,7 @@ app.post('/eutrcapp/verification', (req, res) => {
   const emailBotSender = process.env.emailBotSender;
   const emailBotPass = process.env.emailBotPass;
 
-  const exec = require("child_process").spawn;
+  const spawn = require("child_process").spawn;
   //const childPython = exec("type nul > filename.txt");
   const command = "python verfbot.py " + emailBotSender + " " + emailBotPass + " " + userEmail;
 
