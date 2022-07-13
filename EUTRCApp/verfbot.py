@@ -3,14 +3,12 @@ import ssl
 import smtplib
 import sys
 
-require("dotenv").config();
-
 # To send data back to node just do the following in the python script:
 #
 # print(dataToSendBack)
 # sys.stdout.flush()
 # And then node can listen for data using:
-# 
+#
 # pythonProcess.stdout.on('data', (data) => {
 #     // Do something with the data returned from python script
 # });
@@ -18,9 +16,9 @@ require("dotenv").config();
 # you can restructure a python script so that one of the arguments decides
 # which function to call, and the other argument gets passed to that function, etc.
 
-email_sender = process.env.emailBotSender
-email_pswd = process.env.emailBotPass
-email_receiver = sys.argv[1]
+email_sender = sys.argv[1]
+email_pswd = sys.argv[2]
+email_receiver = sys.argv[3]
 
 subject = 'EUTRCApp Verification'
 body = """
