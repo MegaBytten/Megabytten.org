@@ -75,9 +75,9 @@ app.post('/eutrcapp/verification', (req, res) => {
   //throws error, no check currently!
   //checkVerification(userEmail);
 
-  const { spawn } = require('child_process');
-  // const childPython = spawn( 'python', ['verfbot.py', userEmail] );
-  const childPython = spawn( 'python', ['--version'] );
+  const spawn = require("child_process").spawn;
+  // const pythonProcess = spawn('python',["path/to/script.py", arg1, arg2, ...]);
+  const childPython = spawn( 'python', ["/EUTRCApp/verfbot.py", userEmail] );
 
   childPython.stdout.on('data', (data) => {
     console.log('stdout: $(data)');
