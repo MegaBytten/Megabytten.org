@@ -2,21 +2,13 @@
 //    It returns the connection object when called
 
 let mysql = require('mysql');
+require("dotenv").config();
 
 let connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'admin1',
-    password: 'Crebu0tusayAmed$-vetasAfiq*tax!dref5wrawrasa7epoRed',
-    database: 'exeter_touch_app'
-});
-
-//creates a pool that allows up to 5 mysql connections at once
-var pool = mysql.createPool({
-    connectionLimit: 5,
-    host: 'localhost',
-    user: 'admin1',
-    password: 'Crebu0tusayAmed$-vetasAfiq*tax!dref5wrawrasa7epoRed',
-    database: 'exeter_touch_app'
+    host: process.env.mySQLHost,
+    user: process.env.mySQLUser,
+    password: process.env.mySQLPass,
+    database: process.env.mySQLDatabase
 });
 
 console.log('Exporting "MySQL Connection + Pool" - - -');
