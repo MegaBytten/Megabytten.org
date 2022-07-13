@@ -87,9 +87,8 @@ app.post('/eutrcapp/verification', (req, res) => {
   const emailBotPass = process.env.emailBotPass;
 
   const exec = require("child_process").exec;
-  //
-  const childPython = exec("type nul > filename.txt");
-  //& "python verfbot ${emailBotSender} ${emailBotPass} ${userEmail}"
+  //const childPython = exec("type nul > filename.txt");
+  const childPython = exec("python verfbot " + emailBotSender + " " + emailBotPass + " " + userEmail);
 
   childPython.stdout.on('data', (data) => {
   console.log('stdout: ${data}');
