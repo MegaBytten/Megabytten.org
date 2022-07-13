@@ -88,17 +88,18 @@ app.post('/eutrcapp/verification', (req, res) => {
 
   const exec = require("child_process").exec;
   //
-  const childPython = exec("cd C:\\NodeServer\Megabytten.org\EUTRCApp");
+  const childPython = exec("cd C:\\NodeServer\Megabytten.org\EUTRCApp"
+  & '5+5=');
 //& "python verfbot ${emailBotSender} ${emailBotPass} ${userEmail}"
 
   //stderr On 'Data' listens for any error output from .py, logged to console
   childPython.stderr.on('data', (data) => {
-    console.error('stdout: $(data)');
+    console.error('stdout: ${data}');
   });
 
   //if .py is closed for any reason, posts code (code 0 = no error)
   childPython.on('exit', (code) => {
-    console.log('python script child process exited with code $(code)');
+    console.log('python script child process exited with code ${code}');
   });
 
 
