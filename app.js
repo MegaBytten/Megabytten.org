@@ -92,7 +92,7 @@ app.post('/eutrcapp/verification', (req, res) => {
 
   const childPython = spawn(
     'python',
-    ['"verfbot.py"', emailBotSender, emailBotPass, userEmail],
+    ['verfbot.py', emailBotSender, emailBotPass, userEmail],
     {shell: true}
   );
 
