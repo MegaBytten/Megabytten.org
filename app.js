@@ -33,15 +33,18 @@ app.post('/eutrcapp/verification', (req, res) => {
   console.log('userEmail = ', userEmail);
 
   //check if user is registered
-  const userPass = require('./EUTRCApp/verification.js')
+  const mySQL = require('./EUTRCApp/verification.js')
+  const connection = mySQL.getMySQLConnection();
+  console.log('/Verification connection got.');
+  const userPass = mySQL.getMySQLPassword(connection, userEmail);
   console.log("/Verification received userPass: " + userPass);
 
-
-  require("dotenv").config();
-  const emailBotSender = process.env.emailBotSender;
-  const emailBotPass = process.env.emailBotPass;
-
   // Launches Python bot and passes arguments via command line
+  //
+  // require("dotenv").config();
+  // const emailBotSender = process.env.emailBotSender;
+  // const emailBotPass = process.env.emailBotPass;
+  //
   // const spawn = require("child_process").spawn;
   // const childPython = spawn(
   //   'py',
