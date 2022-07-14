@@ -1,6 +1,5 @@
 //   This .js file is used to establish a connection to our local MySQL database
-//    It returns the connection object when called
-
+//    It returns the password of the user
 let mysql = require('mysql');
 require("dotenv").config();
 
@@ -10,6 +9,7 @@ let connection = mysql.createConnection({
     password: process.env.mySQLPass,
     database: process.env.mySQLDatabase
 });
+
 
 console.log('Exporting "MySQL Connection + Pool" - - -');
 module.exports = {

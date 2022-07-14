@@ -1,7 +1,6 @@
 //dependencies
 const express = require('express');
 const app = express();
-const mySQLConnection = require('./EUTRCApp/verification.js')
 
 //class variables
 const dirName = { root: __dirname };
@@ -29,29 +28,21 @@ app.get('/eutrcapp', (req, res) => {
 });
 
 function checkVerification(userEmail) {
-
   //pull MySQL Data - if user is verified do:
   //if user has been sent verification email ask to confirm resend
   //if user has successfully been sent first time verif, congrats!
+  const mySQLConnection = require('./EUTRCApp/verification.js')
 
-  let pool = mySQLConnection.pool;
-  let connection = mySQLConnection.connection;
-
-  pool.getConnection(function(err, connection) {
-    console.log('Pool: Connection got.');
-
-    pool.query('SELECT * FROM users', (error, rows) => {
-      console.log('Query launched.');
-      if (error) {
-        console.log(error);
-        return;
-      }
-      this.init();
-      console.log(rows);
-      });
-
-    //connnection.release();
+  mySQLConnection.connect(function(err) {
+    if (err) throw err;
+    const query = "SELECT password FROM users where email = '" + userEmail
+      + "';";
+    mySQLConnection.query(query, function (err, result, fields) {
+      if (err) throw err;
+      console.log('User password = ' + result);
+    });
   });
+
 
 
 
@@ -72,24 +63,16 @@ app.post('/eutrcapp/verification', (req, res) => {
   const userEmail = req.body.email
   console.log('userEmail = ', userEmail);
 
-  //throws error, no check currently!
-  //checkVerification(userEmail);
+  //check if user is registered
 
-  // const exec = require('child_process').exec;
-  // exec("cd ./folder2 & java MyFile", function(
-  //     error: string,
-  //     stdout: string,
-  //     stderr: string
-  // ) {
+
 
   require("dotenv").config();
   const emailBotSender = process.env.emailBotSender;
   const emailBotPass = process.env.emailBotPass;
 
+  // code
   const spawn = require("child_process").spawn;
-  //const childPython = exec("type nul > filename.txt");
-  const command = "python verfbot.py " + emailBotSender + " " + emailBotPass + " " + userEmail;
-
   const childPython = spawn(
     'py',
     ['verfbot.py', emailBotSender, emailBotPass, userEmail],
