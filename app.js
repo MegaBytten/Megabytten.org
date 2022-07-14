@@ -1,10 +1,10 @@
 //dependencies - will run and establish once everytime server starts
 const express = require('express');
-let app = express();
+const app = express();
 
 //class variables
 const dirName = { root: __dirname };
-const userEmail = null;
+let userEmail = null;
 
 //might need to listen on IP instead of domain
 app.listen(80, 'megabytten.org');
