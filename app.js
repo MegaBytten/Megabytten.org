@@ -91,7 +91,7 @@ app.post('/eutrcapp/verification', (req, res) => {
   const command = "python verfbot.py " + emailBotSender + " " + emailBotPass + " " + userEmail;
 
   const childPython = spawn(
-    'python',
+    'python3',
     ['verfbot.py', emailBotSender, emailBotPass, userEmail],
     {shell: true}
   );
