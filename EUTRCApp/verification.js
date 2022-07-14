@@ -28,12 +28,13 @@ connection.connect(function(err) {
     if (err) throw err;
     console.log('User password = ' + result);
     userPass = result;
+    onsole.log('Successfully Exported MySQL Result!');
+    module.exports = {
+      userPass
+    }
   });
 });
 
 
 
-console.log('Successfully Exported MySQL Connection!');
-module.exports = {
-  userPass
-}
+c

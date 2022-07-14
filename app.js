@@ -41,26 +41,26 @@ app.post('/eutrcapp/verification', (req, res) => {
   const emailBotSender = process.env.emailBotSender;
   const emailBotPass = process.env.emailBotPass;
 
-  // code
-  const spawn = require("child_process").spawn;
-  const childPython = spawn(
-    'py',
-    ['verfbot.py', emailBotSender, emailBotPass, userEmail],
-    {shell: true}
-  );
-
-
-  childPython.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
-  });
-
-  childPython.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
-  });
-
-  childPython.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-  });
+  // Launches Python bot and passes arguments via command line
+  // const spawn = require("child_process").spawn;
+  // const childPython = spawn(
+  //   'py',
+  //   ['verfbot.py', emailBotSender, emailBotPass, userEmail],
+  //   {shell: true}
+  // );
+  //
+  //
+  // childPython.stdout.on('data', (data) => {
+  //   console.log(`stdout: ${data}`);
+  // });
+  //
+  // childPython.stderr.on('data', (data) => {
+  //   console.error(`stderr: ${data}`);
+  // });
+  //
+  // childPython.on('close', (code) => {
+  //   console.log(`child process exited with code ${code}`);
+  // });
 
 
   res.sendFile('/EUTRCApp/verification-success.html', dirName);
