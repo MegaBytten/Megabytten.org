@@ -32,13 +32,18 @@ function checkVerification(userEmail) {
   //pull MySQL Data - if user is verified do:
   //if user has been sent verification email ask to confirm resend
   //if user has successfully been sent first time verif, congrats!
+  console.log('checkVerification called!');
   const query = "SELECT password FROM users where email = '"
     + userEmail + "';";
 
-  mySQLConnection.query(query, function (err, result, fields) {
+  mySQLConnection.connect(function(err) {
     if (err) throw err;
-    console.log('User password = ' + result);
-    return result;
+    console.log('Successfully connected to MySQL Database!');
+    mySQLConnection.query(query, function (err, result, fields) {
+      if (err) throw err;
+      console.log('User password = ' + result);
+      return result;
+    });
   });
 }
 
