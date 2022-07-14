@@ -32,12 +32,27 @@ app.post('/eutrcapp/verification', (req, res) => {
   userEmail = req.body.email
   console.log('userEmail = ', userEmail);
 
-  //check if user is registered
+
+  //need to handle all of this asynch + sync through promises
+
+  // const verificationPromise = new Promise((resolve, reject) => {
+  /*
+    Section checks if user is registered
+    Obtains MySQL connection, queries to obtain User's password
+  */
+
+  //get conncetion, if returns null then promise rejects
   const mySQL = require('./EUTRCApp/verification.js')
   const connection = mySQL.getMySQLConnection();
-  console.log('/Verification connection got.');
+
+
   const userPass = mySQL.getMySQLPassword(connection, userEmail);
-  console.log("/Verification received userPass: " + userPass);
+
+  const checkUserPassword = async () => {
+    const a = await userPass;
+    console.log(a);
+  };
+  // });  //this is the promise close scope
 
   // Launches Python bot and passes arguments via command line
   //
