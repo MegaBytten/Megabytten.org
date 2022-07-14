@@ -1,6 +1,7 @@
-//dependencies
+//dependencies - will run and establish once everytime server starts
 const express = require('express');
 const app = express();
+const mySQLConnection = require('./EUTRCApp/verification.js')
 
 //class variables
 const dirName = { root: __dirname };
@@ -31,30 +32,17 @@ function checkVerification(userEmail) {
   //pull MySQL Data - if user is verified do:
   //if user has been sent verification email ask to confirm resend
   //if user has successfully been sent first time verif, congrats!
-  const mySQLConnection = require('./EUTRCApp/verification.js')
-
   mySQLConnection.connect(function(err) {
     if (err) throw err;
-    const query = "SELECT password FROM users where email = '" + userEmail
-      + "';";
+    const query = "SELECT password FROM users where email = '"
+      + userEmail + "';";
+
     mySQLConnection.query(query, function (err, result, fields) {
       if (err) throw err;
       console.log('User password = ' + result);
+      return result;
     });
   });
-
-
-
-
-/*
-  connection.query('SELECT * FROM users', (err,rows) => {
-    if(err)  console.log(err);
-
-    console.log('Data received from Db:');
-    console.log(rows);
-  });
-
-*/
 
 }
 
@@ -64,7 +52,8 @@ app.post('/eutrcapp/verification', (req, res) => {
   console.log('userEmail = ', userEmail);
 
   //check if user is registered
-
+  const userPass = checkVerification(userEmail);
+  console.log("/Verification received userPass: " + userPass);
 
 
   require("dotenv").config();
