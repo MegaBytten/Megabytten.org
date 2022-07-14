@@ -1,7 +1,6 @@
 //dependencies - will run and establish once everytime server starts
 const express = require('express');
 const app = express();
-const mySQLConnection = require('./EUTRCApp/verification.js')
 
 //class variables
 const dirName = { root: __dirname };
@@ -28,32 +27,13 @@ app.get('/eutrcapp', (req, res) => {
   res.sendFile('/eutrcapp/main.html', dirName);
 });
 
-function checkVerification(userEmail) {
-  //pull MySQL Data - if user is verified do:
-  //if user has been sent verification email ask to confirm resend
-  //if user has successfully been sent first time verif, congrats!
-  console.log('checkVerification called!');
-  const query = "SELECT password FROM users where email = '"
-    + userEmail + "';";
-
-  mySQLConnection.connect(function(err) {
-    if (err) throw err;
-    console.log('Successfully connected to MySQL Database!');
-    mySQLConnection.query(query, function (err, result, fields) {
-      if (err) throw err;
-      console.log('User password = ' + result);
-      return result;
-    });
-  });
-}
-
 app.post('/eutrcapp/verification', (req, res) => {
   console.log('verification log reached!');
   const userEmail = req.body.email
   console.log('userEmail = ', userEmail);
 
   //check if user is registered
-  const userPass = checkVerification(userEmail);
+  const userPass = require('./EUTRCApp/verification.js')
   console.log("/Verification received userPass: " + userPass);
 
 
@@ -103,3 +83,7 @@ app.get('/about', function (req, res) {
 app.use( (req, res) => {
   res.status(404).sendFile('/Main/404.html', dirName);
 });
+
+module.exports = {
+  userEmail
+}
