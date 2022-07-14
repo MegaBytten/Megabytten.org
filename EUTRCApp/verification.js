@@ -20,7 +20,7 @@ console.log('Attempting MYSQL Connection!');
 connection.connect(function(err) {
   if (err) throw err;
   console.log('Successfully connected to MySQL Database!');
-  console.log('userEmail = ' + userEmail);
+  console.log('userEmail = ' + userEmail.userEmail);
   //do mysql stuff
   const query = "SELECT password FROM users where email = '"
     + userEmail + "';";
