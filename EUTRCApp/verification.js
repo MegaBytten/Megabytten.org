@@ -34,7 +34,3 @@ connection.connect(function(err) {
     }
   });
 });
-
-
-
-c
