@@ -17,14 +17,14 @@ let connection = mysql.createConnection({
 //if user has been sent verification email ask to confirm resend
 //if user has successfully been sent first time verif, congrats!
 console.log('Attempting MYSQL Connection!');
-mySQLConnection.connect(function(err) {
+connection.connect(function(err) {
   if (err) throw err;
   console.log('Successfully connected to MySQL Database!');
 
   //do mysql stuff
   const query = "SELECT password FROM users where email = '"
     + userEmail + "';";
-  mySQLConnection.query(query, function (err, result, fields) {
+  connection.query(query, function (err, result, fields) {
     if (err) throw err;
     console.log('User password = ' + result);
     userPass = result;
