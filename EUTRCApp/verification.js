@@ -11,7 +11,7 @@ let connection = mysql.createConnection({
 });
 
 
-console.log('Exporting "MySQL Connection + Pool" - - -');
+console.log('Successfully established MySQL Connection: ' + connection);
 module.exports = {
   connection
 }
