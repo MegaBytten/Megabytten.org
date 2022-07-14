@@ -1,6 +1,6 @@
 //dependencies - will run and establish once everytime server starts
 const express = require('express');
-const app = express();
+let app = express();
 
 //class variables
 const dirName = { root: __dirname };
