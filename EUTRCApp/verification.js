@@ -1,6 +1,6 @@
 //   This .js file is used to establish a connection to our local MySQL database
 //    It returns the password of the user
-let mysql = require('mysql');
+let mysql = require('mysql2');
 let userEmail = require('../app.js');
 require("dotenv").config();
 
