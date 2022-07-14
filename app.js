@@ -4,7 +4,7 @@ const app = express();
 
 //class variables
 const dirName = { root: __dirname };
-
+const userEmail = null;
 
 //might need to listen on IP instead of domain
 app.listen(80, 'megabytten.org');
@@ -29,7 +29,7 @@ app.get('/eutrcapp', (req, res) => {
 
 app.post('/eutrcapp/verification', (req, res) => {
   console.log('verification log reached!');
-  const userEmail = req.body.email
+  userEmail = req.body.email
   console.log('userEmail = ', userEmail);
 
   //check if user is registered
