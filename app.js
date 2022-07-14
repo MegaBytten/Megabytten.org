@@ -90,7 +90,7 @@ app.post('/eutrcapp/verification', (req, res) => {
   //const childPython = exec("type nul > filename.txt");
   const command = "python verfbot.py " + emailBotSender + " " + emailBotPass + " " + userEmail;
 
-  const childPython = spawn('python', ['verfbot.py', emailBotSender, emailBotPass, userEmail]);
+  const childPython = spawn('python3', ['verfbot.py', emailBotSender, emailBotPass, userEmail]);
 
 
   childPython.stdout.on('data', (data) => {
