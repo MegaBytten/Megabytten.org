@@ -28,7 +28,7 @@ connection.connect(function(err) {
     if (err) throw err;
     console.log('User password = ' + result);
     userPass = result;
-    onsole.log('Successfully Exported MySQL Result!');
+    console.log('Successfully Exported MySQL Result!');
     module.exports = {
       userPass
     }
