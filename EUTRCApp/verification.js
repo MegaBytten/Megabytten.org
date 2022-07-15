@@ -35,9 +35,39 @@ function getMySQLPassword(connection, userEmail){
       }
       console.log('User password = ' + result);
       console.log('Successfully Exported MySQL Result!');
+      if (result == null) console.log('Result = null!');
       return result;
     });
   });
 }
+
+function pythonBot(userEmail){
+  /*
+  Launches Python bot and passes arguments via command line
+  */
+  const emailBotSender = process.env.emailBotSender;
+  const emailBotPass = process.env.emailBotPass;
+
+  const spawn = require("child_process").spawn;
+  const childPython = spawn(
+    'py',
+    ['verfbot.py', emailBotSender, emailBotPass, userEmail],
+    {shell: true}
+  );
+
+  childPython.stdout.on('data', (data) => {
+    console.log(`stdout: ${data}`);
+  });
+
+  childPython.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  childPython.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
+  });
+}
+
+
 //export functions to be used elsewhere
-module.exports = { getMySQLConnection, getMySQLPassword };
+module.exports = { getMySQLConnection, getMySQLPassword, pythonBot };

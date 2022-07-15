@@ -4,16 +4,27 @@ const app = express();
 
 //class variables
 const dirName = { root: __dirname };
-let userEmail = null;
 
-//might need to listen on IP instead of domain
+/*  ################################################################################
+    ################################################################################
+    ####################  Server Setup (Port Listening)  ###########################
+    ################################################################################
+    ################################################################################
+*/
+// TODO: set up ip/domain as process.env variable!!
 app.listen(80, 'megabytten.org');
 
 //middleware
 app.use(express.urlencoded( {extended: true} ));
 
-//listens for any HTTP GET request on '/' || '/home' url
-//home or main responses
+
+
+/*  ################################################################################
+    ################################################################################
+    ################  Handling Routes for Home Pages/resources  ####################
+    ################################################################################
+    ################################################################################
+*/
 app.get('/',  (req, res) => {
   res.sendFile('/Main/home.html', dirName);
 });
@@ -22,86 +33,69 @@ app.get('/home', (req, res) => {
 });
 
 
-//eutrc responses
+
+/*  ################################################################################
+    ################################################################################
+    ###############  Handling Routes for EUTRC Pages/resources #####################
+    ################################################################################
+    ################################################################################
+*/
 app.get('/eutrcapp', (req, res) => {
   res.sendFile('/eutrcapp/main.html', dirName);
 });
 
 app.post('/eutrcapp/verification', (req, res) => {
-  console.log('verification log reached!');
-  userEmail = req.body.email
-  console.log('userEmail = ', userEmail);
+  const userEmail = req.body.email
+  const userPass = req.body.password
+  console.log('EUTRCApp verification form received. Verifying user: ${userEmail} with password ${userPass}');
 
+// establishing MySQL Connection via verification.js and retrieving user's password
+  const verify = require('./EUTRCApp/verification.js')
+  const connection = verify.getMySQLConnection();
+  const userSQLPass = verify.getMySQLPassword(connection, userEmail);
 
-  //need to handle all of this asynch + sync through promises
-
-  // const verificationPromise = new Promise((resolve, reject) => {
-  /*
-    Section checks if user is registered
-    Obtains MySQL connection, queries to obtain User's password
-  */
-
-  //get conncetion, if returns null then promise rejects
-  const mySQL = require('./EUTRCApp/verification.js')
-  const connection = mySQL.getMySQLConnection();
-
-
-  const userPass = mySQL.getMySQLPassword(connection, userEmail);
-
+// MySQL Query is async, so create an async func that waits for password to be returned before running
   const checkUserPassword = async () => {
-    const a = await userPass;
-    console.log(a);
+    const sqlPass = await userSQLPass;
+    console.log("Received User's Pass from SQL: ${sqlPass}, userPass from form: ${userPass}");
+
+    if (sqlPass == null){
+// User was not found in database, or incorrect email address provided.
+      console.log("User's pass returned null. (No User in database or Password retrieval error.)");
+      res.sendFile('/EUTRCApp/verification-failure.html', dirName);
+    } else if (sqlPass == userPass){
+// Password matches continue to verification emailBot
+      console.log("User's pass matches MySQL. Launching verfbot.py");
+      verify.pythonBot(userEmail);
+      res.sendFile('/EUTRCApp/verification-success.html', dirName);
+    } else {
+// passwords do not match
+      console.log("User's pass does not match MySQL!");
+      res.sendFile('/EUTRCApp/verification-failure.html', dirName);
+    }
   };
-  // });  //this is the promise close scope
-
-  // Launches Python bot and passes arguments via command line
-  //
-  // require("dotenv").config();
-  // const emailBotSender = process.env.emailBotSender;
-  // const emailBotPass = process.env.emailBotPass;
-  //
-  // const spawn = require("child_process").spawn;
-  // const childPython = spawn(
-  //   'py',
-  //   ['verfbot.py', emailBotSender, emailBotPass, userEmail],
-  //   {shell: true}
-  // );
-  //
-  //
-  // childPython.stdout.on('data', (data) => {
-  //   console.log(`stdout: ${data}`);
-  // });
-  //
-  // childPython.stderr.on('data', (data) => {
-  //   console.error(`stderr: ${data}`);
-  // });
-  //
-  // childPython.on('close', (code) => {
-  //   console.log(`child process exited with code ${code}`);
-  // });
-
-
-  res.sendFile('/EUTRCApp/verification-success.html', dirName);
-
 });
 
 
-//image responses
+
+/*  ################################################################################
+    ################################################################################
+    ###############   Handling Routes for Obtaining Images   #######################
+    ################################################################################
+    ################################################################################
+*/
 app.get('/Main/imgs/mbproductionsbanner.png', (req, res) => {
   res.sendFile('/Main/imgs/mbproductionsbanner.png', dirName);
 });
 
-app.get('/about', function (req, res) {
-  //res.send('about world!');
-  //res.sendFile() does not take a RELATIVE path, takes absolute
-  res.sendFile('./eutrcapp/verification.html', dirName);
-});
 
-//404 handler
+
+/*  ################################################################################
+    ################################################################################
+    ###########################   404 Handler    ###################################
+    ################################################################################
+    ################################################################################
+*/
 app.use( (req, res) => {
   res.status(404).sendFile('/Main/404.html', dirName);
 });
-
-module.exports = {
-  userEmail
-}

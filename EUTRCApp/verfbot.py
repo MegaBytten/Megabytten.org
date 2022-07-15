@@ -20,13 +20,27 @@ email_sender = sys.argv[1]
 email_pswd = sys.argv[2]
 email_receiver = sys.argv[3]
 
-subject = 'EUTRCApp Verification'
-body = """
-Do Not reply to this email!
+# TODO: Generate new random verification code
+verfCode = () => {
+  #f string or arraylist
+  for (0, 20){
+    # google for best way to add random char (only internal lib)
+  }
+}
 
-Welcome to the new EUTRC App! All of the upcoming Exeter Touch Rugby trainings, matches and socials,
-along with attendance and player stats in one place!\n\nUse the verification code below to verify your email in the app!\n [Verif]
-"""
+# pre-written default message
+greeting = 'Do Not reply to this email!'
+main = '\n\nWelcome to the new EUTRC App! All of the upcoming Exeter Touch Rugby trainings, matches and socials, along with attendance and player stats in one place!'
+instruction = '\nUse the verification code below to verify your email in the app!'
+# verfcode here!
+warning = '\n\nFor any issues or bugs please report them (with screenshots/logs) to omegabytten@gmail.com'
+signoff = 'Thanks and see you on the pitches!\nYour EUTRC team!'
+
+# concatenate email
+subject = 'EUTRCApp Verification'
+body = greeting + main + instruction + verfCode + warning + signoff
+
+
 em = EmailMessage()
 em['From'] = email_sender
 em['To'] = email_receiver
