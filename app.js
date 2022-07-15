@@ -50,32 +50,60 @@ app.post('/eutrcapp/verification', (req, res) => {
   console.log('EUTRCApp verification form received. Verifying user: '+ userEmail + ' with password; ' + userPass);
 
 // establishing MySQL Connection via verification.js and retrieving user's password
-  const verify = require('./EUTRCApp/verification.js')
-  const connection = verify.getMySQLConnection();
-  const userSQLPass = verify.getMySQLPassword(connection, userEmail);
-console.log('Direct trace:');
-  console.log(userSQLPass);
+//ALL OF THESE ARE ASYNC METHODS, NEED TO USE PROMISES!!
 
-// MySQL Query is async, so create an async func that waits for password to be returned before running
-  const checkUserPassword = async () => {
-    const sqlPass = await userSQLPass;
-    console.log("Received User's Pass from SQL: ${sqlPass}, userPass from form: ${userPass}");
+  const verify = require('./EUTRCApp/verification.js');
+  let connection = null;
+  let userSQLPass = null;
 
-    if (sqlPass == null){
-// User was not found in database, or incorrect email address provided.
-      console.log("User's pass returned null. (No User in database or Password retrieval error.)");
-      res.sendFile('/EUTRCApp/verification-failure.html', dirName);
-    } else if (sqlPass == userPass){
-// Password matches continue to verification emailBot
-      console.log("User's pass matches MySQL. Launching verfbot.py");
-      verify.pythonBot(userEmail);
-      res.sendFile('/EUTRCApp/verification-success.html', dirName);
-    } else {
-// passwords do not match
-      console.log("User's pass does not match MySQL!");
-      res.sendFile('/EUTRCApp/verification-failure.html', dirName);
-    }
-  };
+  function getMySQLConnection(){
+    return new Promise( (resolve, reject) => {
+      connection = verify.getMySQLConnection();
+      if (connection == null){
+        reject('MySQL Connection was Null!');
+      } else {
+        resolve(connection);
+      }
+    });
+  }
+
+  function getMySQLPassword(){
+    return new Promise( (resolve, reject) => {
+      userSQLPass = verify.getMySQLPassword(connection, userEmail);
+      if (userSQLPass == null){
+        reject('MySQL Password was Null!');
+      } else {
+        resolve(userSQLPass);
+      }
+    });
+  }
+
+  function checkUserPassword(){
+    return new Promise( (resolve, reject) => {
+      console.log("Received User's Pass from SQL: " + userSQLPass + " and userPass from form: " + userPass);
+      if (sqlPass == null){
+  // User was not found in database, or incorrect email address provided.
+        console.log("User's pass returned null. (No User in database or Password retrieval error.)");
+        reject('No User in Database or Password retrieval issue.')
+      } else if (sqlPass == userPass){
+  // Password matches continue to verification emailBot
+        console.log("User's pass matches MySQL. Launching verfbot.py");
+        verify.pythonBot(userEmail);
+        res.sendFile('/EUTRCApp/verification-success.html', dirName);
+      } else {
+  // passwords do not match
+        console.log("User's pass does not match MySQL!");
+        res.sendFile('/EUTRCApp/verification-failure.html', dirName);
+      }
+    });
+  }
+
+  getMySQLConnection()
+    .then( getMySQLPassword() )
+    .then( checkUserPassword() )
+    .catch((error) => {
+      console.log(error););
+    })
 });
 
 
