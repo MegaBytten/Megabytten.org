@@ -84,16 +84,14 @@ app.post('/eutrcapp/verification', (req, res) => {
       if (sqlPass == null){
   // User was not found in database, or incorrect email address provided.
         console.log("User's pass returned null. (No User in database or Password retrieval error.)");
-        reject('No User in Database or Password retrieval issue.')
+        reject('No User in Database or Password retrieval issue.');
       } else if (sqlPass == userPass){
   // Password matches continue to verification emailBot
-        console.log("User's pass matches MySQL. Launching verfbot.py");
-        verify.pythonBot(userEmail);
-        res.sendFile('/EUTRCApp/verification-success.html', dirName);
+        resolve("User's pass matches MySQL. Launching verfbot.py and sending success");
       } else {
   // passwords do not match
         console.log("User's pass does not match MySQL!");
-        res.sendFile('/EUTRCApp/verification-failure.html', dirName);
+        reject('No User in Database or Password retrieval issue.');
       }
     });
   }
@@ -101,8 +99,16 @@ app.post('/eutrcapp/verification', (req, res) => {
   getMySQLConnection()
     .then( getMySQLPassword() )
     .then( checkUserPassword() )
+    .then( (message) => {
+      //all .then functions returned 'resolved'!
+      console.log(message);
+      verify.pythonBot(userEmail);
+      res.sendFile('/EUTRCApp/verification-success.html', dirName);
+    })
     .catch((error) => {
-      console.log(error););
+      //one of the above .then functions returned a 'reject' :(
+      console.log(error);
+      res.sendFile('/EUTRCApp/verification-failure.html', dirName);
     })
 });
 
