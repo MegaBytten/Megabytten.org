@@ -47,12 +47,14 @@ app.get('/eutrcapp', (req, res) => {
 app.post('/eutrcapp/verification', (req, res) => {
   const userEmail = req.body.email
   const userPass = req.body.password
-  console.log('EUTRCApp verification form received. Verifying user: ${userEmail} with password ${userPass}');
+  console.log('EUTRCApp verification form received. Verifying user: '+ userEmail + ' with password; ' + userPass);
 
 // establishing MySQL Connection via verification.js and retrieving user's password
   const verify = require('./EUTRCApp/verification.js')
   const connection = verify.getMySQLConnection();
   const userSQLPass = verify.getMySQLPassword(connection, userEmail);
+console.log('Direct trace:');
+  console.log(userSQLPass);
 
 // MySQL Query is async, so create an async func that waits for password to be returned before running
   const checkUserPassword = async () => {
