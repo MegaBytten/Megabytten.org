@@ -45,15 +45,15 @@ function getPassword(connection, userEmail, userPass, res){
           if (result == null){
         // User was not found in database, or incorrect email address provided.
             console.log("User's pass returned null. (No User in database or Password retrieval error.)");
-            res.sendFile('/EUTRCApp/verification-failure.html', dirName);
+            res.sendFile('/EUTRCApp/verification-failure.html', __dirName);
           } else if (result == userPass){
         // Password matches continue to verification emailBot
           verify.pythonBot(userEmail);
-          res.sendFile('/EUTRCApp/verification-success.html', dirName);
+          res.sendFile('/EUTRCApp/verification-success.html', __dirName);
           } else {
         // passwords do not match
             console.log("User's pass does not match MySQL!");
-            res.sendFile('/EUTRCApp/verification-failure.html', dirName);
+            res.sendFile('/EUTRCApp/verification-failure.html', __dirName);
           }
         }
     }
