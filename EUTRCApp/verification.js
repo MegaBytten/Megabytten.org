@@ -21,7 +21,7 @@ function getUserPass(userEmail, userPass){
       return error;
     } else {
       console.log('Successfully connected to MySQL Database!');
-      getPassword(connection, userEmail, userPass, res).
+      getPassword(connection, userEmail, userPass, res);
     }
   });
 
