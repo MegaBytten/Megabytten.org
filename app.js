@@ -78,6 +78,7 @@ app.post('/eutrcapp/verification', (req, res) => {
     });
   }
 
+
   function checkUserPassword(){
     return new Promise( (resolve, reject) => {
       console.log("Received User's Pass from SQL: " + userSQLPass + " and userPass from form: " + userPass);
