@@ -100,7 +100,10 @@ app.post('/eutrcapp/verification', (req, res) => {
   }
 
   getMySQLConnection()
-    .then( getMySQLPassword() )
+    .then( () => {
+      console.log('First .then = getMySQL');
+      getMySQLPassword()
+    })
     .then( checkUserPassword() )
     .then( (message) => {
       //all .then functions returned 'resolved'!
