@@ -46,7 +46,7 @@ function getPassword(connection, userEmail, userPass, res){
         // User was not found in database, or incorrect email address provided.
             console.log("User's pass returned null. (No User in database or Password retrieval error.)");
             res.sendFile('/EUTRCApp/verification-failure.html', dirName);
-          } else if (userSQLPass == userPass){
+          } else if (result == userPass){
         // Password matches continue to verification emailBot
           verify.pythonBot(userEmail);
           res.sendFile('/EUTRCApp/verification-success.html', dirName);
