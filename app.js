@@ -53,7 +53,7 @@ app.post('/eutrcapp/verification', (req, res) => {
 //ALL OF THESE ARE ASYNC METHODS, NEED TO USE PROMISES!!
 
   const verify = require('./EUTRCApp/verification.js');
-  let userSQLPass = verify.getUserPass(userEmail, userPass, res);
+  let userSQLPass = verify.getUserPass(userEmail, userPass, res, dirName);
 
 });
 

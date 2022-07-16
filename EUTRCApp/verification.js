@@ -1,12 +1,11 @@
 //   This .js file is used to establish a connection to our local MySQL database
 //    It returns the password of the user
 let mysql = require('mysql2');
-let userEmail = require('../app.js');
 require("dotenv").config();
+let dirName = null;
 
-
-function getUserPass(userEmail, userPass, res){
-
+function getUserPass(userEmail, userPass, res, direcName){
+  dirName = direcName;
   let connection = mysql.createConnection({
       host: process.env.mySQLHost,
       user: process.env.mySQLUser,
@@ -45,15 +44,15 @@ function getPassword(connection, userEmail, userPass, res){
           if (result == null){
         // User was not found in database, or incorrect email address provided.
             console.log("User's pass returned null. (No User in database or Password retrieval error.)");
-            res.sendFile('/EUTRCApp/verification-failure.html', __dirName);
+            res.sendFile('/EUTRCApp/verification-failure.html', dirName);
           } else if (result == userPass){
         // Password matches continue to verification emailBot
           verify.pythonBot(userEmail);
-          res.sendFile('/EUTRCApp/verification-success.html', __dirName);
+          res.sendFile('/EUTRCApp/verification-success.html', dirName);
           } else {
         // passwords do not match
             console.log("User's pass does not match MySQL!");
-            res.sendFile('/EUTRCApp/verification-failure.html', __dirName);
+            res.sendFile('/EUTRCApp/verification-failure.html', dirName);
           }
         }
     }
