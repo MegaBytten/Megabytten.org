@@ -5,31 +5,25 @@ let userEmail = require('../app.js');
 require("dotenv").config();
 
 
-function getMySQLServer(){
-  console.log('Verification.js: creating connection');
+function getUserPass(userEmail){
+
   let connection = mysql.createConnection({
       host: process.env.mySQLHost,
       user: process.env.mySQLUser,
       password: process.env.mySQLPass,
       database: process.env.mySQLDatabase
-  });
-  return connection;
-}
 
-function mysqlConnect(connection, userEmail){
-  console.log('Attempting MYSQL Connection!');
+  console.log('Verification.js: Attempting MySQL Connection');');
   connection.connect((err) => {
     //this function never gets called! Never any 'success' log
     if (err) {
       return error;
     } else {
       console.log('Successfully connected to MySQL Database!');
-      return null;
     }
   });
-}
 
-function getMySQLPassword(userEmail){
+  console.log('Attempting User Password Retrieval');
   console.log('userEmail = ' + userEmail);
   const query = "SELECT password FROM users WHERE email = '"
     + userEmail + "';";
@@ -76,4 +70,4 @@ function pythonBot(userEmail){
 
 
 //export functions to be used elsewhere
-module.exports = { getMySQLServer, mysqlConnect, getMySQLPassword, pythonBot };
+module.exports = { getUserPass };

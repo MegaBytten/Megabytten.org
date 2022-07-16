@@ -53,51 +53,22 @@ app.post('/eutrcapp/verification', (req, res) => {
 //ALL OF THESE ARE ASYNC METHODS, NEED TO USE PROMISES!!
 
   const verify = require('./EUTRCApp/verification.js');
-  let connection = null;
-  let userSQLPass = null;
-  let error = 'This was not reset!'
+  let userSQLPass = verify.getUserPass(userEmail);
 
-  function getAllMySQL(){
-    return new Promise( (resolve, reject) => {
-      connection = verify.getMySQLServer();
-      error = verify.mysqlConnect(connection, userEmail);
-      userSQLPass = verify.mysqlConnect(connection, userEmail);
-      resolve();
-    });
+  console.log("Received User's Pass from SQL: " + userSQLPass + " and userPass from form: " + userPass);
+  if (userSQLPass == null){
+// User was not found in database, or incorrect email address provided.
+    console.log("User's pass returned null. (No User in database or Password retrieval error.)");
+    verify.pythonBot(userEmail);
+    res.sendFile('/EUTRCApp/verification-success.html', dirName);
+  } else if (userSQLPass == userPass){
+// Password matches continue to verification emailBot
+    resolve("User's pass matches MySQL. Launching verfbot.py and sending success");
+  } else {
+// passwords do not match
+    console.log("User's pass does not match MySQL!");
+    res.sendFile('/EUTRCApp/verification-failure.html', dirName);
   }
-
-
-  function checkUserPassword(){
-    return new Promise( (resolve, reject) => {
-      console.log("Received User's Pass from SQL: " + userSQLPass + " and userPass from form: " + userPass);
-      if (userSQLPass == null){
-  // User was not found in database, or incorrect email address provided.
-        console.log("User's pass returned null. (No User in database or Password retrieval error.)");
-        reject('No User in Database or Password retrieval issue.');
-      } else if (userSQLPass == userPass){
-  // Password matches continue to verification emailBot
-        resolve("User's pass matches MySQL. Launching verfbot.py and sending success");
-      } else {
-  // passwords do not match
-        console.log("User's pass does not match MySQL!");
-        reject('No User in Database or Password retrieval issue.');
-      }
-    });
-  }
-
-  getAllMySQL()
-    .then( checkUserPassword() )
-    .then( (message) => {
-      //all .then functions returned 'resolved'!
-      console.log(message);
-      verify.pythonBot(userEmail);
-      res.sendFile('/EUTRCApp/verification-success.html', dirName);
-    })
-    .catch((error) => {
-      //one of the above .then functions returned a 'reject' :(
-      console.log(error);
-      res.sendFile('/EUTRCApp/verification-failure.html', dirName);
-    })
 });
 
 
