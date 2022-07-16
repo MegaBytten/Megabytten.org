@@ -58,6 +58,7 @@ function getPassword(connection, userEmail, userPass, res){
     }
   });
 }
+}
 
 
 function pythonBot(userEmail){
