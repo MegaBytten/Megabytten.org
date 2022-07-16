@@ -12,6 +12,7 @@ function getUserPass(userEmail){
       user: process.env.mySQLUser,
       password: process.env.mySQLPass,
       database: process.env.mySQLDatabase
+  });
 
   console.log('Verification.js: Attempting MySQL Connection');');
   connection.connect((err) => {
