@@ -59,11 +59,11 @@ app.post('/eutrcapp/verification', (req, res) => {
   if (userSQLPass == null){
 // User was not found in database, or incorrect email address provided.
     console.log("User's pass returned null. (No User in database or Password retrieval error.)");
-    verify.pythonBot(userEmail);
-    res.sendFile('/EUTRCApp/verification-success.html', dirName);
+    res.sendFile('/EUTRCApp/verification-failure.html', dirName);
   } else if (userSQLPass == userPass){
 // Password matches continue to verification emailBot
-    resolve("User's pass matches MySQL. Launching verfbot.py and sending success");
+  verify.pythonBot(userEmail);
+  res.sendFile('/EUTRCApp/verification-success.html', dirName);
   } else {
 // passwords do not match
     console.log("User's pass does not match MySQL!");

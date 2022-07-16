@@ -52,7 +52,7 @@ function pythonBot(userEmail){
   const spawn = require("child_process").spawn;
   const childPython = spawn(
     'py',
-    ['verfbot.py', emailBotSender, emailBotPass, userEmail],
+    ['/verfbot.py', emailBotSender, emailBotPass, userEmail],
     {shell: true}
   );
 
