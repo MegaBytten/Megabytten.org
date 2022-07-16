@@ -69,8 +69,6 @@ app.post('/eutrcapp/verification', (req, res) => {
 
   function getMySQLPassword(){
     return new Promise( (resolve, reject) => {
-      console.log('test if connection == null:');
-      console.log(connection==null);
       userSQLPass = verify.getMySQLPassword(connection, userEmail);
       if (userSQLPass == null){
         reject('MySQL Password was Null!');
@@ -84,11 +82,11 @@ app.post('/eutrcapp/verification', (req, res) => {
   function checkUserPassword(){
     return new Promise( (resolve, reject) => {
       console.log("Received User's Pass from SQL: " + userSQLPass + " and userPass from form: " + userPass);
-      if (sqlPass == null){
+      if (userSQLPass == null){
   // User was not found in database, or incorrect email address provided.
         console.log("User's pass returned null. (No User in database or Password retrieval error.)");
         reject('No User in Database or Password retrieval issue.');
-      } else if (sqlPass == userPass){
+      } else if (userSQLPass == userPass){
   // Password matches continue to verification emailBot
         resolve("User's pass matches MySQL. Launching verfbot.py and sending success");
       } else {
@@ -101,7 +99,6 @@ app.post('/eutrcapp/verification', (req, res) => {
 
   getMySQLConnection()
     .then( () => {
-      console.log('First .then = getMySQL');
       getMySQLPassword()
     })
     .then( checkUserPassword() )

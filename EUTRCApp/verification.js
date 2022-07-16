@@ -23,14 +23,18 @@ function getMySQLPassword(connection, userEmail){
   console.log('Attempting MYSQL Connection!');
   connection.connect((err) => {
     //this function never gets called! Never any 'success' log
-    if (err) throw err;
+    if (err) { throw err; } ;
+
     console.log('Successfully connected to MySQL Database!');
     console.log('userEmail = ' + userEmail);
+
     //do mysql stuff
     const query = "SELECT password FROM users where email = '"
       + userEmail + "';";
+
     connection.query(query, function (err, result, fields) {
       if (err){
+        console.log(error);
         throw err;
         return null;
       }
