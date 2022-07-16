@@ -5,7 +5,7 @@ let userEmail = require('../app.js');
 require("dotenv").config();
 
 
-function getMySQLConnection(){
+function getMySQLServer(){
   console.log('Verification.js: creating connection');
   let connection = mysql.createConnection({
       host: process.env.mySQLHost,
@@ -16,33 +16,34 @@ function getMySQLConnection(){
   return connection;
 }
 
-function getMySQLPassword(connection, userEmail){
-  //pull MySQL Data - if user is verified do:
-  //if user has been sent verification email ask to confirm resend
-  //if user has successfully been sent first time verif, congrats!
+function mysqlConnect(connection, userEmail){
   console.log('Attempting MYSQL Connection!');
   connection.connect((err) => {
     //this function never gets called! Never any 'success' log
-    if (err) { throw err; } ;
+    if (err) {
+      return error;
+    } else {
+      console.log('Successfully connected to MySQL Database!');
+      return null;
+    }
+  });
+}
 
-    console.log('Successfully connected to MySQL Database!');
-    console.log('userEmail = ' + userEmail);
+function getMySQLPassword(userEmail){
+  console.log('userEmail = ' + userEmail);
+  const query = "SELECT password FROM users WHERE email = '"
+    + userEmail + "';";
 
-    //do mysql stuff
-    const query = "SELECT password FROM users where email = '"
-      + userEmail + "';";
-
-    connection.query(query, function (err, result, fields) {
-      if (err){
-        console.log(error);
-        throw err;
-        return null;
-      }
-      console.log('User password = ' + result);
-      console.log('Successfully Exported MySQL Result!');
-      if (result == null) console.log('Result = null!');
-      return result;
-    });
+  connection.query(query, function (err, result, fields) {
+    if (err){
+      console.log(error);
+      throw err;
+      return null;
+    }
+    console.log('User password = ' + result);
+    console.log('Successfully Exported MySQL Result!');
+    if (result == null) console.log('Result = null!');
+    return result;
   });
 }
 
@@ -75,4 +76,4 @@ function pythonBot(userEmail){
 
 
 //export functions to be used elsewhere
-module.exports = { getMySQLConnection, getMySQLPassword, pythonBot };
+module.exports = { getMySQLServer, mysqlConnect, getMySQLPassword, pythonBot };

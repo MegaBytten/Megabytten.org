@@ -55,26 +55,14 @@ app.post('/eutrcapp/verification', (req, res) => {
   const verify = require('./EUTRCApp/verification.js');
   let connection = null;
   let userSQLPass = null;
+  let error = 'This was not reset!'
 
-  function getMySQLConnection(){
+  function getAllMySQL(){
     return new Promise( (resolve, reject) => {
-      connection = verify.getMySQLConnection();
-      if (connection == null){
-        reject('MySQL Connection was Null!');
-      } else {
-        resolve(connection);
-      }
-    });
-  }
-
-  function getMySQLPassword(){
-    return new Promise( (resolve, reject) => {
-      userSQLPass = verify.getMySQLPassword(connection, userEmail);
-      if (userSQLPass == null){
-        reject('MySQL Password was Null!');
-      } else {
-        resolve(userSQLPass);
-      }
+      connection = verify.getMySQLServer();
+      error = verify.mysqlConnect(connection, userEmail);
+      userSQLPass = verify.mysqlConnect(connection, userEmail);
+      resolve();
     });
   }
 
@@ -97,10 +85,7 @@ app.post('/eutrcapp/verification', (req, res) => {
     });
   }
 
-  getMySQLConnection()
-    .then( () => {
-      getMySQLPassword()
-    })
+  getAllMySQL()
     .then( checkUserPassword() )
     .then( (message) => {
       //all .then functions returned 'resolved'!
