@@ -53,22 +53,8 @@ app.post('/eutrcapp/verification', (req, res) => {
 //ALL OF THESE ARE ASYNC METHODS, NEED TO USE PROMISES!!
 
   const verify = require('./EUTRCApp/verification.js');
-  let userSQLPass = verify.getUserPass(userEmail);
+  let userSQLPass = verify.getUserPass(userEmail, userPass, res);
 
-  console.log("Received User's Pass from SQL: " + userSQLPass + " and userPass from form: " + userPass);
-  if (userSQLPass == null){
-// User was not found in database, or incorrect email address provided.
-    console.log("User's pass returned null. (No User in database or Password retrieval error.)");
-    res.sendFile('/EUTRCApp/verification-failure.html', dirName);
-  } else if (userSQLPass == userPass){
-// Password matches continue to verification emailBot
-  verify.pythonBot(userEmail);
-  res.sendFile('/EUTRCApp/verification-success.html', dirName);
-  } else {
-// passwords do not match
-    console.log("User's pass does not match MySQL!");
-    res.sendFile('/EUTRCApp/verification-failure.html', dirName);
-  }
 });
 
 

@@ -5,7 +5,7 @@ let userEmail = require('../app.js');
 require("dotenv").config();
 
 
-function getUserPass(userEmail){
+function getUserPass(userEmail, userPass){
 
   let connection = mysql.createConnection({
       host: process.env.mySQLHost,
@@ -21,9 +21,11 @@ function getUserPass(userEmail){
       return error;
     } else {
       console.log('Successfully connected to MySQL Database!');
+      getPassword(connection, userEmail, userPass, res).
     }
   });
 
+function getPassword(connection, userEmail, userPass, res){
   console.log('Attempting User Password Retrieval');
   console.log('userEmail = ' + userEmail);
   const query = "SELECT password FROM users WHERE email = '"
@@ -33,14 +35,30 @@ function getUserPass(userEmail){
     if (err){
       console.log(error);
       throw err;
-      return null;
+    } else {
+      console.log('User password = ' + result);
+      if (result == null) {
+        console.log('Result = null!');
+      } else {
+          console.log("Received User's Pass from SQL: " + result + " and userPass from form: " + userPass);
+          if (result == null){
+        // User was not found in database, or incorrect email address provided.
+            console.log("User's pass returned null. (No User in database or Password retrieval error.)");
+            res.sendFile('/EUTRCApp/verification-failure.html', dirName);
+          } else if (userSQLPass == userPass){
+        // Password matches continue to verification emailBot
+          verify.pythonBot(userEmail);
+          res.sendFile('/EUTRCApp/verification-success.html', dirName);
+          } else {
+        // passwords do not match
+            console.log("User's pass does not match MySQL!");
+            res.sendFile('/EUTRCApp/verification-failure.html', dirName);
+          }
+        }
     }
-    console.log('User password = ' + result);
-    console.log('Successfully Exported MySQL Result!');
-    if (result == null) console.log('Result = null!');
-    return result;
   });
 }
+
 
 function pythonBot(userEmail){
   /*
