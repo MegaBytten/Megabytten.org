@@ -69,6 +69,8 @@ app.post('/eutrcapp/verification', (req, res) => {
 
   function getMySQLPassword(){
     return new Promise( (resolve, reject) => {
+      console.log('test if connection == null:');
+      console.log(connection==null);
       userSQLPass = verify.getMySQLPassword(connection, userEmail);
       if (userSQLPass == null){
         reject('MySQL Password was Null!');

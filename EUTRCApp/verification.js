@@ -22,6 +22,7 @@ function getMySQLPassword(connection, userEmail){
   //if user has successfully been sent first time verif, congrats!
   console.log('Attempting MYSQL Connection!');
   connection.connect((err) => {
+    //this function never gets called! Never any 'success' log
     if (err) throw err;
     console.log('Successfully connected to MySQL Database!');
     console.log('userEmail = ' + userEmail);
