@@ -5,7 +5,7 @@ let userEmail = require('../app.js');
 require("dotenv").config();
 
 
-function getUserPass(userEmail, userPass){
+function getUserPass(userEmail, userPass, res){
 
   let connection = mysql.createConnection({
       host: process.env.mySQLHost,
