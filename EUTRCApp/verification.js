@@ -24,6 +24,7 @@ function getUserPass(userEmail, userPass){
       getPassword(connection, userEmail, userPass, res);
     }
   });
+}
 
 function getPassword(connection, userEmail, userPass, res){
   console.log('Attempting User Password Retrieval');
@@ -58,7 +59,7 @@ function getPassword(connection, userEmail, userPass, res){
     }
   });
 }
-}
+
 
 
 function pythonBot(userEmail){
