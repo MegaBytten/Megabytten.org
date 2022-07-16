@@ -71,4 +71,4 @@ function pythonBot(userEmail){
 
 
 //export functions to be used elsewhere
-module.exports = { getUserPass };
+module.exports = { getUserPass, pythonBot };
