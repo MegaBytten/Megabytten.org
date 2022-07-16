@@ -14,7 +14,7 @@ function getUserPass(userEmail){
       database: process.env.mySQLDatabase
   });
 
-  console.log('Verification.js: Attempting MySQL Connection');');
+  console.log('Verification.js: Attempting MySQL Connection');'
   connection.connect((err) => {
     //this function never gets called! Never any 'success' log
     if (err) {
