@@ -2,34 +2,45 @@
 //    It returns the password of the user
 let mysql = require('mysql2');
 require("dotenv").config();
-let dirName = null;
 
-function getUserPass(userEmail, userPass, res, direcName){
-  dirName = direcName;
-  let connection = mysql.createConnection({
+async function getUserPass(userEmail){
+  const connection = await mysql.createConnection({
       host: process.env.mySQLHost,
       user: process.env.mySQLUser,
       password: process.env.mySQLPass,
       database: process.env.mySQLDatabase
   });
 
-  console.log('Verification.js: Attempting MySQL Connection');
-  connection.connect((err) => {
-    //this function never gets called! Never any 'success' log
-    if (err) {
-      return error;
-    } else {
-      console.log('Successfully connected to MySQL Database!');
-      getPassword(connection, userEmail, userPass, res);
-    }
-  });
-}
-
-function getPassword(connection, userEmail, userPass, res){
+  // SECTION CLOSED TEMPORARILY
+  // console.log('Verification.js: Attempting MySQL Connection');
+  // const connection.connect((err) => {
+  //   //this function never gets called! Never any 'success' log
+  //   if (err) {
+  //     return error;
+  //   } else {
+  //     console.log('Successfully connected to MySQL Database!');
+  //     getPassword(connection, userEmail, userPass, res);
+  //   }
+  // });
   console.log('Attempting User Password Retrieval');
   console.log('userEmail = ' + userEmail);
   const query = "SELECT password FROM users WHERE email = '"
     + userEmail + "';";
+
+  const result = await con.query(query);
+  console.table(result[0]);
+  //result returns 2 arrays, first is the actual result and second is the schema info
+
+  console.log('User password = ' + result);
+  return result[0];
+}
+
+
+
+
+function getPassword(connection, userEmail, userPass, res){
+
+
 
   connection.query(query, function (err, result, fields) {
     if (err){
