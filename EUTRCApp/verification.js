@@ -27,7 +27,7 @@ async function getUserPass(userEmail){
   const query = "SELECT password FROM users WHERE email = '"
     + userEmail + "';";
 
-  const result = await con.query(query);
+  const result = await connection.query(query);
   console.table(result[0]);
   //result returns 2 arrays, first is the actual result and second is the schema info
 
