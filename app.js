@@ -44,17 +44,10 @@ app.get('/eutrcapp', (req, res) => {
   res.sendFile('/eutrcapp/main.html', dirName);
 });
 
-app.post('/eutrcapp/verification', (req, res) => {
-  const userEmail = req.body.email
-  const userPass = req.body.password
-  console.log('EUTRCApp verification form received. Verifying user: '+ userEmail + ' with password; ' + userPass);
-
-// establishing MySQL Connection via verification.js and retrieving user's password
-//ALL OF THESE ARE ASYNC METHODS, NEED TO USE PROMISES!!
-
+async function retrieveUserMySQLPass(userEmail, userPass){
+  console.log('async retrieve() called!');
   const verify = require('./EUTRCApp/verification.js');
   let userSQLPass = await verify.getUserPass(userEmail);
-
   if (userSQLPass == null) {
     console.log('userSQLPass = null!');
   } else {
@@ -73,7 +66,17 @@ app.post('/eutrcapp/verification', (req, res) => {
         res.sendFile('/EUTRCApp/verification-failure.html', dirName);
       }
     }
+}
 
+app.post('/eutrcapp/verification', (req, res) => {
+  const userEmail = req.body.email
+  const userPass = req.body.password
+  console.log('EUTRCApp verification form received. Verifying user: '+ userEmail + ' with password; ' + userPass);
+
+// establishing MySQL Connection via verification.js and retrieving user's password
+//ALL OF THESE ARE ASYNC METHODS, NEED TO USE PROMISES!!
+
+  retrieveUserMySQLPass(userEmail, userPass);
 });
 
 
