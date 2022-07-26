@@ -54,13 +54,13 @@ app.post('/eutrcapp/verification', (req, res) => {
   async function retrieveUserMySQLPass(userEmail, userPass){
     console.log('async retrieve() called!');
     const verify = require('./EUTRCApp/verification.js');
-    let userSQLPassJSON = await verify.getUserPass(userEmail);
-    let SqlPassObj = JSON.parse(userSQLPassJSON)
-    if (SqlPassObj.hasOwnProperty("password")){
+    let userSQLPass = await verify.getUserPass(userEmail);
+    if (userSQLPass.hasOwnProperty("password")){
       console.log('Trace testing: ' + SqlPassObj.password);
     }
+    console.log('trace test: table after receiving return!');
+    console.table(userSQLPass);
 
-    let userSQLPass = SqlPassObj.password;
     if (userSQLPass == null) {
       // User was not found in database, or incorrect email address provided.
       console.log("User's pass returned null. (No User in database or Password retrieval error.)");
