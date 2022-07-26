@@ -54,8 +54,8 @@ app.post('/eutrcapp/verification', (req, res) => {
   async function retrieveUserMySQLPass(userEmail, userPass){
     console.log('async retrieve() called!');
     const verify = require('./EUTRCApp/verification.js');
-    let userSQLPass = await verify.getUserPass(userEmail);
-
+    let userSQLResult = await verify.getUserPass(userEmail);
+    let userSQLPass = JSON.stringify(userSQLResult);
     console.log('Trace stack: ' + userSQLPass + userSQLPass["password"]);
 
     if (userSQLPass == null) {
