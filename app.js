@@ -60,6 +60,8 @@ app.post('/eutrcapp/verification', (req, res) => {
     let jsonString = JSON.stringify(userSQLResult);
     // Convert jsonString to object again and get message property
     let userSQLPass = JSON.parse(jsonString).password;
+    console.log('Trace stack: ' + jsonString);
+    console.log(userSQLPass);
 
     if (userSQLPass == null) {
       // User was not found in database, or incorrect email address provided.
