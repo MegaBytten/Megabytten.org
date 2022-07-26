@@ -54,11 +54,12 @@ app.post('/eutrcapp/verification', (req, res) => {
   async function retrieveUserMySQLPass(userEmail, userPass){
     console.log('async retrieve() called!');
     const verify = require('./EUTRCApp/verification.js');
-    let userSQLPass = await verify.getUserPass(userEmail);
-    if (userSQLPass.hasOwnProperty("password")){
-      console.log('Trace testing: ' + SqlPassObj.password);
-    }
-    console.log('trace test: ' + JSON.stringify(userSQLPass));
+    let userSQLResult = await verify.getUserPass(userEmail);
+
+    // JSON string is value which you get after use Stringify method
+    let jsonString = JSON.stringify(userSQLResult);
+    // Convert jsonString to object again and get message property
+    let userSQLPass = JSON.parse(jsonString).password;
 
     if (userSQLPass == null) {
       // User was not found in database, or incorrect email address provided.
