@@ -52,7 +52,7 @@ app.post('/eutrcapp/verification', (req, res) => {
   console.log('EUTRCApp verification form received. Verifying user: '+ userEmail + ' with password; ' + userPass);
 
   async function retrieveUserMySQLPass(userEmail, userPass){
-    console.log('async retrieve() called!');
+    console.log('async Password Retrieval called! User Email = ' + userEmail);
     const verify = require('./EUTRCApp/verification.js');
     let userSQLResult = await verify.getUserPass(userEmail); //NO JSON.Parse() ALLOWED! Already an object!!
     let userSQLPass = userSQLResult[0]["password"];
@@ -75,8 +75,6 @@ app.post('/eutrcapp/verification', (req, res) => {
         }
       }
   }
-// establishing MySQL Connection via verification.js and retrieving user's password
-//ALL OF THESE ARE ASYNC METHODS, NEED TO USE PROMISES!!
 
   retrieveUserMySQLPass(userEmail, userPass);
 });

@@ -11,65 +11,20 @@ async function getUserPass(userEmail){
       database: process.env.mySQLDatabase
   });
 
-  // SECTION CLOSED TEMPORARILY
-  // console.log('Verification.js: Attempting MySQL Connection');
-  // const connection.connect((err) => {
-  //   //this function never gets called! Never any 'success' log
-  //   if (err) {
-  //     return error;
-  //   } else {
-  //     console.log('Successfully connected to MySQL Database!');
-  //     getPassword(connection, userEmail, userPass, res);
-  //   }
-  // });
   console.log('Attempting User Password Retrieval');
   console.log('userEmail = ' + userEmail);
   const query = "SELECT password FROM users WHERE email = '"
     + userEmail + "';";
 
   const result = await connection.query(query);
-  console.log(result);
-  console.table(result[0]);
+  // console.log(result);
+  // console.table(result[0]);
   //result returns 2 arrays, first is the actual result and second is the schema info
 
   console.log('User password = ' + result[0]);
   return result[0];
 }
 
-
-
-
-function getPassword(connection, userEmail, userPass, res){
-
-
-
-  connection.query(query, function (err, result, fields) {
-    if (err){
-      console.log(error);
-      throw err;
-    } else {
-      console.log('User password = ' + result);
-      if (result == null) {
-        console.log('Result = null!');
-      } else {
-          console.log("Received User's Pass from SQL: " + result + " and userPass from form: " + userPass);
-          if (result == null){
-        // User was not found in database, or incorrect email address provided.
-            console.log("User's pass returned null. (No User in database or Password retrieval error.)");
-            res.sendFile('/EUTRCApp/verification-failure.html', dirName);
-          } else if (result == userPass){
-        // Password matches continue to verification emailBot
-          verify.pythonBot(userEmail);
-          res.sendFile('/EUTRCApp/verification-success.html', dirName);
-          } else {
-        // passwords do not match
-            console.log("User's pass does not match MySQL!");
-            res.sendFile('/EUTRCApp/verification-failure.html', dirName);
-          }
-        }
-    }
-  });
-}
 
 
 
@@ -83,7 +38,7 @@ function pythonBot(userEmail){
   const spawn = require("child_process").spawn;
   const childPython = spawn(
     'py',
-    ['/verfbot.py', emailBotSender, emailBotPass, userEmail],
+    ['./verfbot.py', emailBotSender, emailBotPass, userEmail],
     {shell: true}
   );
 
