@@ -58,7 +58,7 @@ app.post('/eutrcapp/verification', (req, res) => {
     if (userSQLPass.hasOwnProperty("password")){
       console.log('Trace testing: ' + SqlPassObj.password);
     }
-    console.log('trace test: ' + userSQLPass[0]);
+    console.log('trace test: ' + JSON.stringify(userSQLPass));
 
     if (userSQLPass == null) {
       // User was not found in database, or incorrect email address provided.
