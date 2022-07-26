@@ -54,26 +54,25 @@ app.post('/eutrcapp/verification', (req, res) => {
   async function retrieveUserMySQLPass(userEmail, userPass){
     console.log('async retrieve() called!');
     const verify = require('./EUTRCApp/verification.js');
-    let userSQLPass = await verify.getUserPass(userEmail);
-
-    if (userSQLPass.hasOwnProperty("password")){
-      console.log('Trace testing: ' + userSQLPass.password);      
+    let userSQLPassJSON = await verify.getUserPass(userEmail);
+    let SqlPassObj = JSON.parse(userSQLPassJSON)
+    if (SqlPassObj.hasOwnProperty("password")){
+      console.log('Trace testing: ' + SqlPassObj.password);
     }
 
+    let userSQLPass = SqlPassObj.password;
     if (userSQLPass == null) {
-      console.log('userSQLPass = null!');
+      // User was not found in database, or incorrect email address provided.
+      console.log("User's pass returned null. (No User in database or Password retrieval error.)");
+      res.sendFile('/EUTRCApp/verification-failure.html', dirName);
     } else {
         console.log("Received User's Pass from SQL: " + userSQLPass + " and userPass from form: " + userPass);
-        if (userSQLPass == null){
-      // User was not found in database, or incorrect email address provided.
-          console.log("User's pass returned null. (No User in database or Password retrieval error.)");
-          res.sendFile('/EUTRCApp/verification-failure.html', dirName);
-        } else if (userSQLPass == userPass){
-      // Password matches continue to verification emailBot
-        verify.pythonBot(userEmail);
-        res.sendFile('/EUTRCApp/verification-success.html', dirName);
+        if (userSQLPass == userPass){
+          // Password matches continue to verification emailBot
+          verify.pythonBot(userEmail);
+          res.sendFile('/EUTRCApp/verification-success.html', dirName);
         } else {
-      // passwords do not match
+          // passwords do not match
           console.log("User's pass does not match MySQL!");
           res.sendFile('/EUTRCApp/verification-failure.html', dirName);
         }
