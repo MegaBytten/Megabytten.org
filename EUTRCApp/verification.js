@@ -31,7 +31,7 @@ async function getUserPass(userEmail){
   console.table(result[0]);
   //result returns 2 arrays, first is the actual result and second is the schema info
 
-  console.log('User password = ' + result[0]);
+  console.log('User password = ' + result[0].password);
   return result[0].password;
 }
 
