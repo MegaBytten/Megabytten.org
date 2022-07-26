@@ -37,7 +37,8 @@ signoff = 'Thanks and see you on the pitches!\nYour EUTRC team!'
 
 # concatenate email
 subject = 'EUTRCApp Verification'
-body = greeting + main + instruction + verfCode + warning + signoff
+# body = greeting + main + instruction + verfCode + warning + signoff
+body = greeting + main + instruction + warning + signoff
 
 
 em = EmailMessage()
