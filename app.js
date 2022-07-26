@@ -56,12 +56,8 @@ app.post('/eutrcapp/verification', (req, res) => {
     const verify = require('./EUTRCApp/verification.js');
     let userSQLResult = await verify.getUserPass(userEmail);
 
-    // JSON string is value which you get after use Stringify method
-    let jsonString = JSON.stringify(userSQLResult);
-    // Convert jsonString to object again and get message property
-    let userSQLPass = JSON.parse(jsonString).password;
-    console.log('Trace stack: ' + jsonString);
-    console.log(userSQLPass);
+    let userSQLPass = JSON.parse(jsonString);
+    console.log('Trace stack: ' + userSQLPass + userSQLPass.password);
 
     if (userSQLPass == null) {
       // User was not found in database, or incorrect email address provided.
