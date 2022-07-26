@@ -28,11 +28,12 @@ async function getUserPass(userEmail){
     + userEmail + "';";
 
   const result = await connection.query(query);
+  console.log(result);
   console.table(result[0]);
   //result returns 2 arrays, first is the actual result and second is the schema info
 
-  console.log('User password = ' + result[0].password);
-  return result[0].password;
+  console.log('User password = ' + result[0]);
+  return result[0];
 }
 
 
