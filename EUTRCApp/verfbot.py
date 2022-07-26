@@ -26,7 +26,6 @@ def generate_verif_code():
   for (0, 20){
     # google for best way to add random char (only internal lib)
   }
-}
 
 # pre-written default message
 greeting = 'Do Not reply to this email!'
