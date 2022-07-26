@@ -21,7 +21,7 @@ email_pswd = sys.argv[2]
 email_receiver = sys.argv[3]
 
 # TODO: Generate new random verification code
-verfCode = () => {
+def generate_verif_code():
   #f string or arraylist
   for (0, 20){
     # google for best way to add random char (only internal lib)
