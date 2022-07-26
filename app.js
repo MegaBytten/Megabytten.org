@@ -54,9 +54,9 @@ app.post('/eutrcapp/verification', (req, res) => {
   async function retrieveUserMySQLPass(userEmail, userPass){
     console.log('async retrieve() called!');
     const verify = require('./EUTRCApp/verification.js');
-    let userSQLPass = await verify.getUserPass(userEmail); //NO JSON.Parse() ALLOWED! Already an object!!
-    
-    console.log('Trace stack: ' + userSQLPass + userSQLPass[0]["password"]);
+    let userSQLResult = await verify.getUserPass(userEmail); //NO JSON.Parse() ALLOWED! Already an object!!
+    let userSQLPass = userSQLResult[0]["password"];
+    console.log('Trace stack: ' + userSQLPass);
 
     if (userSQLPass == null) {
       // User was not found in database, or incorrect email address provided.
