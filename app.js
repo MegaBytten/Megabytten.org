@@ -55,7 +55,11 @@ app.post('/eutrcapp/verification', (req, res) => {
     console.log('async retrieve() called!');
     const verify = require('./EUTRCApp/verification.js');
     let userSQLPass = await verify.getUserPass(userEmail);
-    console.log('Returned Mysql Result back to app.js. Returned result = ' + userSQLPass);
+
+    if (userSQLPass.hasOwnProperty("password")){
+      console.log('Trace testing: ' + userSQLPass.password);      
+    }
+
     if (userSQLPass == null) {
       console.log('userSQLPass = null!');
     } else {
