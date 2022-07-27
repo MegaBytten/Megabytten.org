@@ -28,7 +28,7 @@ function generateVerifCode(){
   // Asynchronous
   crypto.randomInt(0, 10000000000, (err, n) => { //generates randomInt from 1-9,999,999,999
     if (err) throw err;
-    return await n;
+    return n;
   });
 }
 
@@ -39,18 +39,17 @@ function saveVerifCode(code, userEmail){
 
   const verifStatus = await queryMySQL(query);
   console.log( "Save Verif Code Status: " + verifStatus );
-
 }
 
 
 
-function pythonBot(userEmail){
+async function pythonBot(userEmail){
   /*
   Launches Python bot and passes arguments via command line
   */
   const emailBotSender = process.env.emailBotSender;
   const emailBotPass = process.env.emailBotPass;
-  const verifCode = generateVerifCode();
+  const verifCode = await generateVerifCode();
   await saveVerifCode(verifCode, userEmail);
 
   const spawn = require("child_process").spawn;
