@@ -40,10 +40,10 @@ html_test = """
 <html>
   <head></head>
   <body>
-    <p>Welcome to the new EUTRC App! All of the upcoming Exeter Touch Rugby trainings, matches and socials, along with attendance and player stats in one place!'<br>
-       <br>Use the verification code below to verify your email in the app!
+    <p>Welcome to the new EUTRC App! All of the upcoming Exeter Touch Rugby trainings, matches and socials, along with attendance and player stats in one place!<br>
+       <br>Use the verification code below to verify your email in the app.
        <br><br><br> <strong><font color="red"> VERIFICATION CODE: </font></strong>
-       <br>{verif_code}
+       <br><b>{verif_code}</b>
        <br><br> For any issues or bugs please report them (with screenshots/logs) to <a href="http://www.megabytten.org/about">omegabytten@gmail.com</a>.
        <br>Thanks and see you on the pitches! <br><br>Ethan de Villiers and the EUTRC Committee
     </p>
