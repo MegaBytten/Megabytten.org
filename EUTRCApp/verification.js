@@ -21,22 +21,24 @@ async function queryMySQL(query){
 }
 
 
-async function generateVerifCode(){
+function generateVerifCode(){
   console.log('Generating EUTRCApp Verification Code.');
   const crypto = require("crypto");
 
   // Asynchronous
-  crypto.randomInt(0, 10000000000, (err, n) => { //generates randomInt from 1-9,999,999,999
+  await crypto.randomInt(0, 10000000000, (err, n) => { //generates randomInt from 1-9,999,999,999
     if (err) throw err;
     return n;
   });
 }
 
-async function saveVerifCode(code, userEmail){
+function saveVerifCode(code, userEmail){
   console.log('Saving User Verification Code: ' + code + ' to MySQL.');
   const query = "update users set verification_code = " + code
     + " where email = " + userEmail + ";";
-console.log( "Save Verif Code Status: " + queryMySQL(query) );
+
+  const verifStatus = await queryMySQL(query);
+  console.log( "Save Verif Code Status: " + verifStatus );
 
 }
 
@@ -48,7 +50,7 @@ function pythonBot(userEmail){
   */
   const emailBotSender = process.env.emailBotSender;
   const emailBotPass = process.env.emailBotPass;
-  const verifCode = await generateVerifCode();
+  const verifCode = generateVerifCode();
   await saveVerifCode(verifCode, userEmail);
 
   const spawn = require("child_process").spawn;
