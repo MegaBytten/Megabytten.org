@@ -21,7 +21,7 @@ async function queryMySQL(query){
 }
 
 
-function generateVerifCode(){
+async function generateVerifCode(){
   console.log('Generating EUTRCApp Verification Code.');
   const crypto = require("crypto");
 
@@ -32,7 +32,7 @@ function generateVerifCode(){
   });
 }
 
-function saveVerifCode(code, userEmail){
+async function saveVerifCode(code, userEmail){
   console.log('Saving User Verification Code: ' + code + ' to MySQL.');
   const query = "update users set verification_code = " + code
     + " where email = " + userEmail + ";";
