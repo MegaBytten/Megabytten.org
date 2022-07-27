@@ -26,7 +26,7 @@ verif_code = sys.argv[4]
 greeting = 'Do Not reply to this email!'
 main = '\n\nWelcome to the new EUTRC App! All of the upcoming Exeter Touch Rugby trainings, matches and socials, along with attendance and player stats in one place!'
 instruction = '\nUse the verification code below to verify your email in the app!'
-verif = '\n\n\n <b>VERIFICATION CODE:</b> \n' + verif_code + '\n'
+verif = '\n\n\n VERIFICATION CODE:\n' + verif_code + '\n'
 warning = '\n\nFor any issues or bugs please report them (with screenshots/logs) to omegabytten@gmail.com. '
 signoff = 'Thanks and see you on the pitches!\nYour EUTRC team!'
 
@@ -34,12 +34,26 @@ signoff = 'Thanks and see you on the pitches!\nYour EUTRC team!'
 subject = 'EUTRCApp Verification'
 body = greeting + main + instruction + verif + warning + signoff
 
+html_test = """
+<html>
+  <head></head>
+  <body>
+    <p>Hi!<br>
+       How are you?<br>
+       Here is the <a href="http://www.python.org">link</a> you wanted.
+    </p>
+  </body>
+</html>
+"""
+
 
 em = EmailMessage()
 em['From'] = email_sender
 em['To'] = email_receiver
 em['Subject'] = subject
-em.set_content(body)
+# em.set_content(body)
+em.add_header('Content-Type','text/html')
+em.set_payload('html_test')
 
 # used for encryption
 context = ssl.create_default_context()
