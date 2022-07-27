@@ -30,7 +30,7 @@ function generateVerifCode(){
   return n;
 }
 
-function saveVerifCode(code, userEmail){
+async function saveVerifCode(code, userEmail){
   console.log('Saving User Verification Code: ' + code + ' to MySQL.');
   const query = 'update users set verification_code = ' + code
     + ' where email = "' + userEmail + '";';
@@ -47,8 +47,7 @@ async function pythonBot(userEmail){
   */
   const emailBotSender = process.env.emailBotSender;
   const emailBotPass = process.env.emailBotPass;
-  const verifCode = generateVerifCode();
-  saveVerifCode(verifCode, userEmail);
+  saveVerifCode( generateVerifCode(), userEmail );
 
   const spawn = require("child_process").spawn;
   const childPython = spawn(
