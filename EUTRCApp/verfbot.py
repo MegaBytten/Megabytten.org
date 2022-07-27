@@ -19,26 +19,20 @@ import sys
 email_sender = sys.argv[1]
 email_pswd = sys.argv[2]
 email_receiver = sys.argv[3]
+verif_code = sys.argv[4]
 
-# TODO: Generate new random verification code
-# def generate_verif_code():
-  #f string or arraylist
-  # for (0, 20){
-  #   google for best way to add random char (only internal lib)
-  # }
 
 # pre-written default message
 greeting = 'Do Not reply to this email!'
 main = '\n\nWelcome to the new EUTRC App! All of the upcoming Exeter Touch Rugby trainings, matches and socials, along with attendance and player stats in one place!'
 instruction = '\nUse the verification code below to verify your email in the app!'
-# verfcode here!
-warning = '\n\nFor any issues or bugs please report them (with screenshots/logs) to omegabytten@gmail.com'
+verif = '\n' + verif_code + '\n'
+warning = '\n\nFor any issues or bugs please report them (with screenshots/logs) to omegabytten@gmail.com. '
 signoff = 'Thanks and see you on the pitches!\nYour EUTRC team!'
 
 # concatenate email
 subject = 'EUTRCApp Verification'
-# body = greeting + main + instruction + verfCode + warning + signoff
-body = greeting + main + instruction + warning + signoff
+body = greeting + main + instruction + verif + warning + signoff
 
 
 em = EmailMessage()
