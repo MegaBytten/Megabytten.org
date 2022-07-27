@@ -34,8 +34,8 @@ async function generateVerifCode(){
 
 async function saveVerifCode(code, userEmail){
   console.log('Saving User Verification Code: ' + code + ' to MySQL.');
-  const query = "update users set verification_code = " + code
-    + " where email = " + userEmail + ";";
+  const query = 'update users set verification_code = ' + code
+    + ' where email = "' + userEmail + '";';
 
   const verifStatus = await queryMySQL(query);
   console.log( "Save Verif Code Status: " + verifStatus );
