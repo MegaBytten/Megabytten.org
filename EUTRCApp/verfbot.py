@@ -36,22 +36,25 @@ body = greeting + main + instruction + verif + warning + signoff
 
 html_test = """
 <html>
-  <head></head>
+  <head>EUTRC Verification</head>
   <body>
-    <p>Hi!<br>
-       How are you?<br>
-       Here is the <a href="http://www.python.org">link</a> you wanted.
+    <p>Welcome to the new EUTRC App! All of the upcoming Exeter Touch Rugby trainings, matches and socials, along with attendance and player stats in one place!'<br>
+       <br>Use the verification code below to verify your email in the app!
+       <br><br><br> <strong><font color="red"> VERIFICATION CODE: </font></strong>
+       {verif_code}
+       <br> For any issues or bugs please report them (with screenshots/logs) to <a href="http://www.megabytten.org/about">omegabytten@gmail.com</a>.'
+       <br>Thanks and see you on the pitches! <br>Ethan de Villiers and the EUTRC Committee
     </p>
   </body>
 </html>
-"""
+""".format(**locals()) #this line substitutes ALL HTML vars for local vars, ensure same names!
 
 
 em = EmailMessage()
 em['From'] = email_sender
 em['To'] = email_receiver
 em['Subject'] = subject
-# em.set_content(body)
+# em.set_content(body) DEPRECATED: Using HTML formatting now instead of simple plain text!
 em.add_header('Content-Type','text/html')
 em.set_payload(html_test)
 
