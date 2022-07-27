@@ -21,18 +21,16 @@ async function queryMySQL(query){
 }
 
 
-async function generateVerifCode(){
+function generateVerifCode(){
   console.log('Generating EUTRCApp Verification Code.');
   const crypto = require("crypto");
 
-  // Asynchronous
-  crypto.randomInt(0, 10000000000, (err, n) => { //generates randomInt from 1-9,999,999,999
-    if (err) throw err;
-    return n;
-  });
+  const n = crypto.randomInt(0, 1000000000); //generates 1-9,999,999,999
+  console.log(n);
+  return n;
 }
 
-async function saveVerifCode(code, userEmail){
+function saveVerifCode(code, userEmail){
   console.log('Saving User Verification Code: ' + code + ' to MySQL.');
   const query = 'update users set verification_code = ' + code
     + ' where email = "' + userEmail + '";';
@@ -49,8 +47,8 @@ async function pythonBot(userEmail){
   */
   const emailBotSender = process.env.emailBotSender;
   const emailBotPass = process.env.emailBotPass;
-  const verifCode = await generateVerifCode();
-  await saveVerifCode(verifCode, userEmail);
+  const verifCode = generateVerifCode();
+  saveVerifCode(verifCode, userEmail);
 
   const spawn = require("child_process").spawn;
   const childPython = spawn(
