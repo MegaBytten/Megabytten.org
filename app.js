@@ -58,7 +58,12 @@ app.post('/eutrcapp/signup', (req, res) => {
   //do checks
   //do MySQL pass retrieval
 
-  res.status(200).send("Exists");
+  res.status(200).end("Exists");
+});
+
+app.get('/eutrcapp/verification', (req, res) => {
+    console.log('Interesting. eutrcapp/verification GET method called!');
+    res.end("got.")
 });
 
 app.post('/eutrcapp/verification', (req, res) => {
