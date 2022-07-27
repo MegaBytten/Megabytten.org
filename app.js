@@ -55,7 +55,10 @@ app.post('/eutrcapp/signup', (req, res) => {
 
   console.log(userEmail, userFirstName, userLastName, userPhoneNumber, userPassword);
 
+  //do checks
+  //do MySQL pass retrieval
 
+  res.status(200).send("Exists");
 });
 
 app.post('/eutrcapp/verification', (req, res) => {
