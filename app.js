@@ -56,7 +56,7 @@ app.post('/eutrcapp/verification', (req, res) => {
     const verify = require('./EUTRCApp/verification.js');
     const query = "SELECT password FROM users WHERE email = '"
       + userEmail + "';";
-    let userSQLResult = await verify.queryMySQL(userEmail, query); //NO JSON.Parse() ALLOWED! Already an object!!
+    let userSQLResult = await verify.queryMySQL(query); //NO JSON.Parse() ALLOWED! Already an object!!
     let userSQLPass = userSQLResult[0]["password"];
     console.log('Trace stack: ' + userSQLPass);
 
