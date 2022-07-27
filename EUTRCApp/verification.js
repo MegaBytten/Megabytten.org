@@ -26,9 +26,9 @@ function generateVerifCode(){
   const crypto = require("crypto");
 
   // Asynchronous
-  await crypto.randomInt(0, 10000000000, (err, n) => { //generates randomInt from 1-9,999,999,999
+  crypto.randomInt(0, 10000000000, (err, n) => { //generates randomInt from 1-9,999,999,999
     if (err) throw err;
-    return n;
+    return await n;
   });
 }
 
