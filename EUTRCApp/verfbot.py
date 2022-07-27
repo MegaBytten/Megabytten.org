@@ -26,7 +26,7 @@ verif_code = sys.argv[4]
 greeting = 'Do Not reply to this email!'
 main = '\n\nWelcome to the new EUTRC App! All of the upcoming Exeter Touch Rugby trainings, matches and socials, along with attendance and player stats in one place!'
 instruction = '\nUse the verification code below to verify your email in the app!'
-verif = '\n' + verif_code + '\n'
+verif = '\n\n\n <b>VERIFICATION CODE:</b> \n' + verif_code + '\n'
 warning = '\n\nFor any issues or bugs please report them (with screenshots/logs) to omegabytten@gmail.com. '
 signoff = 'Thanks and see you on the pitches!\nYour EUTRC team!'
 
