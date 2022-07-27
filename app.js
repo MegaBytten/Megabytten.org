@@ -44,7 +44,19 @@ app.get('/eutrcapp', (req, res) => {
   res.sendFile('/eutrcapp/main.html', dirName);
 });
 
+app.post('/eutrcapp/signup', (req, res) => {
+  console.log('/eutrcapp/signup reached!');
 
+  const userEmail = req.body.email;
+  const userFirstName = req.body.firstName;
+  const userLastName = req.body.lastName;
+  const userPhoneNumber = req.body.phoneNumber;
+  const userPassword = req.body.password
+
+  console.log(userEmail, userFirstName, userLastName, userPhoneNumber, userPassword);
+
+
+});
 
 app.post('/eutrcapp/verification', (req, res) => {
   const userEmail = req.body.email
