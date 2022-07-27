@@ -53,7 +53,7 @@ em['To'] = email_receiver
 em['Subject'] = subject
 # em.set_content(body)
 em.add_header('Content-Type','text/html')
-em.set_payload('html_test')
+em.set_payload(html_test)
 
 # used for encryption
 context = ssl.create_default_context()
