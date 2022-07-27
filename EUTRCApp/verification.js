@@ -47,7 +47,8 @@ async function pythonBot(userEmail){
   */
   const emailBotSender = process.env.emailBotSender;
   const emailBotPass = process.env.emailBotPass;
-  saveVerifCode( generateVerifCode(), userEmail );
+  const verifCode = generateVerifCode();
+  saveVerifCode(verifCode, userEmail);
 
   const spawn = require("child_process").spawn;
   const childPython = spawn(
