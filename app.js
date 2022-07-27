@@ -61,7 +61,7 @@ app.post('/eutrcapp/signup', (req, res) => {
   res.status(200).end("Exists");
 });
 
-app.get('/eutrcapp/verification', (req, res) => {
+app.get('/eutrcapp/signup', (req, res) => {
     console.log('Interesting. eutrcapp/verification GET method called!');
     res.end("got.")
 });
