@@ -45,7 +45,7 @@ app.get('/eutrcapp', (req, res) => {
 });
 
 //link used by EUTRCApp to sign up - add user to database!
-app.post('/eutrcapp/signup', async function (req, res) => {
+app.post('/eutrcapp/signup', async (req, res) => {
   console.log('/eutrcapp/signup reached! User ' + req.body.email);
 
   const userEmail = req.body.email;
