@@ -44,8 +44,47 @@ app.get('/eutrcapp', (req, res) => {
   res.sendFile('/eutrcapp/main.html', dirName);
 });
 
-//link used by EUTRCApp to send verification email - no website needed
+//link used by EUTRCApp to check verification code and verify user
 app.post('/eutrcapp/signup/verification', async (req, res) => {
+  console.log('/eutrcapp/signup/verification reached! User ' + req.body.email);
+  const userEmail = req.body.email;
+  const verifCode = req.body.verifcode;
+
+  const verify = require('./EUTRCApp/verification.js');
+  let query = "SELECT verification_code FROM users WHERE email = '"
+    + userEmail + "';";
+  let userSQLResult = await verify.queryMySQL(query);
+  let userSQLVerifCode = userSQLResult[0]["verification_code"];
+
+  if (userSQLVerifCode == null){
+    //verification code not found in database =
+    //  1. no verification code sent
+    //  2. no user registered
+    console.log('userSQLVerifCode == null');
+    res.status(999).end();
+
+  } else if (verifCode == userSQLVerifCode){
+    query = "UPDATE users SET verified = '1', verification_code = 'null' WHERE email = '"
+    + userEmail + "';"
+    let userSQLResult = await verify.queryMySQL(query);
+    let sqlQueryStatus = userSQLResult[0];
+    if (sqlQueryStatus == null) {
+      console.log("sqlQueryStatus = null! Issue in UPDATE");
+      res.status(500).end();
+    } else {
+      console.log("User: " + userEmail + " verified.");
+      res.status(200).end();
+    }
+
+  } else {
+    //other error
+    console.log("Verification codes do not match.");
+    res.status(998).end();
+  }
+});
+
+//link used by EUTRCApp to send verification email - no website needed
+app.post('/eutrcapp/signup/sendverifcode', async (req, res) => {
   console.log('/eutrcapp/signup/verification reached! User ' + req.body.email);
   const userEmail = req.body.email;
   const userPass = req.body.password;
