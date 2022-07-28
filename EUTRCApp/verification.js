@@ -16,7 +16,8 @@ async function queryMySQL(query){
   // console.log(result);
   // console.table(result[0]);
   //result returns 2 arrays, first is the actual result and second is the schema info
-  console.log('Result[0] = ' + result[0]);
+  console.log('Result[0] = ' + JSON.stringify(result[0])
+  );
   return result[0];
 }
 
