@@ -64,7 +64,7 @@ app.post('/eutrcapp/signup', async (req, res) => {
     + userEmail + "';";
   let userSQLResult = await verify.queryMySQL(query);
 
-  if (userSQLResult == null){
+  if (userSQLResult[0] == null){
     //user doesnt exist so adding to database
     // query = "INSERT INTO users VALUES ('" + userEmail
     //   + "', '" + userFirstName
