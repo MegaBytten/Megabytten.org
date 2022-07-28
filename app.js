@@ -75,7 +75,7 @@ app.post('/eutrcapp/signup', async (req, res) => {
         + "', '" + userLastName
         + "', '" + userPhoneNumber
         + "', '" + userPassword
-        + "');"
+        + "', 'false', 'null');"
       console.log("Inserting new user into database with SQL Query: " + query);
 
       let userSQLResult = await verify.queryMySQL(query);
