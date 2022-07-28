@@ -68,13 +68,8 @@ app.post('/eutrcapp/signup/verification', async (req, res) => {
     + userEmail + "';"
     let userSQLResult = await verify.queryMySQL(query);
     let sqlQueryStatus = userSQLResult[0];
-    if (sqlQueryStatus == null) {
-      console.log("sqlQueryStatus = null! Issue in UPDATE");
-      res.status(500).end();
-    } else {
-      console.log("User: " + userEmail + " verified.");
-      res.status(200).end();
-    }
+    console.log("User: " + userEmail + " verified.");
+    res.status(200).end();
 
   } else {
     //other error
