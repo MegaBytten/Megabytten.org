@@ -145,7 +145,7 @@ app.post('/eutrcapp/verfbot', async (req, res) => {
     default:
       //other error.
       console.log("Server Error (Code: 01)");
-      res.status(500).sendFile('Error (01)');
+      res.status(500).send('Error (01)');
   }
 });
 
@@ -223,22 +223,22 @@ app.post('/eutrcapp/login', async (req, res) => {
     case 0:
       //login was failure: User not recognised in DB
       console.log("User's pass returned null. (No User in database or Password retrieval error.)");
-      res.status(999).sendFile('Login error: User not found', dirName);
+      res.status(999).send('Login error: User not found', dirName);
       break;
     case 1:
       //login was a success
       //// TODO: Future website/application requires an HTML response here, not just 2 words
-      res.status(200).sendFile('Login Success!', dirName);
+      res.status(200).send('Login Success!', dirName);
       break;
     case 2:
       //login was failure: Passwords did not match
       console.log("Passwords did not match!");
-      res.status(998).sendFile('Login error: Incorrect Password.', dirName);
+      res.status(998).send('Login error: Incorrect Password.', dirName);
       break;
     default:
       //other error.
       console.log("Server Error (Code: 01)");
-      res.status(500).sendFile('Error (01)');
+      res.status(500).send('Error (01)');
   }
 
 });
@@ -262,7 +262,7 @@ app.post('/eutrcapp/checkverif', async (req, res) => {
     if (userSQLResult[0] == null){
       //no result, but no user in database bypassed checkUserPassword?
       console.log("Error (02)");
-      res.status(500).sendFile('Error (02)');
+      res.status(500).send('Error (02)');
     } else {
       let userSQLVerif = userSQLResult[0]["verified"];
       res.status(200).send(userSQLVerif);
@@ -271,7 +271,7 @@ app.post('/eutrcapp/checkverif', async (req, res) => {
   } else {
     //login failure. App problem bc passed directly after sign in
     console.log("Error (03)");
-    res.status(500).sendFile('Error (03)');
+    res.status(500).send('Error (03)');
   }
 });
 
