@@ -48,12 +48,32 @@ app.get('/eutrcapp', (req, res) => {
 app.post('/eutrcapp/signup/verification', async (req, res) => {
   console.log('/eutrcapp/signup/verification reached! User ' + req.body.email);
   const userEmail = req.body.email;
+  const userPass = req.body.password;
   const verify = require('./EUTRCApp/verification.js');
 
-  console.log("Launching Python Email Bot for user: " + userEmail);
-  verify.pythonBot(userEmail);
+  const query = "SELECT password FROM users WHERE email = '"
+    + userEmail + "';";
+  let userSQLResult = await verify.queryMySQL(query);
+  let userSQLPass = userSQLResult[0]["password"];
 
-  res.status(200).end();
+  if (userSQLPass == null) {
+    // User was not found in database, or incorrect email address provided.
+    console.log("User's pass returned null. (No User in database or Password retrieval error.)");
+    res.status(999).send('no user');
+  } else {
+      console.log("Received User's Pass from SQL: " + userSQLPass + " and userPass from form: " + userPass);
+      if (userSQLPass == userPass){
+        // Password matches continue to verification emailBot
+        console.log("Launching Python Email Bot for user: " + userEmail);
+        verify.pythonBot(userEmail);
+        res.status(200).send('success');
+      } else {
+        // passwords do not match
+        console.log("User's pass does not match MySQL!");
+        res.status(999).send('incorrect password');
+      }
+    }
+
 });
 
 //link used by EUTRCApp to sign up - add user to database!
