@@ -64,7 +64,7 @@ app.post('/eutrcapp/signup/verification', async (req, res) => {
     res.status(999).end();
 
   } else if (verifCode == userSQLVerifCode){
-    query = "UPDATE users SET verified = '1', verification_code = 'null' WHERE email = '"
+    query = "UPDATE users SET verified = 1, verification_code = 'null' WHERE email = '"
     + userEmail + "';"
     let userSQLResult = await verify.queryMySQL(query);
     let sqlQueryStatus = userSQLResult[0];
