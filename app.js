@@ -212,6 +212,39 @@ What to do?
 
 */
 
+//link used to sign on on EUTRCApp or future website
+app.post('/eutrcapp/login', async (req, res) => {
+  const userEmail = req.body.email
+  const userPass = req.body.password
+  console.log('/eutrcapp/login post received. Login in user: '+ userEmail + ' with password; ' + userPass);
+
+  const loginSuccess = await checkUserPassword(userEmail, userPass);
+  switch (loginSuccess) {
+    case 0:
+      //login was failure: User not recognised in DB
+      console.log("User's pass returned null. (No User in database or Password retrieval error.)");
+      res.status(999).sendFile('Login error: User not found', dirName);
+      break;
+    case 1:
+      //login was a success
+      console.log("Launching verfbot.py for user: " + userEmail);
+      verify.pythonBot(userEmail);
+      //// TODO: Future website/application requires an HTML response here, not just 2 words
+      res.status(200).sendFile('Login Success!', dirName);
+      break;
+    case 2:
+      //login was failure: Passwords did not match
+      console.log("Passwords did not match!");
+      res.status(998).sendFile('Login error: Incorrect Password.', dirName);
+      break;
+    default:
+      //other error.
+      console.log("Server Error (Code: 01)");
+      res.status(500).sendFile('Error (01)');
+  }
+
+});
+
 
 //link used to check a user's verification
 app.post('/eutrcapp/checkverif', async (req, res) => {
