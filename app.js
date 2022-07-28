@@ -44,8 +44,9 @@ app.get('/eutrcapp', (req, res) => {
   res.sendFile('/eutrcapp/main.html', dirName);
 });
 
-app.post('/eutrcapp/signup', (req, res) => {
-  console.log('/eutrcapp/signup reached!');
+//link used by EUTRCApp to sign up - add user to database!
+app.post('/eutrcapp/signup', async function (req, res) => {
+  console.log('/eutrcapp/signup reached! User ' + req.body.email);
 
   const userEmail = req.body.email;
   const userFirstName = req.body.firstName;
@@ -55,16 +56,50 @@ app.post('/eutrcapp/signup', (req, res) => {
 
   console.log(userEmail, userFirstName, userLastName, userPhoneNumber, userPassword);
 
-  //do checks
-  //do MySQL pass retrieval
+  const verify = require('./EUTRCApp/verification.js');
 
-  res.status(200).end("Exists");
+  //check if user already Exists
+  //queries MySQL database for user's password
+  let query = "SELECT * FROM users WHERE email = '"
+    + userEmail + "';";
+  let userSQLResult = await verify.queryMySQL(query);
+  let userName = userSQLResult[0]["first_name"];
+
+  if (userName == null){
+    //user doesnt exist so adding to database
+    // query = "INSERT INTO users VALUES ('" + userEmail
+    //   + "', '" + userFirstName
+    //   + "', '" + userLastName
+    //   + "', '" + userPhoneNumber
+    //   + "', '" + userPassword
+    //   + "');"
+
+    if (userEmail.includes("@exeter.ac.uk")) {
+      //email is confirmed @exeter.ac.uk
+      query = "INSERT INTO users VALUES ('${userEmail}', '${userFirstName}', '${userLastName}', '${userPhoneNumber}', '${userPassword}');"
+      console.log("Inserting new user into database with SQL Query: " + query);
+
+      let userSQLResult = await verify.queryMySQL(query);
+      let sqlQueryResult = JSON.stringify(userSQLResult[0]);
+      console.log("sqlQueryResult: " + sqlQueryResult);
+
+      res.status(200).send("added")
+    } else {
+      //email is not @exeter.ac.uk
+      console.log("Non @exeter.ac.uk email posted! Sending error message");
+      res.send("Invalid Email Address.")
+    }
+
+  } else {
+    //user already exists!
+    console.log("User Already exists in database! Sending error message");
+    res.send("Exists")
+  }
+
+// TODO: IT WORKS!!!! Progress from here now.
 });
 
-app.get('/eutrcapp/signup', (req, res) => {
-    console.log('Interesting. eutrcapp/verification GET method called!');
-    res.end("got.")
-});
+
 
 app.post('/eutrcapp/verification', (req, res) => {
   const userEmail = req.body.email
