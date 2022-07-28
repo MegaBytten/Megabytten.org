@@ -44,6 +44,18 @@ app.get('/eutrcapp', (req, res) => {
   res.sendFile('/eutrcapp/main.html', dirName);
 });
 
+//link used by EUTRCApp to send verification email - no website needed
+app.post('/eutrcapp/signup/verification', async (req, res) => {
+  console.log('/eutrcapp/signup/verification reached! User ' + req.body.email);
+  const userEmail = req.body.email;
+  const verify = require('./EUTRCApp/verification.js');
+
+  console.log("Launching Python Email Bot for user: " + userEmail);
+  verify.pythonBot(userEmail);
+
+  res.status(200).end();
+}
+
 //link used by EUTRCApp to sign up - add user to database!
 app.post('/eutrcapp/signup', async (req, res) => {
   console.log('/eutrcapp/signup reached! User ' + req.body.email);
