@@ -66,8 +66,6 @@ app.post('/eutrcapp/signup', async (req, res) => {
   const userPhoneNumber = req.body.phoneNumber;
   const userPassword = req.body.password
 
-  console.log(userEmail, userFirstName, userLastName, userPhoneNumber, userPassword);
-
   const verify = require('./EUTRCApp/verification.js');
 
   //check if user already Exists
@@ -88,11 +86,10 @@ app.post('/eutrcapp/signup', async (req, res) => {
         + "', '" + userPhoneNumber
         + "', '" + userPassword
         + "', '0', 'null');"
-      console.log("Inserting new user into database with SQL Query: " + query);
 
       let userSQLResult = await verify.queryMySQL(query);
       let sqlQueryResult = JSON.stringify(userSQLResult[0]);
-      console.log("sqlQueryResult: " + sqlQueryResult);
+      console.log("sqlQueryResult: " + sqlQueryResult + ". User added to DB!");
 
       res.status(200).send("added")
     } else {
