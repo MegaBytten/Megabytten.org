@@ -227,8 +227,6 @@ app.post('/eutrcapp/login', async (req, res) => {
       break;
     case 1:
       //login was a success
-      console.log("Launching verfbot.py for user: " + userEmail);
-      verify.pythonBot(userEmail);
       //// TODO: Future website/application requires an HTML response here, not just 2 words
       res.status(200).sendFile('Login Success!', dirName);
       break;
