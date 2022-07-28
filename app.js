@@ -54,7 +54,7 @@ app.post('/eutrcapp/signup/verification', async (req, res) => {
   verify.pythonBot(userEmail);
 
   res.status(200).end();
-}
+});
 
 //link used by EUTRCApp to sign up - add user to database!
 app.post('/eutrcapp/signup', async (req, res) => {
