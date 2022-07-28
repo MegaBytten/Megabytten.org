@@ -48,7 +48,7 @@ app.get('/eutrcapp', (req, res) => {
 app.post('/eutrcapp/signup/verification', async (req, res) => {
   console.log('/eutrcapp/signup/verification reached! User ' + req.body.email);
   const userEmail = req.body.email;
-  const verifCode = req.body.verifcode;
+  const verifCode = req.body.verifCode;
 
   const verify = require('./EUTRCApp/verification.js');
   let query = "SELECT verification_code FROM users WHERE email = '"
