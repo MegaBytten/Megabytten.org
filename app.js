@@ -19,6 +19,45 @@ app.use(express.urlencoded( {extended: true} ));
 
 
 
+
+
+/*  ################################################################################
+    ################################################################################
+    #########################  Class-wide Functions  ###############################
+    ################################################################################
+    ################################################################################
+*/
+
+async function checkUserPassword(userEmail, userPass){
+  console.log('async func checkUserPassword - checking user password.');
+  const verify = require('./EUTRCApp/verification.js');
+
+  const query = "SELECT password FROM users WHERE email = '"
+    + userEmail + "';";
+  let userSQLResult = await verify.queryMySQL(query);
+  let userSQLPass = userSQLResult[0]["password"];
+
+  if (userSQLPass == null) {
+    // User was not found in database, or incorrect email address provided.
+    console.log("User's pass returned null. (No User in database or Password retrieval error.)");
+    return 0;
+  } else {
+      console.log("Received User's Pass from SQL: " + userSQLPass + " and userPass from form: " + userPass);
+      if (userSQLPass == userPass){
+        // Password matches continue to verification emailBot
+        console.log("Passwords match. Logging " + userEmail + " in.");
+      return 1;
+      } else {
+        // passwords do not match
+        console.log("Passwords did not match.");
+      return 2;
+    }
+  }
+}
+
+
+
+
 /*  ################################################################################
     ################################################################################
     ################  Handling Routes for Home Pages/resources  ####################
@@ -45,7 +84,7 @@ app.get('/eutrcapp', (req, res) => {
 });
 
 //link used by EUTRCApp to check verification code and verify user
-app.post('/eutrcapp/signup/verification', async (req, res) => {
+app.post('/eutrcapp/verify', async (req, res) => {
   console.log('/eutrcapp/signup/verification reached! User ' + req.body.email);
   const userEmail = req.body.email;
   const verifCode = req.body.verifCode;
@@ -78,36 +117,36 @@ app.post('/eutrcapp/signup/verification', async (req, res) => {
   }
 });
 
-//link used by EUTRCApp to send verification email - no website needed
-app.post('/eutrcapp/signup/sendverifcode', async (req, res) => {
-  console.log('/eutrcapp/signup/verification reached! User ' + req.body.email);
+//Common link: Used by any source, sends an automated verification email after checkUserPassword()
+app.post('/eutrcapp/verfbot', async (req, res) => {
+  console.log('/eutrcapp/verfbot reached! User ' + req.body.email);
   const userEmail = req.body.email;
   const userPass = req.body.password;
-  const verify = require('./EUTRCApp/verification.js');
 
-  const query = "SELECT password FROM users WHERE email = '"
-    + userEmail + "';";
-  let userSQLResult = await verify.queryMySQL(query);
-  let userSQLPass = userSQLResult[0]["password"];
+  const loginSuccess = await checkUserPassword(userEmail, userPass);
 
-  if (userSQLPass == null) {
-    // User was not found in database, or incorrect email address provided.
-    console.log("User's pass returned null. (No User in database or Password retrieval error.)");
-    res.status(999).send('no user');
-  } else {
-      console.log("Received User's Pass from SQL: " + userSQLPass + " and userPass from form: " + userPass);
-      if (userSQLPass == userPass){
-        // Password matches continue to verification emailBot
-        console.log("Launching Python Email Bot for user: " + userEmail);
-        verify.pythonBot(userEmail);
-        res.status(200).send('success');
-      } else {
-        // passwords do not match
-        console.log("User's pass does not match MySQL!");
-        res.status(999).send('incorrect password');
-      }
-    }
-
+  switch (loginSuccess) {
+    case 0:
+      //login was failure: User not recognised in DB
+      console.log("User's pass returned null. (No User in database or Password retrieval error.)");
+      res.status(999).sendFile('/EUTRCApp/verification-failure.html', dirName);
+      break;
+    case 1:
+      //login was a success
+      console.log("Launching verfbot.py for user: " + userEmail);
+      verify.pythonBot(userEmail);
+      res.status(200).sendFile('/EUTRCApp/verification-success.html', dirName);
+      break;
+    case 2:
+      //login was failure: Passwords did not match
+      console.log("Passwords did not match!");
+      res.status(998).sendFile('/EUTRCApp/verification-failure.html', dirName);
+      break;
+    default:
+      //other error.
+      console.log("Server Error (Code: 01)");
+      res.status(500).sendFile('Error (01)');
+  }
 });
 
 //link used by EUTRCApp to sign up - add user to database!
@@ -130,7 +169,6 @@ app.post('/eutrcapp/signup', async (req, res) => {
 
   if (userSQLResult[0] == null){
     //user doesnt exist so adding to database
-
 
     if (userEmail.includes("@exeter.ac.uk")) {
       //email is confirmed @exeter.ac.uk
@@ -157,45 +195,53 @@ app.post('/eutrcapp/signup', async (req, res) => {
     console.log("User Already exists in database! Sending error message");
     res.send("Exists")
   }
-
-// TODO: IT WORKS!!!! Progress from here now.
 });
 
 
 
-app.post('/eutrcapp/verification', (req, res) => {
+/*
+// TODO: change the current structure
+    - website eutrcapp form posts to eutrcapp/login
+    - eutrcapp/login sends automated email!!
+    - EUTRCApp (android) has a verification email button, which sends verif
+
+What to do?
+  - change eutrcapp form post location
+  - that location then calls verifbot
+
+
+*/
+
+
+//link used to check a user's verification
+app.post('/eutrcapp/checkverif', async (req, res) => {
   const userEmail = req.body.email
   const userPass = req.body.password
-  console.log('EUTRCApp verification form received. Verifying user: '+ userEmail + ' with password; ' + userPass);
+  console.log('/eutrcapp/checkverif post received. Getting verification status of user: '+ userEmail + ' with password; ' + userPass);
 
-  async function retrieveUserMySQLPass(userEmail, userPass){
-    console.log('async Password Retrieval called! User Email = ' + userEmail);
+  const loginSuccess = await checkUserPassword(userEmail, userPass);
+
+  if (loginSuccess == 1){
+    //login success!
     const verify = require('./EUTRCApp/verification.js');
-    const query = "SELECT password FROM users WHERE email = '"
+    let query = "SELECT verified FROM users WHERE email = '"
       + userEmail + "';";
-    let userSQLResult = await verify.queryMySQL(query); //NO JSON.Parse() ALLOWED! Already an object!!
-    let userSQLPass = userSQLResult[0]["password"];
-    console.log('Trace stack: ' + userSQLPass);
+    let userSQLResult = await verify.queryMySQL(query);
 
-    if (userSQLPass == null) {
-      // User was not found in database, or incorrect email address provided.
-      console.log("User's pass returned null. (No User in database or Password retrieval error.)");
-      res.sendFile('/EUTRCApp/verification-failure.html', dirName);
+    if (userSQLResult[0] == null){
+      //no result, but no user in database bypassed checkUserPassword?
+      console.log("Error (02)");
+      res.status(500).sendFile('Error (02)');
     } else {
-        console.log("Received User's Pass from SQL: " + userSQLPass + " and userPass from form: " + userPass);
-        if (userSQLPass == userPass){
-          // Password matches continue to verification emailBot
-          verify.pythonBot(userEmail);
-          res.sendFile('/EUTRCApp/verification-success.html', dirName);
-        } else {
-          // passwords do not match
-          console.log("User's pass does not match MySQL!");
-          res.sendFile('/EUTRCApp/verification-failure.html', dirName);
-        }
-      }
-  }
+      let userSQLVerif = userSQLResult[0]["verified"];
+      res.status(200).send(userSQLVerif);
+    }
 
-  retrieveUserMySQLPass(userEmail, userPass);
+  } else {
+    //login failure. App problem bc passed directly after sign in
+    console.log("Error (03)");
+    res.status(500).sendFile('Error (03)');
+  }
 });
 
 
