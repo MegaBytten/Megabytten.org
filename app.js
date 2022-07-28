@@ -223,17 +223,17 @@ app.post('/eutrcapp/login', async (req, res) => {
     case 0:
       //login was failure: User not recognised in DB
       console.log("User's pass returned null. (No User in database or Password retrieval error.)");
-      res.status(999).send('Login error: User not found', dirName);
+      res.status(999).send('Login error: User not found');
       break;
     case 1:
       //login was a success
       //// TODO: Future website/application requires an HTML response here, not just 2 words
-      res.status(200).send('Login Success!', dirName);
+      res.status(200).send('Login Success!');
       break;
     case 2:
       //login was failure: Passwords did not match
       console.log("Passwords did not match!");
-      res.status(998).send('Login error: Incorrect Password.', dirName);
+      res.status(998).send('Login error: Incorrect Password.');
       break;
     default:
       //other error.
