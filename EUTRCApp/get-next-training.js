@@ -1,6 +1,6 @@
 async function getNextTrainingsList() {
 
-  const verify = require('./EUTRCApp/verification.js');
+  const verify = require('./verification.js');
   console.log("Get-next-training.js running!");
 
   var resultsList = [null, null, null];
