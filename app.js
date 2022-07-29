@@ -311,6 +311,10 @@ app.post('/eutrcapp/checkverif', async (req, res) => {
       res.status(500).send('Error (02)');
     } else {
       let userSQLVerif = userSQLResult[0]["verified"];
+      //sending a 0 or 1 is interpreted as a status code from node = error
+      //so need to send a "true" or "false" instead
+      if (userSQLVerif == 1){ userSQLVerif = true; }
+      else { userSQLVerif = false; }
       res.status(200).send(userSQLVerif);
     }
 
