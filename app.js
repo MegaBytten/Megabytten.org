@@ -35,13 +35,13 @@ async function checkUserPassword(userEmail, userPass){
   const query = "SELECT password FROM users WHERE email = '"
     + userEmail + "';";
   let userSQLResult = await verify.queryMySQL(query);
-  let userSQLPass = userSQLResult[0]["password"];
 
   if (userSQLResult == null) {
     // User was not found in database, or incorrect email address provided.
     console.log("User's pass returned null. (No User in database)");
     return 0;
   } else {
+      let userSQLPass = userSQLResult[0]["password"];
       console.log("Received User's Pass from SQL: " + userSQLPass + " and userPass from form: " + userPass);
       if (userSQLPass == userPass){
         // Password matches continue to verification emailBot
