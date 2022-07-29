@@ -259,7 +259,7 @@ app.post('/eutrcapp/user', async (req, res) => {
         let userSQL_coach = false;
         if (userSQLResult[0]["coach"] == 1){ userSQL_coach = true; }
 
-        let userInfo = userSQL_first_name + ';' + userSQL_last_name + ';' + userSQL_phone_number + ';' userSQL_coach;
+        let userInfo = userSQL_first_name + ';' + userSQL_last_name + ';' + userSQL_phone_number + ';' + userSQL_coach;
         res.status(200).send(userInfo);
       }
       break;
