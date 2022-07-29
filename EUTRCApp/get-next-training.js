@@ -93,4 +93,4 @@ async function getNextTrainingsList() {
 
 
 //export functions to be used elsewhere
-module.exports = { getNextTrainingsList() };
+module.exports = { getNextTrainingsList };
