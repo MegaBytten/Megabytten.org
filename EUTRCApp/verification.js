@@ -70,7 +70,5 @@ async function pythonBot(userEmail){
     console.log(`child process exited with code ${code}`);
   });
 }
-
-
 //export functions to be used elsewhere
 module.exports = { queryMySQL, pythonBot };

@@ -311,35 +311,50 @@ app.post('/eutrcapp/checkverif', async (req, res) => {
 });
 
 //link used to retrieve upcoming trainings
-app.get('/eutrcapp/trainings', async (req, res) => {
-  const date_ob = new Date()
-  let dateDay = ("0" + date_ob.getDate()).slice(-2);
-  let dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-  let dateYear = date_ob.getFullYear();
+app.get('/eutrcapp/trainings.json', async (req, res) => {
+  console.log("/eutrcapp/trainings reached! Getting weekly training schedule...");
+  const resultsList = await require('get-next-training.js');
 
-  console.log("Full date is: " + date_ob);
-  console.log("Formatted today's date is: " +dateDay+"/"+dateMonth+"/"+dateYear);
-
-  date_ob.setDate(date_ob.getDate() + 1);
-  dateDay = ("0" + date_ob.getDate()).slice(-2);
-  dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-  dateYear = date_ob.getFullYear();
-  console.log("Formatted Tomorrow's date is: " +dateDay+"/"+dateMonth+"/"+dateYear);
-
-  date_ob.setDate(date_ob.getDate() + 1);
-  dateDay = ("0" + date_ob.getDate()).slice(-2);
-  dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-  dateYear = date_ob.getFullYear();
-  console.log("Formatted Two days from now's date is: " +dateDay+"/"+dateMonth+"/"+dateYear);
-
-  date_ob.setDate(date_ob.getDate() + 1);
-  dateDay = ("0" + date_ob.getDate()).slice(-2);
-  dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-  dateYear = date_ob.getFullYear();
-  console.log("Formatted Three days from now's date is: " +dateDay+"/"+dateMonth+"/"+dateYear);
+  console.log("resultsList gotten! Next HP training: " + JSON.stringify(resultsList[0]));
+  console.log("resultsList gotten! Next DV training: " + JSON.stringify(resultsList[1]));
+  console.log("resultsList gotten! Next CB training: " + JSON.stringify(resultsList[2]));
 
 
-  // tomorrow.setDate(tomorrow.getDate() + 1)
+  //creating json objects - unsure if needed
+  // var jsonDataList = { } //empty object
+  // var key = 'trainings'
+  //
+  // var hpDataJSON = {
+  //   date: resultsList[0]["date"],
+  //   team: resultsList[0]["team"],
+  //   location: resultsList[0]["location"],
+  //   drills: resultsList[0]["drills"],
+  //   time: resultsList[0]["time"],
+  //   attendance: resultsList[0]["attendance"]
+  // };
+  // var dvDataJSON = {
+  //   date: resultsList[1]["date"],
+  //   team: resultsList[1]["team"],
+  //   location: resultsList[1]["location"],
+  //   drills: resultsList[1]["drills"],
+  //   time: resultsList[1]["time"],
+  //   attendance: resultsList[1]["attendance"]
+  // };
+  // var cbDataJSON = {
+  //   date: resultsList[2]["date"],
+  //   team: resultsList[2]["team"],
+  //   location: resultsList[2]["location"],
+  //   drills: resultsList[2]["drills"],
+  //   time: resultsList[2]["time"],
+  //   attendance: resultsList[2]["attendance"]
+  // };
+
+
+  let jsonData = {hpTraining: resultsList[0], dvTraining: resultsList[1], cbTraining: resultsList[2]}
+  console.log("Sending json object to client side: " + JSON.stringify(jsonData));
+
+  res.setHeader('Content-Type', 'application/json');
+  res.status(200).send(jsonData);
 });
 
 
