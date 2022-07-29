@@ -318,7 +318,26 @@ app.get('/eutrcapp/trainings', async (req, res) => {
   let dateYear = date_ob.getFullYear();
 
   console.log("Full date is: " + date_ob);
-  console.log("Formatted date is: " +dateDay+"/"+dateMonth+"/"+dateYear);
+  console.log("Formatted today's date is: " +dateDay+"/"+dateMonth+"/"+dateYear);
+
+  date_ob.setDate(date_ob.getDate() + 1);
+  dateDay = ("0" + date_ob.getDate()).slice(-2);
+  dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  dateYear = date_ob.getFullYear();
+  console.log("Formatted Tomorrow's date is: " +dateDay+"/"+dateMonth+"/"+dateYear);
+
+  date_ob.setDate(date_ob.getDate() + 1);
+  dateDay = ("0" + date_ob.getDate()).slice(-2);
+  dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  dateYear = date_ob.getFullYear();
+  console.log("Formatted Two days from now's date is: " +dateDay+"/"+dateMonth+"/"+dateYear);
+
+  date_ob.setDate(date_ob.getDate() + 1);
+  dateDay = ("0" + date_ob.getDate()).slice(-2);
+  dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  dateYear = date_ob.getFullYear();
+  console.log("Formatted Three days from now's date is: " +dateDay+"/"+dateMonth+"/"+dateYear);
+
 
   // tomorrow.setDate(tomorrow.getDate() + 1)
 });
