@@ -197,21 +197,6 @@ app.post('/eutrcapp/signup', async (req, res) => {
   }
 });
 
-
-
-/*
-// TODO: change the current structure
-    - website eutrcapp form posts to eutrcapp/login
-    - eutrcapp/login sends automated email!!
-    - EUTRCApp (android) has a verification email button, which sends verif
-
-What to do?
-  - change eutrcapp form post location
-  - that location then calls verifbot
-
-
-*/
-
 //link used to sign on on EUTRCApp or future website
 app.post('/eutrcapp/login', async (req, res) => {
   const userEmail = req.body.email
@@ -271,8 +256,10 @@ app.post('/eutrcapp/user', async (req, res) => {
         let userSQL_first_name = userSQLResult[0]["first_name"];
         let userSQL_last_name = userSQLResult[0]["last_name"];
         let userSQL_phone_number = userSQLResult[0]["phone_number"];
+        let userSQL_coach = false;
+        if (userSQLResult[0]["coach"] == 1){ userSQL_coach = true; }
 
-        let userInfo = userSQL_first_name + ';' + userSQL_last_name + ';' + userSQL_phone_number;
+        let userInfo = userSQL_first_name + ';' + userSQL_last_name + ';' + userSQL_phone_number + ';' userSQL_coach;
         res.status(200).send(userInfo);
       }
       break;
