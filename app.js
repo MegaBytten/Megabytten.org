@@ -85,7 +85,7 @@ app.get('/eutrcapp', (req, res) => {
 
 //link used by EUTRCApp to check verification code and verify user
 app.post('/eutrcapp/verify', async (req, res) => {
-  console.log('/eutrcapp/signup/verification reached! User ' + req.body.email);
+  console.log('/eutrcapp/signup/verify reached! User ' + req.body.email);
   const userEmail = req.body.email;
   const verifCode = req.body.verifCode;
 
@@ -95,10 +95,11 @@ app.post('/eutrcapp/verify', async (req, res) => {
   let userSQLResult = await verify.queryMySQL(query);
   let userSQLVerifCode = userSQLResult[0]["verification_code"];
 
-  if (userSQLVerifCode == null){
+  if (userSQLVerifCode == "null"){
     //verification code not found in database =
     //  1. no verification code sent
     //  2. no user registered
+    // 3. user already verified and attempting to verify again
     console.log('userSQLVerifCode == null');
     res.status(999).end();
 
