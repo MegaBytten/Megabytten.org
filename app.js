@@ -133,6 +133,7 @@ app.post('/eutrcapp/verfbot', async (req, res) => {
     case 1:
       //login was a success
       console.log("Launching verfbot.py for user: " + userEmail);
+      const verify = require('./EUTRCApp/verification.js');
       verify.pythonBot(userEmail);
       res.status(200).sendFile('/EUTRCApp/verification-success.html', dirName);
       break;
