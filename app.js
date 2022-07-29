@@ -128,7 +128,6 @@ app.post('/eutrcapp/verfbot', async (req, res) => {
   switch (loginSuccess) {
     case 0:
       //login was failure: User not recognised in DB
-      console.log("User's pass returned null. (No User in database or Password retrieval error.)");
       res.status(999).sendFile('/EUTRCApp/verification-failure.html', dirName);
       break;
     case 1:
@@ -139,7 +138,6 @@ app.post('/eutrcapp/verfbot', async (req, res) => {
       break;
     case 2:
       //login was failure: Passwords did not match
-      console.log("Passwords did not match!");
       res.status(998).sendFile('/EUTRCApp/verification-failure.html', dirName);
       break;
     default:
@@ -222,7 +220,6 @@ app.post('/eutrcapp/login', async (req, res) => {
   switch (loginSuccess) {
     case 0:
       //login was failure: User not recognised in DB
-      console.log("User's pass returned null. (No User in database or Password retrieval error.)");
       res.status(999).send('Login error: User not found');
       break;
     case 1:
@@ -232,7 +229,6 @@ app.post('/eutrcapp/login', async (req, res) => {
       break;
     case 2:
       //login was failure: Passwords did not match
-      console.log("Passwords did not match!");
       res.status(998).send('Login error: Incorrect Password.');
       break;
     default:
