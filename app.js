@@ -36,7 +36,7 @@ async function checkUserPassword(userEmail, userPass){
     + userEmail + "';";
   let userSQLResult = await verify.queryMySQL(query);
 
-  if (userSQLResult == null) {
+  if (userSQLResult[0] == null) {
     // User was not found in database, or incorrect email address provided.
     console.log("User's pass returned null. (No User in database)");
     return 0;
