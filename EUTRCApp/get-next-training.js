@@ -15,7 +15,7 @@ async function getNextTrainingsList() {
   //// TODO: very important! Only HP, DV, or CLUB can be accepted formats for trainings table!
   //// TODO: VERY IMPORTANT! Date must be specific format: dd/mm/yyyy
   console.log("finding next HP training.");
-  for (let i = 0; i > 7; i++){
+  for (let i = 0; i < 7; i++){
     let query = "select * from trainings where date = '" + formattedDate
     + "' and team = 'HP';'";
     const sqlResult = await verify.queryMySQL(query);
@@ -40,7 +40,7 @@ async function getNextTrainingsList() {
   //// TODO: very important! Only HP, DV, or CLUB can be accepted formats for trainings table!
   //// TODO: VERY IMPORTANT! Date must be specific format: dd/mm/yyyy
   console.log("finding next DV training.");
-  for (let i = 0; i > 7; i++){
+  for (let i = 0; i < 7; i++){
     let query = "select * from trainings where date = '" + formattedDate
     + "' and team = 'DV';'";
     const sqlResult = await verify.queryMySQL(query);
@@ -66,7 +66,7 @@ async function getNextTrainingsList() {
   //// TODO: very important! Only HP, DV, or CB can be accepted formats for trainings table!
   //// TODO: VERY IMPORTANT! Date must be specific format: dd/mm/yyyy
   console.log("finding next CB training.");
-  for (let i = 0; i > 7; i++){
+  for (let i = 0; i < 7; i++){
     let query = "select * from trainings where date = '" + formattedDate
     + "' and team = 'CB';'";
     const sqlResult = await verify.queryMySQL(query);
