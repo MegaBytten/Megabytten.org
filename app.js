@@ -313,7 +313,8 @@ app.post('/eutrcapp/checkverif', async (req, res) => {
 //link used to retrieve upcoming trainings
 app.get('/eutrcapp/trainings.json', async (req, res) => {
   console.log("/eutrcapp/trainings reached! Getting weekly training schedule...");
-  const resultsList = await require('./EUTRCApp/get-next-training.js');
+  let resultsList = require('./EUTRCApp/get-next-training.js');
+  resultsList = await resultsList.getNextTrainingsList();
 
   console.log("resultsList gotten! Next HP training: " + JSON.stringify(resultsList[0]));
   console.log("resultsList gotten! Next DV training: " + JSON.stringify(resultsList[1]));
