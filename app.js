@@ -243,7 +243,6 @@ app.post('/eutrcapp/login', async (req, res) => {
 
 });
 
-
 //link used to check a user's verification
 app.post('/eutrcapp/checkverif', async (req, res) => {
   const userEmail = req.body.email
@@ -272,6 +271,56 @@ app.post('/eutrcapp/checkverif', async (req, res) => {
     //login failure. App problem bc passed directly after sign in
     console.log("Error (03)");
     res.status(500).send('Error (03)');
+  }
+});
+
+//link used to pull a user's info
+app.post('/eutrcapp/user', async (req, res) => {
+  const userEmail = req.body.email
+  const userPass = req.body.password
+  console.log('/eutrcapp/user post received. Getting User info of user: '+ userEmail + ' with password; ' + userPass);
+
+  const loginSuccess = await checkUserPassword(userEmail, userPass);
+
+  switch (loginSuccess) {
+    case 0:
+      //login was failure: User not recognised in DB
+      console.log("User's pass returned null. (No User in database or Password retrieval error.)");
+      res.status(999).send('Login error: User not found');
+      break;
+    case 1:
+      //login was a success, need to pull and send user data now
+      const verify = require('./EUTRCApp/verification.js');
+      let query = "SELECT * FROM users WHERE email = '"
+        + userEmail + "';";
+      let userSQLResult = await verify.queryMySQL(query);
+
+      if (userSQLResult[0] == null){
+        //no result, but no user in database bypassed checkUserPassword?
+        console.log("Error (02)");
+        res.status(500).send('Error (02)');
+      } else {
+        let userSQL_first_name = userSQLResult[0]["first_name"];
+        let userSQL_last_name = userSQLResult[0]["last_name"];
+        let userSQL_phone_number = userSQLResult[0]["phone_number"];
+
+        let userInfo = userSQL_first_name + ';' + userSQL_last_name + ';' + userSQL_phone_number;
+        res.status(200).send(userInfo);
+      }
+
+
+
+      res.status(200).send('Login Success!');
+      break;
+    case 2:
+      //login was failure: Passwords did not match
+      console.log("Passwords did not match!");
+      res.status(998).send('Login error: Incorrect Password.');
+      break;
+    default:
+      //other error.
+      console.log("Server Error (Code: 01)");
+      res.status(500).send('Error (01)');
   }
 });
 
