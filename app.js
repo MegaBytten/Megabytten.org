@@ -310,6 +310,19 @@ app.post('/eutrcapp/checkverif', async (req, res) => {
   }
 });
 
+//link used to retrieve upcoming trainings
+app.get('/eutrcapp/trainings', async (req, res) => {
+  const date_ob = new Date()
+  let dateDay = ("0" + date_ob.getDate()).slice(-2);
+  let dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  let dateYear = date_ob.getFullYear();
+
+  console.log("Full date is: " + date_ob);
+  console.log("Formatted date is: " +dateDay+"/"+dateMonth+"/"+dateYear);
+
+  // tomorrow.setDate(tomorrow.getDate() + 1)
+});
+
 
 
 
