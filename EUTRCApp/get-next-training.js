@@ -17,7 +17,7 @@ async function getNextTrainingsList() {
   console.log("finding next HP training.");
   for (let i = 0; i < 7; i++){
     let query = "select * from trainings where date = '" + formattedDate
-    + "' and team = 'HP';'";
+    + "' and team = 'HP';";
     const sqlResult = await verify.queryMySQL(query);
     if (sqlResult[0] != null){
       //ARE results from HP trainings on this date!
@@ -42,7 +42,7 @@ async function getNextTrainingsList() {
   console.log("finding next DV training.");
   for (let i = 0; i < 7; i++){
     let query = "select * from trainings where date = '" + formattedDate
-    + "' and team = 'DV';'";
+    + "' and team = 'DV';";
     const sqlResult = await verify.queryMySQL(query);
     if (sqlResult[0] != null){
       //ARE results from DEV trainings on this date!
@@ -68,7 +68,7 @@ async function getNextTrainingsList() {
   console.log("finding next CB training.");
   for (let i = 0; i < 7; i++){
     let query = "select * from trainings where date = '" + formattedDate
-    + "' and team = 'CB';'";
+    + "' and team = 'CB';";
     const sqlResult = await verify.queryMySQL(query);
     if (sqlResult[0] != null){
       //ARE results from DEV trainings on this date!
