@@ -1,4 +1,4 @@
-async function getNextTrainingsList() => {
+async function getNextTrainingsList() {
 
   const verify = require('./EUTRCApp/verification.js');
   console.log("Get-next-training.js running!");
