@@ -158,6 +158,7 @@ app.post('/eutrcapp/signup', async (req, res) => {
   const userLastName = req.body.lastName;
   const userPhoneNumber = req.body.phoneNumber;
   const userPassword = req.body.password
+  const userCoach = req.body.coach;
 
   const verify = require('./EUTRCApp/verification.js');
 
@@ -177,7 +178,8 @@ app.post('/eutrcapp/signup', async (req, res) => {
         + "', '" + userLastName
         + "', '" + userPhoneNumber
         + "', '" + userPassword
-        + "', '0', 'null');"
+        + "', '0', 'null', "
+        + userCoach + ");"
 
       let userSQLResult = await verify.queryMySQL(query);
       let sqlQueryResult = JSON.stringify(userSQLResult[0]);
