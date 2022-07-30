@@ -27,6 +27,11 @@ async function getNextTrainingsList() {
     } else if (i == 6){
       //No results within the week found
       console.log("No HP trainings within a week!");
+      resultsList[0] = {
+        "hpTraining":[
+          {"date":"none"}
+        ]
+      }
     }
     //otherwise results turned up null - will change date to +1 and update formattedDate
     date_ob.setDate(date_ob.getDate() + 1);
@@ -59,6 +64,12 @@ async function getNextTrainingsList() {
     } else if (i == 6){
       //No results within the week found
       console.log("No DV trainings within a week!");
+      //asignment prevents passing "null" to client which cant be interpreted
+      resultsList[1] = {
+        "hpTraining":[
+          {"date":"none"}
+        ]
+      }
     }
 
     //otherwise results turned up null - will change date to +1 and update formattedDate
@@ -92,6 +103,11 @@ async function getNextTrainingsList() {
     }else if (i == 6){
       //No results within the week found
       console.log("No CB trainings within a week!");
+      resultsList[2] = {
+        "hpTraining":[
+          {"date":"none"}
+        ]
+      }
     }
 
     //otherwise results turned up null - will change date to +1 and update formattedDate

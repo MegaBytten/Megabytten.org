@@ -321,36 +321,6 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
   console.log("resultsList gotten! Next CB training: " + JSON.stringify(resultsList[2]));
 
 
-  //creating json objects - unsure if needed
-  // var jsonDataList = { } //empty object
-  // var key = 'trainings'
-  //
-  // var hpDataJSON = {
-  //   date: resultsList[0]["date"],
-  //   team: resultsList[0]["team"],
-  //   location: resultsList[0]["location"],
-  //   drills: resultsList[0]["drills"],
-  //   time: resultsList[0]["time"],
-  //   attendance: resultsList[0]["attendance"]
-  // };
-  // var dvDataJSON = {
-  //   date: resultsList[1]["date"],
-  //   team: resultsList[1]["team"],
-  //   location: resultsList[1]["location"],
-  //   drills: resultsList[1]["drills"],
-  //   time: resultsList[1]["time"],
-  //   attendance: resultsList[1]["attendance"]
-  // };
-  // var cbDataJSON = {
-  //   date: resultsList[2]["date"],
-  //   team: resultsList[2]["team"],
-  //   location: resultsList[2]["location"],
-  //   drills: resultsList[2]["drills"],
-  //   time: resultsList[2]["time"],
-  //   attendance: resultsList[2]["attendance"]
-  // };
-
-
   let jsonData = {hpTraining: resultsList[0], dvTraining: resultsList[1], cbTraining: resultsList[2]}
   console.log("Sending json object to client side: " + JSON.stringify(jsonData));
 
