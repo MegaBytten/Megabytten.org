@@ -5,7 +5,7 @@ async function getNextTrainingsList() {
 
   var resultsList = [null, null, null];
 
-  const date_ob = new Date()
+  var date_ob = new Date()
   let dateDay = ("0" + date_ob.getDate()).slice(-2);
   let dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
   let dateYear = date_ob.getFullYear();
@@ -36,6 +36,13 @@ async function getNextTrainingsList() {
     formattedDate = dateDay+"/"+dateMonth+"/"+dateYear;
   }
 
+  //need to reset today's date
+  date_ob = new Date()
+  dateDay = ("0" + date_ob.getDate()).slice(-2);
+  dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  dateYear = date_ob.getFullYear();
+  formattedDate = dateDay+"/"+dateMonth+"/"+dateYear;
+
   //this forloop is for obtaining DV trainings
   //// TODO: very important! Only HP, DV, or CLUB can be accepted formats for trainings table!
   //// TODO: VERY IMPORTANT! Date must be specific format: dd/mm/yyyy
@@ -61,6 +68,13 @@ async function getNextTrainingsList() {
     dateYear = date_ob.getFullYear();
     formattedDate = dateDay+"/"+dateMonth+"/"+dateYear;
   }
+
+  //need to reset today's date
+  date_ob = new Date()
+  dateDay = ("0" + date_ob.getDate()).slice(-2);
+  dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  dateYear = date_ob.getFullYear();
+  formattedDate = dateDay+"/"+dateMonth+"/"+dateYear;
 
   //this forloop is for obtaining CLUB trainings
   //// TODO: very important! Only HP, DV, or CB can be accepted formats for trainings table!
