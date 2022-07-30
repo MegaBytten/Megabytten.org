@@ -104,9 +104,7 @@ async function getNextTrainingsList() {
       //No results within the week found
       console.log("No CB trainings within a week!");
       resultsList[2] = {
-        "hpTraining":[
-          {"date":"none"}
-        ]
+        {"date":"none"}
       }
     }
 
