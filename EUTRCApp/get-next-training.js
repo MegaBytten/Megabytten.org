@@ -130,40 +130,40 @@ Incorrect querying with new sql data structure :(
 
 function convertMonthHeader(month){
   switch (month) {
-    case 'january':
+    case 'JANUARY':
       return 1;
       break;
-    case 'febuary':
+    case 'FEBRUARY':
       return 2;
       break;
-    case 'march':
+    case 'MARCH':
       return 3;
       break;
-    case 'april':
+    case 'APRIL':
       return 4;
       break;
-    case 'may':
+    case 'MAY':
       return 5;
       break;
-    case 'june':
+    case 'JUNE':
       return 6;
       break;
-    case 'july':
+    case 'JULY':
       return 7;
       break;
-    case 'august':
+    case 'AUGUST':
       return 8;
       break;
-    case 'september':
+    case 'SEPTEMBER':
       return 9;
       break;
-    case 'october':
+    case 'OCTOBER':
       return 10;
       break;
-    case 'november':
+    case 'NOVEMBER':
       return 11;
       break;
-    case 'december':
+    case 'DECEMBER':
       return 12;
       break;
   }
