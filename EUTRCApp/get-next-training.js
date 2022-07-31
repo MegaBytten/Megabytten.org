@@ -5,6 +5,20 @@ async function getNextTrainingsList() {
 
   var resultsList = [null, null, null];
 
+
+/*
+
+BIG TODODODODODOODODODO
+BIG TO DO TO DO TO DO TO do
+
+NEED to rewrite my getNextTrainingsList query!!!
+Incorrect querying with new sql data structure :(
+
+
+*/
+
+
+
   var date_ob = new Date()
   let dateDay = ("0" + date_ob.getDate()).slice(-2);
   let dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
@@ -16,7 +30,7 @@ async function getNextTrainingsList() {
   //// TODO: VERY IMPORTANT! Date must be specific format: dd/mm/yyyy
   console.log("finding next HP training.");
   for (let i = 0; i < 7; i++){
-    let query = "select * from trainings where date = '" + formattedDate
+    let query = "select * from trainings where date_day = '" + formattedDate
     + "' and team = 'HP';";
     const sqlResult = await verify.queryMySQL(query);
     if (sqlResult[0] != null){
@@ -114,7 +128,50 @@ async function getNextTrainingsList() {
   return resultsList;
 }
 
+function convertMonthHeader(month){
+  switch (month) {
+    case 'january':
+      return 1;
+      break;
+    case 'febuary':
+      return 2;
+      break;
+    case 'march':
+      return 3;
+      break;
+    case 'april':
+      return 4;
+      break;
+    case 'may':
+      return 5;
+      break;
+    case 'june':
+      return 6;
+      break;
+    case 'july':
+      return 7;
+      break;
+    case 'august':
+      return 8;
+      break;
+    case 'september':
+      return 9;
+      break;
+    case 'october':
+      return 10;
+      break;
+    case 'november':
+      return 11;
+      break;
+    case 'december':
+      return 12;
+      break;
+  }
+}
 
 
 //export functions to be used elsewhere
-module.exports = { getNextTrainingsList };
+module.exports = {
+  getNextTrainingsList,
+  convertMonthHeader
+};

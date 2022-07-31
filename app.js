@@ -314,8 +314,31 @@ app.post('/eutrcapp/checkverif', async (req, res) => {
 
 //link used to retrieve upcoming trainings
 app.get('/eutrcapp/trainings.json', async (req, res) => {
-  console.log("/eutrcapp/trainings reached! Getting weekly training schedule...");
+  console.log("/eutrcapp/trainings reached! Getting training schedule...");
+
   let resultsList = require('./EUTRCApp/get-next-training.js');
+
+
+  //checking if any headers.. = month training request not just next training
+  if (!(req.header('month') == null)){
+    console.log('!(req.header('month') == null)! Converting header: ' + req.header('month') + req.header('year'));
+    let month = resultsList.convertMonthHeader(req.header('month'))
+    let year = req.header('year').slice(2)
+
+    const verify = require('./EUTRCApp/verification.js');
+    let query = "select * from trainings where date_month = '" + month
+      + "' and date_year = '" + year + "';"
+    const sqlResult = await verify.queryMySQL(query);
+
+    if (sqlResult[0] == null){
+      //No training data for a month!
+      res.status(200).send('null');
+    } else {
+      res.status(200).send(sqlResult[0]);
+    }
+  }
+
+
   resultsList = await resultsList.getNextTrainingsList();
 
   console.log("resultsList gotten! Next HP training: " + JSON.stringify(resultsList[0]));
