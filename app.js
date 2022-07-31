@@ -336,6 +336,7 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
     } else {
       res.status(200).send(sqlResult[0]);
     }
+    return;
   }
 
 
