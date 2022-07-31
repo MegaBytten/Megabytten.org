@@ -152,7 +152,7 @@ function convertMonthHeader(month){
       return '07';
       break;
     case 'AUGUST':
-      return 08;
+      return '08';
       break;
     case 'SEPTEMBER':
       return '09';
