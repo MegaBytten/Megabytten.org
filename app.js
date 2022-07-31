@@ -335,6 +335,11 @@ console.log("TRACE TRACE ++++++++ " + req.header('month'));
       //No training data for a month!
       res.status(200).send('null');
     } else {
+      //need to wrap up all the data in understandable jsonData
+      let length = Object.keys(sqlResult[0]).length;
+      console.log(length);
+
+
       res.status(200).send(sqlResult[0]);
     }
     return;
