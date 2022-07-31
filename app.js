@@ -322,6 +322,7 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
   //checking if any headers.. = month training request not just next training
   if (!(req.header('month') == null)){
     console.log("!(req.header('month') == null)! Converting header: ' + req.header('month') + req.header('year')");
+console.log("TRACE TRACE ++++++++ " + req.header('month'));
     let month = resultsList.convertMonthHeader(req.header('month'))
     let year = req.header('year').slice(2)
 
