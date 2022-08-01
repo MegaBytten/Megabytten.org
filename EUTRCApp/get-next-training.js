@@ -4,34 +4,20 @@ async function getNextTrainingsList() {
   console.log("Get-next-training.js running!");
 
   var resultsList = [null, null, null];
-
-
-/*
-
-BIG TODODODODODOODODODO
-BIG TO DO TO DO TO DO TO do
-
-NEED to rewrite my getNextTrainingsList query!!!
-Incorrect querying with new sql data structure :(
-
-
-*/
-
-
-
   var date_ob = new Date()
-  let dateDay = ("0" + date_ob.getDate()).slice(-2);
-  let dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-  let dateYear = date_ob.getFullYear();
-  let formattedDate = dateDay+"/"+dateMonth+"/"+dateYear;
+  let dateDay = ("0" + date_ob.getDate()).slice(-2); //07
+  let dateMonth = ("0" + (date_ob.getMonth() + 1).slice(-2); //07
+  let dateYear = date_ob.getFullYear().slice(-2); //22
+
+
 
   //this forloop is for obtaining HP trainings
   //// TODO: very important! Only HP, DV, or CLUB can be accepted formats for trainings table!
   //// TODO: VERY IMPORTANT! Date must be specific format: dd/mm/yyyy
   console.log("finding next HP training.");
   for (let i = 0; i < 7; i++){
-    let query = "select * from trainings where date_day = '" + formattedDate
-    + "' and team = 'HP';";
+    let query = "select * from trainings where date_day = '" + dateDay
+    + "' and team = 'HP' and date_month = '" + dateMonth "' and date_year = '" + dateYear + "';";
     const sqlResult = await verify.queryMySQL(query);
     if (sqlResult[0] != null){
       //ARE results from HP trainings on this date!
@@ -47,26 +33,24 @@ Incorrect querying with new sql data structure :(
     }
     //otherwise results turned up null - will change date to +1 and update formattedDate
     date_ob.setDate(date_ob.getDate() + 1);
-    dateDay = ("0" + date_ob.getDate()).slice(-2);
-    dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-    dateYear = date_ob.getFullYear();
-    formattedDate = dateDay+"/"+dateMonth+"/"+dateYear;
+    dateDay = ("0" + date_ob.getDate()).slice(-2); //07
+    dateMonth = ("0" + (date_ob.getMonth() + 1).slice(-2); //07
+    dateYear = date_ob.getFullYear().slice(-2); //22
   }
 
   //need to reset today's date
   date_ob = new Date()
-  dateDay = ("0" + date_ob.getDate()).slice(-2);
-  dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-  dateYear = date_ob.getFullYear();
-  formattedDate = dateDay+"/"+dateMonth+"/"+dateYear;
+  dateDay = ("0" + date_ob.getDate()).slice(-2); //07
+  dateMonth = ("0" + (date_ob.getMonth() + 1).slice(-2); //07
+  dateYear = date_ob.getFullYear().slice(-2); //22
 
   //this forloop is for obtaining DV trainings
   //// TODO: very important! Only HP, DV, or CLUB can be accepted formats for trainings table!
   //// TODO: VERY IMPORTANT! Date must be specific format: dd/mm/yyyy
   console.log("finding next DV training.");
   for (let i = 0; i < 7; i++){
-    let query = "select * from trainings where date = '" + formattedDate
-    + "' and team = 'DV';";
+    let query = "select * from trainings where date_day = '" + dateDay
+    + "' and team = 'DV' and date_month = '" + dateMonth "' and date_year = '" + dateYear + "';";
     const sqlResult = await verify.queryMySQL(query);
     if (sqlResult[0] != null){
       //ARE results from DEV trainings on this date!
@@ -84,26 +68,24 @@ Incorrect querying with new sql data structure :(
 
     //otherwise results turned up null - will change date to +1 and update formattedDate
     date_ob.setDate(date_ob.getDate() + 1);
-    dateDay = ("0" + date_ob.getDate()).slice(-2);
-    dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-    dateYear = date_ob.getFullYear();
-    formattedDate = dateDay+"/"+dateMonth+"/"+dateYear;
+    dateDay = ("0" + date_ob.getDate()).slice(-2); //07
+    dateMonth = ("0" + (date_ob.getMonth() + 1).slice(-2); //07
+    dateYear = date_ob.getFullYear().slice(-2); //22
   }
 
   //need to reset today's date
   date_ob = new Date()
-  dateDay = ("0" + date_ob.getDate()).slice(-2);
-  dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-  dateYear = date_ob.getFullYear();
-  formattedDate = dateDay+"/"+dateMonth+"/"+dateYear;
+  dateDay = ("0" + date_ob.getDate()).slice(-2); //07
+  dateMonth = ("0" + (date_ob.getMonth() + 1).slice(-2); //07
+  dateYear = date_ob.getFullYear().slice(-2); //22
 
   //this forloop is for obtaining CLUB trainings
   //// TODO: very important! Only HP, DV, or CB can be accepted formats for trainings table!
   //// TODO: VERY IMPORTANT! Date must be specific format: dd/mm/yyyy
   console.log("finding next CB training.");
   for (let i = 0; i < 7; i++){
-    let query = "select * from trainings where date = '" + formattedDate
-    + "' and team = 'CB';";
+    let query = "select * from trainings where date_day = '" + dateDay
+    + "' and team = 'CB' and date_month = '" + dateMonth "' and date_year = '" + dateYear + "';";
     const sqlResult = await verify.queryMySQL(query);
     if (sqlResult[0] != null){
       //ARE results from DEV trainings on this date!
@@ -120,12 +102,16 @@ Incorrect querying with new sql data structure :(
 
     //otherwise results turned up null - will change date to +1 and update formattedDate
     date_ob.setDate(date_ob.getDate() + 1);
-    dateDay = ("0" + date_ob.getDate()).slice(-2);
-    dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-    dateYear = date_ob.getFullYear();
-    formattedDate = dateDay+"/"+dateMonth+"/"+dateYear;
+    dateDay = ("0" + date_ob.getDate()).slice(-2); //07
+    dateMonth = ("0" + (date_ob.getMonth() + 1).slice(-2); //07
+    dateYear = date_ob.getFullYear().slice(-2); //22
   }
   return resultsList;
+}
+
+//priv internal function
+function resetDate (date_ob){
+
 }
 
 function convertMonthHeader(month){
