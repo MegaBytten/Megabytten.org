@@ -7,7 +7,8 @@ async function getNextTrainingsList() {
   var date_ob = new Date()
   let dateDay = ("0" + date_ob.getDate()).slice(-2); //07
   let dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2); //07
-  let dateYear = (date_ob.getFullYear()).slice(-2); //22
+  let dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
+  console.log("Current date is: ", dateDay, dateMonth, dateYear);
 
 
 
@@ -35,14 +36,14 @@ async function getNextTrainingsList() {
     date_ob.setDate(date_ob.getDate() + 1);
     dateDay = ("0" + date_ob.getDate()).slice(-2); //07
     dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2); //07
-    dateYear = (date_ob.getFullYear()).slice(-2); //22
+    dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
   }
 
   //need to reset today's date
   date_ob = new Date()
   dateDay = ("0" + date_ob.getDate()).slice(-2); //07
   dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2); //07
-  dateYear = (date_ob.getFullYear()).slice(-2); //22
+  dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
 
   //this forloop is for obtaining DV trainings
   //// TODO: very important! Only HP, DV, or CLUB can be accepted formats for trainings table!
@@ -70,14 +71,14 @@ async function getNextTrainingsList() {
     date_ob.setDate(date_ob.getDate() + 1);
     dateDay = ("0" + date_ob.getDate()).slice(-2); //07
     dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2); //07
-    dateYear = (date_ob.getFullYear()).slice(-2); //22
+    dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
   }
 
   //need to reset today's date
   date_ob = new Date()
   dateDay = ("0" + date_ob.getDate()).slice(-2); //07
   dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2); //07
-  dateYear = (date_ob.getFullYear()).slice(-2); //22
+  dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
 
   //this forloop is for obtaining CLUB trainings
   //// TODO: very important! Only HP, DV, or CB can be accepted formats for trainings table!
@@ -104,7 +105,7 @@ async function getNextTrainingsList() {
     date_ob.setDate(date_ob.getDate() + 1);
     dateDay = ("0" + date_ob.getDate()).slice(-2); //07
     dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2); //07
-    dateYear = (date_ob.getFullYear()).slice(-2); //22
+    dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
   }
   return resultsList;
 }
