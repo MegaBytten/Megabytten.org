@@ -318,11 +318,9 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
 
   let resultsList = require('./EUTRCApp/get-next-training.js');
 
-
   //checking if any headers.. = month training request not just next training
   if (!(req.header('month') == null)){
     console.log("!(req.header('month') == null)! Converting header: ' + req.header('month') + req.header('year')");
-console.log("TRACE TRACE ++++++++ " + req.header('month'));
     let month = resultsList.convertMonthHeader(req.header('month'))
     let year = req.header('year').slice(2)
 
@@ -340,7 +338,7 @@ console.log("TRACE TRACE ++++++++ " + req.header('month'));
     return;
   }
 
-
+  //if no header, means request wants NEXT training!
   resultsList = await resultsList.getNextTrainingsList();
 
   console.log("resultsList gotten! Next HP training: " + JSON.stringify(resultsList[0]));

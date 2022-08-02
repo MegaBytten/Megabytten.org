@@ -14,7 +14,6 @@ async function getNextTrainingsList() {
 
   //this forloop is for obtaining HP trainings
   //// TODO: very important! Only HP, DV, or CLUB can be accepted formats for trainings table!
-  //// TODO: VERY IMPORTANT! Date must be specific format: dd/mm/yyyy
   console.log("finding next HP training.");
   for (let i = 0; i < 7; i++){
     let query = "select * from trainings where date_day = '" + dateDay
@@ -29,7 +28,7 @@ async function getNextTrainingsList() {
       //No results within the week found
       console.log("No HP trainings within a week!");
       resultsList[0] = {
-        "date":"none"
+        "date_day":"none"
       }
     }
     //otherwise results turned up null - will change date to +1 and update formattedDate
@@ -47,7 +46,7 @@ async function getNextTrainingsList() {
 
   //this forloop is for obtaining DV trainings
   //// TODO: very important! Only HP, DV, or CLUB can be accepted formats for trainings table!
-  //// TODO: VERY IMPORTANT! Date must be specific format: dd/mm/yyyy
+
   console.log("finding next DV training.");
   for (let i = 0; i < 7; i++){
     let query = "select * from trainings where date_day = '" + dateDay
@@ -63,7 +62,7 @@ async function getNextTrainingsList() {
       console.log("No DV trainings within a week!");
       //asignment prevents passing "null" to client which cant be interpreted
       resultsList[1] = {
-        "date":"none"
+        "date_day":"none"
       }
     }
 
@@ -82,7 +81,7 @@ async function getNextTrainingsList() {
 
   //this forloop is for obtaining CLUB trainings
   //// TODO: very important! Only HP, DV, or CB can be accepted formats for trainings table!
-  //// TODO: VERY IMPORTANT! Date must be specific format: dd/mm/yyyy
+
   console.log("finding next CB training.");
   for (let i = 0; i < 7; i++){
     let query = "select * from trainings where date_day = '" + dateDay
@@ -97,7 +96,7 @@ async function getNextTrainingsList() {
       //No results within the week found
       console.log("No CB trainings within a week!");
       resultsList[2] = {
-        "date":"none"
+        "date_day":"none"
       }
     }
 
