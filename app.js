@@ -260,8 +260,9 @@ app.post('/eutrcapp/user', async (req, res) => {
         let userSQL_phone_number = userSQLResult[0]["phone_number"];
         let userSQL_coach = false;
         if (userSQLResult[0]["coach"] == 1){ userSQL_coach = true; }
+        let userSQL_icon = userSQLResult[0]["icon"];
 
-        let userInfo = userSQL_first_name + ';' + userSQL_last_name + ';' + userSQL_phone_number + ';' + userSQL_coach;
+        let userInfo = userSQL_first_name + ';' + userSQL_last_name + ';' + userSQL_phone_number + ';' + userSQL_coach + ';' + userSQL_icon;
         res.status(200).send(userInfo);
       }
       break;
@@ -275,6 +276,32 @@ app.post('/eutrcapp/user', async (req, res) => {
       console.log("Server Error (Code: 01)");
       res.status(500).send('Error (01)');
   }
+});
+
+app.post('/eutrcapp/user/update'. async (req, res) => {
+  console.log('/eutrcapp/user/update_icon reached! Updating user ' + req.body.email + "'s " + req.header('attribute'));
+
+  let userEmail = req.body.email;
+  let userPass = req.body.password;
+
+  let loginSuccess = await checkUserPassword(userEmail, userPassword)
+  if (!loginSuccess == 1){
+    console.log("login failed. Cannot update icon.");
+    res.status(900).send('login failed.');
+    return;
+  }
+
+  let attributeUpdate = req.header('attribute');
+  if (attributeUpdate.toLowerCase() == 'icon'){
+    let iconValue = req.body.icon;
+    const verify = require('./EUTRCApp/verification.js');
+    let query = "UPDATE users SET icon = " + iconValue + " where email = '" + userEmail
+      + "';"
+    const sqlResult = await verify.queryMySQL(query);
+    res.status(200).send('updated Icon successfully.')
+  }
+
+
 });
 
 //link used to check a user's verification
