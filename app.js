@@ -79,6 +79,7 @@ app.get('/home', (req, res) => {
     ################################################################################
     ################################################################################
 */
+//link for EUTRC homepage - sends main.html
 app.get('/eutrcapp', (req, res) => {
   res.sendFile('/eutrcapp/main.html', dirName);
 });
@@ -278,6 +279,7 @@ app.post('/eutrcapp/user', async (req, res) => {
   }
 });
 
+//general link used to update any user details (eg. icon)
 app.post('/eutrcapp/user/update', async (req, res) => {
   console.log('/eutrcapp/user/update_icon reached! Updating user ' + req.body.email + "'s " + req.header('attribute'));
 
@@ -299,11 +301,29 @@ app.post('/eutrcapp/user/update', async (req, res) => {
       + "';"
     const sqlResult = await verify.queryMySQL(query);
     res.status(200).send('updated Icon successfully.')
+  } else if (attributeUpdate.toLowerCase() == 'all'){
+    //"email=%s&newEmail=%s&password=%s&firstName=%s&lastName=%s&phoneNumber=%s"
+    let newEmail = req.body.newEmail;
+    let firstName = req.body.firstName;
+    let lastName = req.body.lastName;
+    let phoneNumber = req.body.phoneNumber;
+
+    const verify = require('./EUTRCApp/verification.js');
+    let query = "UPDATE users SET"
+      + " email = '" + newEmail
+      + "', first_name = '" + firstName
+      + "', last_name = '" + lastName
+      + "', phone_number = '" + phoneNumber
+      + "', verified = 0"
+      + " where email = '" + userEmail + "';"
+    const sqlResult = await verify.queryMySQL(query);
+    res.status(200).send('updated Icon successfully.')
   }
 
 
 });
 
+//specific link used to delete user details from database
 app.post('/eutrcapp/user/delete', async (req, res) => {
   const userEmail = req.body.email
   const userPass = req.body.password
