@@ -1,5 +1,17 @@
 async function getNextTrainingsList() {
 
+/*
+################################################################################
+######################### Notes about this method:##############################
+########### - No matter how dates are saved in the database, ###################
+###########   if single digit, dates will always be returned with a 0 ##########
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+*/
+
   const verify = require('./verification.js');
   console.log("Get-next-training.js running!");
 
@@ -9,7 +21,6 @@ async function getNextTrainingsList() {
   let dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2); //07
   let dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
   console.log("Current date is: ", dateDay, dateMonth, dateYear);
-
 
 
   //this forloop is for obtaining HP trainings

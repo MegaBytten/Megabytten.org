@@ -353,6 +353,11 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
   res.status(200).send(jsonData);
 });
 
+//link used to publish a training to our trainings DB
+app.post('/eutrcapp/trainings/create', async (req, res) => {
+  console.log('/eutrcapp/trainings/create reached! HTTP Post information: ' + req);
+});
+
 
 
 
