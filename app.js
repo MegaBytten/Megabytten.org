@@ -284,7 +284,7 @@ app.post('/eutrcapp/user/update', async (req, res) => {
   let userEmail = req.body.email;
   let userPass = req.body.password;
 
-  let loginSuccess = await checkUserPassword(userEmail, userPassword)
+  let loginSuccess = await checkUserPassword(userEmail, userPass)
   if (!loginSuccess == 1){
     console.log("login failed. Cannot update icon.");
     res.status(900).send('login failed.');
