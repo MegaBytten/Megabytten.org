@@ -304,6 +304,25 @@ app.post('/eutrcapp/user/update', async (req, res) => {
 
 });
 
+app.post('/eutrcapp/user/delete', async (req, res) => {
+  const userEmail = req.body.email
+  const userPass = req.body.password
+  console.log('/eutrcapp/user/delete post received. Logging user: ' + userEmail + ' in and deleting data.');
+
+  const loginSuccess = await checkUserPassword(userEmail, userPass);
+  if (loginSuccess == 1){
+    const verify = require('./EUTRCApp/verification.js');
+    let query = "DELETE FROM users WHERE email = '"
+      + userEmail + "';";
+    let userSQLResult = await verify.queryMySQL(query);
+    res.status(200).send("successfully deleted user.")
+    console.log("successfully deleted user: " + userEmail);
+  } else {
+    console.log("Unsuccessfuly log in.");
+    res.status(998).send('Incorrect Permissions.')
+  }
+});
+
 //link used to check a user's verification
 app.post('/eutrcapp/checkverif', async (req, res) => {
   const userEmail = req.body.email
