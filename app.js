@@ -363,13 +363,14 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
 
   let userEmail = req.body.email;
   let userPassword = req.body.password;
-  let loginSuccess = checkUserPassword(userEmail, userPassword);
+  let loginSuccess = await checkUserPassword(userEmail, userPassword);
 
   if (loginSuccess == 1){
     const verify = require('./EUTRCApp/verification.js');
     let query = "SELECT coach FROM users WHERE email = '"
       + userEmail + "';";
     let userSQLResult = await verify.queryMySQL(query);
+
 
     if (userSQLResult[0] != null){
       console.log("Coach status received! userSQLResult[0]['coach'] = " + userSQLResult[0]["coach"]);
