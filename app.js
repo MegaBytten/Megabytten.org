@@ -390,7 +390,7 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
           + trainingInfoTeam + "','"
           + trainingInfoLocation + "','"
           + trainingInfoDrills + "','"
-          + trainingInfoTime + "',' null);"
+          + trainingInfoTime + "', null);"
 
         let userSQLResult = await verify.queryMySQL(query);
         res.status(200).send('Successfully pushed training!')
