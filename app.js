@@ -281,7 +281,7 @@ app.post('/eutrcapp/user', async (req, res) => {
 
 //general link used to update any user details (eg. icon)
 app.post('/eutrcapp/user/update', async (req, res) => {
-  console.log('/eutrcapp/user/update_icon reached! Updating user ' + req.body.email + "'s " + req.header('attribute'));
+  console.log('/eutrcapp/user/update reached! Updating user ' + req.body.email + "'s " + req.header('attribute'));
 
   let userEmail = req.body.email;
   let userPass = req.body.password;
@@ -300,7 +300,8 @@ app.post('/eutrcapp/user/update', async (req, res) => {
     let query = "UPDATE users SET icon = " + iconValue + " where email = '" + userEmail
       + "';"
     const sqlResult = await verify.queryMySQL(query);
-    res.status(200).send('updated Icon successfully.')
+    res.status(200).send('updated ICON successfully.')
+    console.log("updated user ICON Successfully");
   } else if (attributeUpdate.toLowerCase() == 'all'){
     //"email=%s&newEmail=%s&password=%s&firstName=%s&lastName=%s&phoneNumber=%s"
     let newEmail = req.body.newEmail;
@@ -317,7 +318,16 @@ app.post('/eutrcapp/user/update', async (req, res) => {
       + "', verified = 0"
       + " where email = '" + userEmail + "';"
     const sqlResult = await verify.queryMySQL(query);
-    res.status(200).send('updated Icon successfully.')
+    res.status(200).send('updated ALL successfully.')
+    console.log("updated user ALL Successfully");
+  } else if (attributeUpdate.toLowerCase() == 'password'){
+    let newPassword = req.body.newPassword;
+
+    const verify = require('./EUTRCApp/verification.js');
+    let query = "update users set password = '" + newPassword + "' where email = '" + userEmail + "';"
+    const sqlResult = await verify.queryMySQL(query);
+    res.status(200).send('updated PASSWORD successfully.')
+    console.log("updated user PASSWORD Successfully");
   }
 
 
