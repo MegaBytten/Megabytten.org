@@ -362,7 +362,7 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
   }
 
   let userEmail = req.body.email;
-  let userPassword = req.body.email;
+  let userPassword = req.body.password;
   let loginSuccess = checkUserPassword(userEmail, userPassword);
 
   if (loginSuccess == 1){
