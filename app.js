@@ -356,6 +356,56 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
 //link used to publish a training to our trainings DB
 app.post('/eutrcapp/trainings/create', async (req, res) => {
   console.log('/eutrcapp/trainings/create reached! HTTP Post information: ' + req);
+  if (req.body.coach == 'false'){
+    console.log('Non-coach user attemptimg to publish training!');
+    res.status(998).send('Incorrect permissions.');
+  }
+
+  let userEmail = req.body.email;
+  let userPassword = req.body.email;
+  let loginSuccess = checkUserPassword(userEmail, userPassword);
+
+  if (loginSuccess == 1){
+    const verify = require('./EUTRCApp/verification.js');
+    let query = "SELECT coach FROM users WHERE email = '"
+      + userEmail + "';";
+    let userSQLResult = await verify.queryMySQL(query);
+
+    if (userSQLResult[0] != null){
+      let userSQL_coach = userSQLResult[0]["coach"];
+      if (userSQL_coach == 1){
+        let trainingInfoTeam = req.body.team
+        let trainingInfoDate = req.body.date
+        let trainingInfoTime = req.body.time
+        let trainingInfoLocation = req.body.location
+        let trainingInfoDrills = req.body.drills
+        let datesArray = trainingInfoDate.split("/"); //where datesArray[0] = 'dd' && datesArray[1] = 'mm' && datesArray[2] = 'yy'
+
+        query = "INSERT INTO trainings VALUES ('"
+          + datesArray[0] + "','"
+          + datesArray[1] + "','"
+          + datesArray[2] + "','"
+          + trainingInfoTeam + "','"
+          + trainingInfoLocation + "','"
+          + trainingInfoDrills + "','"
+          + trainingInfoTime + "',' null);"
+
+        let userSQLResult = await verify.queryMySQL(query);
+        res.status(200).send('Successfully pushed training!')
+
+      } else {
+        res.status(998).send('Incorrect permissions.')
+      }
+    } else {
+      res.status(999).send('could not verify coach.')
+    }
+  } else {
+    res.status(998).send("failed login.");
+  }
+
+
+
+  //"email=%s&password=%s&coach=%s&team=%s&date=%s&time=%s&location=%s&drills=%s"
 });
 
 
