@@ -372,6 +372,7 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
     let userSQLResult = await verify.queryMySQL(query);
 
     if (userSQLResult[0] != null){
+      console.log("Coach status received! userSQLResult[0]['coach'] = " + userSQLResult[0]["coach"]);
       let userSQL_coach = userSQLResult[0]["coach"];
       if (userSQL_coach == 1){
         let trainingInfoTeam = req.body.team
