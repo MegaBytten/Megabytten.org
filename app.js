@@ -278,7 +278,7 @@ app.post('/eutrcapp/user', async (req, res) => {
   }
 });
 
-app.post('/eutrcapp/user/update'. async (req, res) => {
+app.post('/eutrcapp/user/update', async (req, res) => {
   console.log('/eutrcapp/user/update_icon reached! Updating user ' + req.body.email + "'s " + req.header('attribute'));
 
   let userEmail = req.body.email;
