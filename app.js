@@ -471,7 +471,7 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
 
 
         const createTraining = require('./EUTRCApp/trainings/create.js');
-        await createTraining.updateTrainings(trainingParamsArray); //asynchronously updates our Trainings Tables with new training info
+        let test = await createTraining.updateTrainings(trainingParamsArray); //asynchronously updates our Trainings Tables with new training info
         createTraining.createTrainingTable(trainingID); //asynchronously creates new table for training attendance
 
 
