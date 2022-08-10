@@ -452,23 +452,29 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
       console.log("Coach status received! userSQLResult[0]['coach'] = " + userSQLResult[0]["coach"]);
       let userSQL_coach = userSQLResult[0]["coach"];
       if (userSQL_coach == 1){
-        let trainingInfoTeam = req.body.team
+
+        //variable declaration + assignment for updating Trainings table
         let trainingInfoDate = req.body.date
-        let trainingInfoTime = req.body.time
-        let trainingInfoLocation = req.body.location
-        let trainingInfoDrills = req.body.drills
         let datesArray = trainingInfoDate.split("/"); //where datesArray[0] = 'dd' && datesArray[1] = 'mm' && datesArray[2] = 'yy'
+        let trainingParamsArray = new Array (
+          datesArray,
+          req.body.team,
+          req.body.location,
+          req.body.drills,
+          req.body.time
+        );
 
-        query = "INSERT INTO trainings VALUES ('"
-          + datesArray[0] + "','"
-          + datesArray[1] + "','"
-          + datesArray[2] + "','"
-          + trainingInfoTeam + "','"
-          + trainingInfoLocation + "','"
-          + trainingInfoDrills + "','"
-          + trainingInfoTime + "', null);"
+        //variable declaration + assignment for creating training-specific table
+        let query = "SELECT id FROM trainings WHERE time = '"
+          + req.body.time + "' and team = " + req.body.team + ";";
+        let trainingID = await verify.queryMySQL(query);
 
-        let userSQLResult = await verify.queryMySQL(query);
+
+        const createTraining = require('/EUTRCApp/trainings/create.js');
+        createTraining.updateTrainings(trainingParamsArray); //asynchronously updates our Trainings Tables with new training info
+        createTraining.createTrainingTable(trainingID); //asynchronously creates new table for training attendance
+
+
         res.status(200).send('Successfully pushed training!')
 
       } else {
@@ -480,10 +486,6 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
   } else {
     res.status(998).send("failed login.");
   }
-
-
-
-  //"email=%s&password=%s&coach=%s&team=%s&date=%s&time=%s&location=%s&drills=%s"
 });
 
 
