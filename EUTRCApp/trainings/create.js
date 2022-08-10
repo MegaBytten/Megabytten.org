@@ -1,4 +1,4 @@
-const verify = require('./EUTRCApp/verification.js');
+const verify = require('../EUTRCApp/verification.js');
 
 async function updateTrainings(trainingParams){
   console.log('Adding new Training to DB.');
