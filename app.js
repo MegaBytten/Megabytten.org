@@ -431,7 +431,7 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
 
 //link used to publish a training to our trainings DB
 app.post('/eutrcapp/trainings/create', async (req, res) => {
-  console.log('/eutrcapp/trainings/create reached! HTTP Post information: ' + req);
+  console.log('/eutrcapp/trainings/create reached!');
   if (req.body.coach == 'false'){
     console.log('Non-coach user attemptimg to publish training!');
     res.status(998).send('Incorrect permissions.');
@@ -485,6 +485,63 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
     }
   } else {
     res.status(998).send("failed login.");
+  }
+});
+
+//link used to mark attendance of specific training
+app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
+  console.log('Player RSVP-ing to training! User: ' + req.body.email + ', Training id: ' + req.body.trainingID);
+  let userEmail = req.body.email;
+  let userPassword = req.body.password;
+  let trainingID = req.body.trainingID;
+
+  let loginSuccess = await checkUserPassword(userEmail, userPassword);
+
+  if (loginSuccess != 1){
+    console.log('login failed.');
+    res.status(998).send("failed login.");
+    return;
+  }
+
+  const verify = require('./EUTRCApp/verification.js');
+  if (req.body.rsvp == "true"){ //means user is RSVP-ing YES/AVAILABLE
+    //obtain user's current attendance # (rsvp_yes)
+    let query = "SELECT rsvp_yes FROM users WHERE email = '"
+      + userEmail + "';";
+    let userSQLResult = await verify.queryMySQL(query);
+    let newUserAttendance = userSQLResult[0]['rsvp_yes'] + 1;
+
+    //update user's attendance (rsvp_yes) by +1
+    query = "UPDATE users set rsvp_yes = " + newUserAttendance
+      + " where email = '" + userEmail + "';"
+    verify.queryMySQL(query);
+
+    //update training_ID# table, adds user email under rsvp_yes
+    query = "insert into training_" + trainingID + " (rsvp_yes) values '"
+      + userEmail + "';"
+    verify.queryMySQL(query);
+
+    console.log('Succesfully updated Users attendance, and training_ ' + trainingID + ' table rsvp_yes.');
+    res.status(200).send('Succesfully rsvpd YES');
+  } else { //user is RSVP-ing NO/UNAVAILABLE
+    //obtain user's current UN-attendance # (rsvp_no)
+    let query = "SELECT rsvp_no FROM users WHERE email = '"
+      + userEmail + "';";
+    let userSQLResult = await verify.queryMySQL(query);
+    let newUserAttendance = userSQLResult[0]['rsvp_yes'] + 1;
+
+    //update user's UN-attendance (rsvp_no) by +1
+    query = "UPDATE users set rsvp_no = " + newUserAttendance
+      + " where email = '" + userEmail + "';"
+    verify.queryMySQL(query);
+
+    //update training_ID# table, adds user email under rsvp_no
+    query = "insert into training_" + trainingID + " (rsvp_no) values '"
+      + userEmail + "';"
+    verify.queryMySQL(query);
+
+    console.log('Succesfully updated Users UN-attendance, and training_ ' + trainingID + ' table rsvp_no.');
+    res.status(200).send('Succesfully rsvpd NO');
   }
 });
 
