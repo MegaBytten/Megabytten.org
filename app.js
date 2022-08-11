@@ -466,7 +466,7 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
 
         //updates trainings table with new training
         const createTraining = require('./EUTRCApp/trainings/create.js');
-        await createTraining.updateTrainings(trainingParamsArray);
+        let test = await createTraining.updateTrainings(trainingParamsArray);
 
         //variable declaration + assignment for creating training-specific table
         let query = "SELECT id FROM trainings WHERE time = '"
