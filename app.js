@@ -492,7 +492,7 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
 
 //link used to mark attendance of specific training
 app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
-  console.log('Player RSVP-ing to training! User: ' + req.body.email + ', Training id: ' + req.body.trainingID);
+  console.log('\n\nPlayer RSVP-ing to training! User: ' + req.body.email + ', Training id: ' + req.body.trainingID);
   let userEmail = req.body.email;
   let userPassword = req.body.password;
   let trainingID = req.body.trainingID;
