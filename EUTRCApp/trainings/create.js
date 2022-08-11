@@ -19,7 +19,7 @@ async function updateTrainings(trainingParams){
 
 async function createTrainingTable(trainingID){
   console.log('Creating new table: training_' + trainingID);
-  let query = "create table training_" + trainingID + " (rsvp_yes int default 0, rsvp_no int default 0);"
+  let query = "create table training_" + trainingID + " (rsvp_yes int not null default 0, rsvp_no int not null default 0);"
   await verify.queryMySQL(query);
 }
 
