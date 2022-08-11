@@ -517,8 +517,8 @@ app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
     verify.queryMySQL(query);
 
     //update training_ID# table, adds user email under rsvp_yes
-    query = "insert into training_" + trainingID + " (rsvp_yes) values '"
-      + userEmail + "';"
+    query = "insert into training_" + trainingID + " (rsvp_yes) values ('"
+      + userEmail + "');"
     verify.queryMySQL(query);
 
     console.log('Succesfully updated Users attendance, and training_ ' + trainingID + ' table rsvp_yes.');
@@ -536,8 +536,8 @@ app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
     verify.queryMySQL(query);
 
     //update training_ID# table, adds user email under rsvp_no
-    query = "insert into training_" + trainingID + " (rsvp_no) values '"
-      + userEmail + "';"
+    query = "insert into training_" + trainingID + " (rsvp_no) values ('"
+      + userEmail + "');"
     verify.queryMySQL(query);
 
     console.log('Succesfully updated Users UN-attendance, and training_ ' + trainingID + ' table rsvp_no.');
