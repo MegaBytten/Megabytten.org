@@ -464,14 +464,16 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
           req.body.time
         );
 
+        //updates trainings table with new training
+        const createTraining = require('./EUTRCApp/trainings/create.js');
+        await createTraining.updateTrainings(trainingParamsArray);
+
         //variable declaration + assignment for creating training-specific table
         let query = "SELECT id FROM trainings WHERE time = '"
           + req.body.time + "' and team = '" + req.body.team + "';";
         let trainingID = await verify.queryMySQL(query);
 
-
-        const createTraining = require('./EUTRCApp/trainings/create.js');
-        await createTraining.updateTrainings(trainingParamsArray); //asynchronously updates our Trainings Tables with new training info
+        //creates new training-specific table with name: training_ID#
         createTraining.createTrainingTable(trainingID[0]['id']); //asynchronously creates new table for training attendance
 
 
