@@ -86,7 +86,7 @@ app.get('/eutrcapp', (req, res) => {
 
 //link used by EUTRCApp to check verification code and verify user
 app.post('/eutrcapp/verify', async (req, res) => {
-  console.log('/eutrcapp/signup/verify reached! User ' + req.body.email);
+  console.log('\n\n/eutrcapp/signup/verify reached! User ' + req.body.email);
   const userEmail = req.body.email;
   const verifCode = req.body.verifCode;
 
@@ -121,7 +121,7 @@ app.post('/eutrcapp/verify', async (req, res) => {
 
 //Common link: Used by any source, sends an automated verification email after checkUserPassword()
 app.post('/eutrcapp/verfbot', async (req, res) => {
-  console.log('/eutrcapp/verfbot reached! User ' + req.body.email);
+  console.log('\n\n/eutrcapp/verfbot reached! User ' + req.body.email);
   const userEmail = req.body.email;
   const userPass = req.body.password;
 
@@ -152,7 +152,7 @@ app.post('/eutrcapp/verfbot', async (req, res) => {
 
 //link used by EUTRCApp to sign up - add user to database!
 app.post('/eutrcapp/signup', async (req, res) => {
-  console.log('/eutrcapp/signup reached! User ' + req.body.email);
+  console.log('\n\n/eutrcapp/signup reached! User ' + req.body.email);
 
   const userEmail = req.body.email;
   const userFirstName = req.body.firstName;
@@ -204,7 +204,7 @@ app.post('/eutrcapp/signup', async (req, res) => {
 app.post('/eutrcapp/login', async (req, res) => {
   const userEmail = req.body.email
   const userPass = req.body.password
-  console.log('/eutrcapp/login post received. Login in user: '+ userEmail + ' with password; ' + userPass);
+  console.log('\n\n/eutrcapp/login post received. Login in user: '+ userEmail + ' with password; ' + userPass);
 
   const loginSuccess = await checkUserPassword(userEmail, userPass);
   switch (loginSuccess) {
@@ -233,7 +233,7 @@ app.post('/eutrcapp/login', async (req, res) => {
 app.post('/eutrcapp/user', async (req, res) => {
   const userEmail = req.body.email
   const userPass = req.body.password
-  console.log('/eutrcapp/user post received. Getting User info of user: '+ userEmail + ' with password; ' + userPass);
+  console.log('\n\n/eutrcapp/user post received. Getting User info of user: '+ userEmail + ' with password; ' + userPass);
 
   const loginSuccess = await checkUserPassword(userEmail, userPass);
 
@@ -281,7 +281,7 @@ app.post('/eutrcapp/user', async (req, res) => {
 
 //general link used to update any user details (eg. icon)
 app.post('/eutrcapp/user/update', async (req, res) => {
-  console.log('/eutrcapp/user/update reached! Updating user ' + req.body.email + "'s " + req.header('attribute'));
+  console.log('\n\n/eutrcapp/user/update reached! Updating user ' + req.body.email + "'s " + req.header('attribute'));
 
   let userEmail = req.body.email;
   let userPass = req.body.password;
@@ -337,7 +337,7 @@ app.post('/eutrcapp/user/update', async (req, res) => {
 app.post('/eutrcapp/user/delete', async (req, res) => {
   const userEmail = req.body.email
   const userPass = req.body.password
-  console.log('/eutrcapp/user/delete post received. Logging user: ' + userEmail + ' in and deleting data.');
+  console.log('\n\n/eutrcapp/user/delete post received. Logging user: ' + userEmail + ' in and deleting data.');
 
   const loginSuccess = await checkUserPassword(userEmail, userPass);
   if (loginSuccess == 1){
@@ -357,7 +357,7 @@ app.post('/eutrcapp/user/delete', async (req, res) => {
 app.post('/eutrcapp/checkverif', async (req, res) => {
   const userEmail = req.body.email
   const userPass = req.body.password
-  console.log('/eutrcapp/checkverif post received. Getting verification status of user: '+ userEmail + ' with password; ' + userPass);
+  console.log('\n\n/eutrcapp/checkverif post received. Getting verification status of user: '+ userEmail + ' with password; ' + userPass);
 
   const loginSuccess = await checkUserPassword(userEmail, userPass);
 
@@ -390,7 +390,7 @@ app.post('/eutrcapp/checkverif', async (req, res) => {
 
 //link used to retrieve upcoming trainings
 app.get('/eutrcapp/trainings.json', async (req, res) => {
-  console.log("/eutrcapp/trainings reached! Getting training schedule...");
+  console.log("\n\n/eutrcapp/trainings reached! Getting training schedule...");
 
   let resultsList = require('./EUTRCApp/get-next-training.js');
 
@@ -431,7 +431,7 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
 
 //link used to publish a training to our trainings DB
 app.post('/eutrcapp/trainings/create', async (req, res) => {
-  console.log('/eutrcapp/trainings/create reached!');
+  console.log('\n\n/eutrcapp/trainings/create reached!');
   if (req.body.coach == 'false'){
     console.log('Non-coach user attemptimg to publish training!');
     res.status(998).send('Incorrect permissions.');
