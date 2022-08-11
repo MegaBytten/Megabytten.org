@@ -14,13 +14,13 @@ async function updateTrainings(trainingParams){
     + trainingParams[3] + "','"
     + trainingParams[4] + "');"
 
-    verify.queryMySQL(query);
+    await verify.queryMySQL(query);
 }
 
 async function createTrainingTable(trainingID){
   console.log('Creating new table: training_' + trainingID);
   let query = "create table training_" + trainingID + " (rsvp_yes int default 0, rsvp_no int default 0);"
-  verify.queryMySQL(query);
+  await verify.queryMySQL(query);
 }
 
 
