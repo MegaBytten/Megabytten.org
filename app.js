@@ -472,10 +472,9 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
         let query = "SELECT id FROM trainings WHERE time = '"
           + req.body.time + "' and team = '" + req.body.team + "';";
         let trainingID = await verify.queryMySQL(query);
-        console.log('TRACE TRACE:' + trainingID);
 
         //creates new training-specific table with name: training_ID#
-        createTraining.createTrainingTable(trainingID); //asynchronously creates new table for training attendance
+        createTraining.createTrainingTable(trainingID[0]['id']); //asynchronously creates new table for training attendance
 
 
         res.status(200).send('Successfully pushed training!')
