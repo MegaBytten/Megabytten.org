@@ -20,9 +20,6 @@ async function queryMySQL(query){
 
   console.log('MySQL Connection Established. Attempting Query: ' + query);
   const result = await connection.query(query)
-    //callback function which will run as soon as query obtains results - then assigned to 'result'
-  console.log('trace trace! --------------');
-  console.log('Result[0].legnth = ' + result[0].length);
 
   // this null check checks to see if SQL Results [0] have any items, or if it is empty.
   if (result[0].length == 0){
