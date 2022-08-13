@@ -21,31 +21,13 @@ async function queryMySQL(query){
   console.log('MySQL Connection Established. Attempting Query: ' + query);
   const result = await connection.query(query)
     //callback function which will run as soon as query obtains results - then assigned to 'result'
-    console.log('trace trace! --------------');
-    console.log('Result[0].legnth = ' + result[0].length);
-    if (result[0].length == 0){
+  console.log('trace trace! --------------');
+  console.log('Result[0].legnth = ' + result[0].length);
 
-      console.log("Result.length == 1, no SQL result.");
-      result = null;
-    }
-  //   if (err) {
-  //     console.log('Error with MySQL Query.');
-  //     connection.end();
-  //     return null;
-  //   } else if (!row.length) {
-  //     console.log('No row.length for MySQL Query');
-  //     connection.end();
-  //     return null;
-  //   }
-  //   console.log('Returning rows successfully from Query.');
-  //   return rows;
-  // });
-
-  //Null check to see if MySQL was unable to return data
-  if (result == null){
-    console.log('MySQL Result object == null.');
-
-    return result;
+  // this null check checks to see if SQL Results [0] have any items, or if it is empty.
+  if (result[0].length == 0){
+    console.log("Result[0].length == 0, no SQL result.");
+    return null;
   }
 
   // console.table(result[0]);
