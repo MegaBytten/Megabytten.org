@@ -1,5 +1,3 @@
-console.log("Get-next-training.js running!");
-
 var resultsList = [null, null, null];
 
 var date_ob = new Date()
@@ -33,7 +31,7 @@ async function getNextTrainingsList() {
     if (sqlResult != null){
       //ARE results from HP trainings on this date!
       resultsList[0] = sqlResult[0];
-      console.log("Next HP training got: " + JSON.stringify(resultsList[0]));
+      console.log("Next HP training got!");
       break;
     } else if (i == 6){
       //No results within the week found
@@ -60,7 +58,7 @@ async function getNextTrainingsList() {
     if (sqlResult != null){
       //ARE results from DEV trainings on this date!
       resultsList[1] = sqlResult[0];
-      console.log("Next DV training got: " + JSON.stringify(resultsList[1]));
+      console.log("Next DV training got!");
       break;
     } else if (i == 6){
       //No results within the week found
@@ -89,7 +87,7 @@ async function getNextTrainingsList() {
     if (sqlResult != null){
       //ARE results from DEV trainings on this date!
       resultsList[2] = sqlResult[0];
-      console.log("Next CB training got: " + JSON.stringify(resultsList[2]));
+      console.log("Next CB training got!");
       break;
     }else if (i == 6){
       //No results within the week found
