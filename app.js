@@ -36,7 +36,7 @@ async function checkUserPassword(userEmail, userPass){
     + userEmail + "';";
   let userSQLResult = await verify.queryMySQL(query);
 
-  if (userSQLResult[0] == null) {
+  if (userSQLResult == null) {
     // User was not found in database, or incorrect email address provided.
     console.log("User's pass returned null. (No User in database)");
     return 0;
@@ -55,6 +55,27 @@ async function checkUserPassword(userEmail, userPass){
   }
 }
 
+async function checkUserAlreadyRSVP(userEmail){
+  const verify = require('./EUTRCApp/verification.js');
+
+  //check if user has already RSVP'd
+  let query = `select rsvp_yes from users where email = '${userEmail}';`
+  let userSQLResult = await verify.queryMySQL(query);
+
+  if (userSQLResult != null){
+    //user HAS been found under rsvp_yes, already previously updated availability
+    return 'available';
+  }
+
+  query = `select rsvp_no from users where email = '${userEmail}';`
+  userSQLResult = await verify.queryMySQL(query);
+  if (userSQLResult != null){
+    //user HAS been found under rsvp_no, already previously updated availability
+    return 'unavailable';
+  }
+  //user has not been found under EITHER rsvp_yes or rsvp_no
+  return 'unanswered';
+}
 
 
 
@@ -169,7 +190,7 @@ app.post('/eutrcapp/signup', async (req, res) => {
     + userEmail + "';";
   let userSQLResult = await verify.queryMySQL(query);
 
-  if (userSQLResult[0] == null){
+  if (userSQLResult == null){
     //user doesnt exist so adding to database
 
     if (userEmail.includes("@exeter.ac.uk")) {
@@ -250,7 +271,7 @@ app.post('/eutrcapp/user', async (req, res) => {
         + userEmail + "';";
       let userSQLResult = await verify.queryMySQL(query);
 
-      if (userSQLResult[0] == null){
+      if (userSQLResult == null){
         //no result, but no user in database bypassed checkUserPassword?
         console.log("Error (02)");
         res.status(500).send('Error (02)');
@@ -368,7 +389,7 @@ app.post('/eutrcapp/checkverif', async (req, res) => {
       + userEmail + "';";
     let userSQLResult = await verify.queryMySQL(query);
 
-    if (userSQLResult[0] == null){
+    if (userSQLResult == null){
       //no result, but no user in database bypassed checkUserPassword?
       console.log("Error (02)");
       res.status(500).send('Error (02)');
@@ -405,7 +426,7 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
       + "' and date_year = '" + year + "';"
     const sqlResult = await verify.queryMySQL(query);
 
-    if (sqlResult[0] == null){
+    if (sqlResult == null){
       //No training data for a month!
       res.status(200).send('null');
     } else {
@@ -448,7 +469,7 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
     let userSQLResult = await verify.queryMySQL(query);
 
 
-    if (userSQLResult[0] != null){
+    if (userSQLResult != null){
       console.log("Coach status received! userSQLResult[0]['coach'] = " + userSQLResult[0]["coach"]);
       let userSQL_coach = userSQLResult[0]["coach"];
       if (userSQL_coach == 1){
@@ -490,12 +511,24 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
   }
 });
 
+/*
+Attendance tracking issue:
+ - currently no check to see if user previously RSVP'd
+ - use check query first: select rsvp_yes from trainign_id# where email = req.body.email
+ - if sqlResult[0]['rsvp_yes'] != null then DO NOT ADD +1 to attendance and do not add user again to rsvp_yes
+  * only applicable if user RSVP'd YES to training
+  * if user not found, then add
+  * if user found under rsvp_no, then remove, change attendance rsvp_no, and +1 to attendance and move to rsvp_yes
+ - ADD UNIQUE to rsvp_yes and rsvp_no
+ - same process as above for rsvp_no checks
+*/
+
 //link used to mark attendance of specific training
 app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
   console.log('\n\nPlayer RSVP-ing to training! User: ' + req.body.email + ', Training id: ' + req.body.trainingID);
   let userEmail = req.body.email;
   let userPassword = req.body.password;
-  let trainingID = req.body.trainingID;
+  let trainingTable = 'training_' + req.body.trainingID;
 
   let loginSuccess = await checkUserPassword(userEmail, userPassword);
 
@@ -506,45 +539,89 @@ app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
   }
 
   const verify = require('./EUTRCApp/verification.js');
-  if (req.body.rsvp == "true"){ //means user is RSVP-ing YES/AVAILABLE
-    //obtain user's current attendance # (rsvp_yes)
-    let query = "SELECT rsvp_yes FROM users WHERE email = '"
-      + userEmail + "';";
-    let userSQLResult = await verify.queryMySQL(query);
-    let newUserAttendance = userSQLResult[0]['rsvp_yes'] + 1;
 
-    //update user's attendance (rsvp_yes) by +1
-    query = "UPDATE users set rsvp_yes = " + newUserAttendance
-      + " where email = '" + userEmail + "';"
-    verify.queryMySQL(query);
+  let hasAlreadyRSVP = await checkUserAlreadyRSVP(userEmail);
+  if (hasAlreadyRSVP == "available"){ //user has previously rsvp yes
 
-    //update training_ID# table, adds user email under rsvp_yes
-    query = "insert into training_" + trainingID + " (rsvp_yes) values ('"
-      + userEmail + "');"
-    verify.queryMySQL(query);
+    if (req.body.rsvp == "true"){ //user attempting to change yes to yes
+      console.log("already rsvp-yes user attempted to update available again!");
+      res.status(200).send("Already registered as: Available")
 
-    console.log('Succesfully updated Users attendance, and training_ ' + trainingID + ' table rsvp_yes.');
-    res.status(200).send('Succesfully rsvpd YES');
-  } else { //user is RSVP-ing NO/UNAVAILABLE
-    //obtain user's current UN-attendance # (rsvp_no)
-    let query = "SELECT rsvp_no FROM users WHERE email = '"
-      + userEmail + "';";
-    let userSQLResult = await verify.queryMySQL(query);
-    let newUserAttendance = userSQLResult[0]['rsvp_yes'] + 1;
+    } else { //user is changing yes to no
+      //remove email from rsvp_yes and add email to rsvp_no
+      let query = `delete from ${trainingTable} where rsvp_yes = '${userEmail}';`
+      await verify.queryMySQL(query);
+      query = `insert into ${trainingTable} (rsvp_no) values ('${userEmail}');`
+      await verify.queryMySQL(query);
 
-    //update user's UN-attendance (rsvp_no) by +1
-    query = "UPDATE users set rsvp_no = " + newUserAttendance
-      + " where email = '" + userEmail + "';"
-    verify.queryMySQL(query);
+      //remove attendance and add missed-attendance from user's stats
+      query = `select * from users where email = '${userEmail}'`
+      let sqlResult = await verify.queryMySQL(query);
+      let newUserAttendance = sqlResult[0]['rsvp_yes'] -1;
+      let newUserUnAttendance = sqlResult[0]['rsvp_no'] +1;
+      query = `update users set rsvp_yes = ${newUserAttendance}, rsvp_no = ${newUserUnAttendance} where email = ${userEmail}`
+      await verify.queryMySQL(query)
+      console.log('Successfully changed Users availability from available > unavailable');
+      res.status(200).send("Changed Available to Unavailable.")
 
-    //update training_ID# table, adds user email under rsvp_no
-    query = "insert into training_" + trainingID + " (rsvp_no) values ('"
-      + userEmail + "');"
-    verify.queryMySQL(query);
+    }
+    return;
 
-    console.log('Succesfully updated Users UN-attendance, and training_ ' + trainingID + ' table rsvp_no.');
-    res.status(200).send('Succesfully rsvpd NO');
+  } else if (hasAlreadyRSVP == 'unavailable'){ //user has previously rsvp no
+
+    if (req.body.rsvp == "false"){ //user attempting to change no to no
+      console.log("already rsvp-no user attempted to update available again!");
+      res.status(200).send("Already registered as: Unavailable")
+
+    } else { //user is changing no to yes
+      //remove email from rsvp_no and add email to rsvp_yes
+      let query = `delete from ${trainingTable} where rsvp_no = '${userEmail}';`
+      await verify.queryMySQL(query);
+      query = `insert into ${trainingTable} (rsvp_yes) values ('${userEmail}');`
+      await verify.queryMySQL(query);
+
+      //remove missed-attendance and add attendance from user's stats
+      query = `select * from users where email = '${userEmail}'`
+      let sqlResult = await verify.queryMySQL(query);
+      let newUserAttendance = sqlResult[0]['rsvp_yes'] +1;
+      let newUserUnAttendance = sqlResult[0]['rsvp_no'] -1;
+      query = `update users set rsvp_yes = ${newUserAttendance}, rsvp_no = ${newUserUnAttendance} where email = ${userEmail}`
+      await verify.queryMySQL(query)
+      console.log('Successfully changed Users availability from unavailable > available');
+      res.status(200).send("Changed Unavailable to Available.")
+
+    }
+    return;
+
+  } else if (hasAlreadyRSVP == "unanswered") { //user has not yet rsvp
+
+    if (req.body.rsvp == "true"){ //user setting (first time) rsvp to yes
+    } else { //user setting (first time) rsvp to no
+      //obtain user's current UN-attendance # (rsvp_no)
+      let query = "SELECT rsvp_no FROM users WHERE email = '"
+        + userEmail + "';";
+      let userSQLResult = await verify.queryMySQL(query);
+      let newUserAttendance = userSQLResult[0]['rsvp_yes'] + 1;
+
+      //update user's UN-attendance (rsvp_no) by +1
+      query = "UPDATE users set rsvp_no = " + newUserAttendance
+        + " where email = '" + userEmail + "';"
+      verify.queryMySQL(query);
+
+      //update training_ID# table, adds user email under rsvp_no
+      query = "insert into training_" + trainingID + " (rsvp_no) values ('"
+        + userEmail + "');"
+      verify.queryMySQL(query);
+
+      console.log('Succesfully updated Users UN-attendance, and training_ ' + trainingID + ' table rsvp_no.');
+      res.status(200).send('Succesfully rsvpd NO');
+    }
+    return;
+  } else {
+    console.log("Inability to process rsvp-ing. Error 5001");
   }
+
+
 });
 
 
