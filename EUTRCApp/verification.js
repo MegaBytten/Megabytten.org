@@ -1,6 +1,6 @@
 //   This .js file is used to establish a connection to our local MySQL database
 //    It returns the password of the user
-let mysql = require('mysql2');
+let mysql = require('mysql2/promise');
 require("dotenv").config();
 
 /*
@@ -19,26 +19,33 @@ async function queryMySQL(query){
   });
 
   console.log('MySQL Connection Established. Attempting Query: ' + query);
-  const result = await connection.query(query, (err, rows) => {
+  const result = await connection.query(query)
     //callback function which will run as soon as query obtains results - then assigned to 'result'
-    if (err) {
-      console.log('Error with MySQL Query.');
-      connection.end();
-      return null;
-    } else if (!row.length) {
-      console.log('No row.length for MySQL Query');
-      connection.end();
-      return null;
+    console.log('trace trace! --------------');
+    console.log('Result.legnth = ' + result.length);
+    if (result.length == 1){
+
+      console.log("Result.length == 1, no SQL result.");
+      result = null;
     }
-    console.log('Returning rows successfully from Query.');
-    return rows;
-  });
+  //   if (err) {
+  //     console.log('Error with MySQL Query.');
+  //     connection.end();
+  //     return null;
+  //   } else if (!row.length) {
+  //     console.log('No row.length for MySQL Query');
+  //     connection.end();
+  //     return null;
+  //   }
+  //   console.log('Returning rows successfully from Query.');
+  //   return rows;
+  // });
 
   //Null check to see if MySQL was unable to return data
   if (result == null){
     console.log('MySQL Result object == null.');
-    connection.end();
-    return null;
+
+    return result;
   }
 
   // console.table(result[0]);
