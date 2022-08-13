@@ -17,8 +17,6 @@ async function queryMySQL(query){
       password: process.env.mySQLPass,
       database: process.env.mySQLDatabase
   });
-
-  console.log('MySQL Connection Established. Attempting Query: ' + query);
   const result = await connection.query(query)
 
   // this null check checks to see if SQL Results [0] have any items, or if it is empty.
