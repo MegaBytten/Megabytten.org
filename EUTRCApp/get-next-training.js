@@ -30,7 +30,7 @@ async function getNextTrainingsList() {
     let query = "select * from trainings where date_day = '" + dateDay
     + "' and team = 'HP' and date_month = '" + dateMonth + "' and date_year = '" + dateYear + "';";
     const sqlResult = await verify.queryMySQL(query);
-    if (sqlResult[0] != null){
+    if (sqlResult != null){
       //ARE results from HP trainings on this date!
       resultsList[0] = sqlResult[0];
       console.log("Next HP training got: " + JSON.stringify(resultsList[0]));
@@ -63,7 +63,7 @@ async function getNextTrainingsList() {
     let query = "select * from trainings where date_day = '" + dateDay
     + "' and team = 'DV' and date_month = '" + dateMonth + "' and date_year = '" + dateYear + "';";
     const sqlResult = await verify.queryMySQL(query);
-    if (sqlResult[0] != null){
+    if (sqlResult != null){
       //ARE results from DEV trainings on this date!
       resultsList[1] = sqlResult[0];
       console.log("Next DV training got: " + JSON.stringify(resultsList[1]));
@@ -98,7 +98,7 @@ async function getNextTrainingsList() {
     let query = "select * from trainings where date_day = '" + dateDay
     + "' and team = 'CB' and date_month = '" + dateMonth + "' and date_year = '" + dateYear + "';";
     const sqlResult = await verify.queryMySQL(query);
-    if (sqlResult[0] != null){
+    if (sqlResult != null){
       //ARE results from DEV trainings on this date!
       resultsList[2] = sqlResult[0];
       console.log("Next CB training got: " + JSON.stringify(resultsList[2]));
@@ -118,11 +118,6 @@ async function getNextTrainingsList() {
     dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
   }
   return resultsList;
-}
-
-//priv internal function
-function resetDate (date_ob){
-
 }
 
 function convertMonthHeader(month){
