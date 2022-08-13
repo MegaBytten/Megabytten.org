@@ -438,13 +438,8 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
   //if no header, means request wants NEXT training!
   resultsList = await resultsList.getNextTrainingsList();
 
-  console.log("resultsList gotten! Next HP training: " + JSON.stringify(resultsList[0]));
-  console.log("resultsList gotten! Next DV training: " + JSON.stringify(resultsList[1]));
-  console.log("resultsList gotten! Next CB training: " + JSON.stringify(resultsList[2]));
-
-
   let jsonData = {hpTraining: resultsList[0], dvTraining: resultsList[1], cbTraining: resultsList[2]}
-  console.log("Sending json object to client side: " + JSON.stringify(jsonData));
+  console.log("\nSending json object to client side: " + JSON.stringify(jsonData));
 
   res.setHeader('Content-Type', 'application/json');
   res.status(200).send(jsonData);

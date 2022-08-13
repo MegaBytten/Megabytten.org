@@ -1,30 +1,30 @@
-async function getNextTrainingsList() {
+console.log("Get-next-training.js running!");
+
+var resultsList = [null, null, null];
+
+var date_ob = new Date()
+let dateDay = ("0" + date_ob.getDate()).slice(-2); //07
+let dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2); //07
+let dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
+
+
 
 /*
 ################################################################################
 ######################### Notes about this method:##############################
 ########### - No matter how dates are saved in the database, ###################
 ###########   if single digit, dates will always be returned with a 0 ##########
-################################################################################
-################################################################################
-################################################################################
+######## - If no trainings are found, the server assigns a "void" value ########
+#########      date_day = "none", which will be interpreted by the app #########
+########### - DB can only hold teams with names "HP", "DV", and "CB" ###########
 ################################################################################
 ################################################################################
 */
-
+async function getNextTrainingsList() {
   const verify = require('./verification.js');
-  console.log("Get-next-training.js running!");
-
-  var resultsList = [null, null, null];
-  var date_ob = new Date()
-  let dateDay = ("0" + date_ob.getDate()).slice(-2); //07
-  let dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2); //07
-  let dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
   console.log("Current date is: ", dateDay, dateMonth, dateYear);
 
-
   //this forloop is for obtaining HP trainings
-  //// TODO: very important! Only HP, DV, or CLUB can be accepted formats for trainings table!
   console.log("finding next HP training.");
   for (let i = 0; i < 7; i++){
     let query = "select * from trainings where date_day = '" + dateDay
@@ -49,15 +49,9 @@ async function getNextTrainingsList() {
     dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
   }
 
-  //need to reset today's date
-  date_ob = new Date()
-  dateDay = ("0" + date_ob.getDate()).slice(-2); //07
-  dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2); //07
-  dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
+  resetDate();
 
   //this forloop is for obtaining DV trainings
-  //// TODO: very important! Only HP, DV, or CLUB can be accepted formats for trainings table!
-
   console.log("finding next DV training.");
   for (let i = 0; i < 7; i++){
     let query = "select * from trainings where date_day = '" + dateDay
@@ -84,15 +78,9 @@ async function getNextTrainingsList() {
     dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
   }
 
-  //need to reset today's date
-  date_ob = new Date()
-  dateDay = ("0" + date_ob.getDate()).slice(-2); //07
-  dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2); //07
-  dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
+  resetDate();
 
   //this forloop is for obtaining CLUB trainings
-  //// TODO: very important! Only HP, DV, or CB can be accepted formats for trainings table!
-
   console.log("finding next CB training.");
   for (let i = 0; i < 7; i++){
     let query = "select * from trainings where date_day = '" + dateDay
@@ -117,7 +105,16 @@ async function getNextTrainingsList() {
     dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2); //07
     dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
   }
+
   return resultsList;
+}
+
+//priv function to reset the date after every training search loop.
+function resetDate(){
+  date_ob = new Date()
+  dateDay = ("0" + date_ob.getDate()).slice(-2); //07
+  dateMonth = ("0" + (date_ob.getMonth() + 1)).slice(-2); //07
+  dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
 }
 
 function convertMonthHeader(month){
