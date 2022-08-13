@@ -416,8 +416,8 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
   let resultsList = require('./EUTRCApp/get-next-training.js');
 
   //checking if any headers.. = month training request not just next training
-  if (!(req.header('month') == null)){
-    console.log("!(req.header('month') == null)! Converting header: ' + req.header('month') + req.header('year')");
+  if (req.header('month') != null){
+    console.log(`req.header('month') != null) - Converting header ('month', 'year'): ${req.header('month')}, ${req.header('year')}`);
     let month = resultsList.convertMonthHeader(req.header('month'))
     let year = req.header('year').slice(2)
 
@@ -510,18 +510,6 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
     res.status(998).send("failed login.");
   }
 });
-
-/*
-Attendance tracking issue:
- - currently no check to see if user previously RSVP'd
- - use check query first: select rsvp_yes from trainign_id# where email = req.body.email
- - if sqlResult[0]['rsvp_yes'] != null then DO NOT ADD +1 to attendance and do not add user again to rsvp_yes
-  * only applicable if user RSVP'd YES to training
-  * if user not found, then add
-  * if user found under rsvp_no, then remove, change attendance rsvp_no, and +1 to attendance and move to rsvp_yes
- - ADD UNIQUE to rsvp_yes and rsvp_no
- - same process as above for rsvp_no checks
-*/
 
 //link used to mark attendance of specific training
 app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
