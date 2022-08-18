@@ -68,8 +68,6 @@ async function checkUserAlreadyRSVP(userEmail, trainingTableName){
     return 'unanswered';
   }
 
-  console.log("TRACE TRACE TRACE --------");
-  console.log("unsure whether result[0] returns rsvp_yes bool, or if its result[0][0]. Result [0] = " + userSQLResult[0]);
   if (userSQLResult[0].rsvp_yes == 1){
     //rsvp_yes returned from training_ID = true! User has previously RSVP'd yes.
     console.log("userSQLResult[0].rsvp_yes == true, user previously RSVP'd yes!");
