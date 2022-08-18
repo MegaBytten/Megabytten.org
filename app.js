@@ -64,23 +64,27 @@ async function checkUserAlreadyRSVP(userEmail, trainingTableName){
 
   if (userSQLResult == null){
     //user has not rsvp'd previously to this training!
+    console.log("userSQLResult == null, user Has not Rsvp'd previously!");
     return 'unanswered';
   }
 
   console.log("TRACE TRACE TRACE --------");
   console.log("unsure whether result[0] returns rsvp_yes bool, or if its result[0][0]. Result [0] = " + userSQLResult[0]);
-  if (userSQLResult[0] == 1){
+  if (userSQLResult[0].rsvp_yes == 1){
     //rsvp_yes returned from training_ID = true! User has previously RSVP'd yes.
+    console.log("userSQLResult[0].rsvp_yes == true, user previously RSVP'd yes!");
     return 'available';
   }
 
   query = `select rsvp_no from ${trainingTableName} where email = '${userEmail}';`
   userSQLResult = await verify.queryMySQL(query);
-  if (userSQLResult[0] == 1){
+  if (userSQLResult[0].rsvp_no == 1){
     //rsvp_no returned from training_ID = true! User has previously RSVP'd no.
+    console.log("userSQLResult[0].rsvp_no == true, user previously RSVP'd no!");
     return 'unavailable';
   }
   //user has not been found under EITHER rsvp_yes or rsvp_no
+  console.log("None of above RSVP checks worked. Returning rsvp status: unanswered.");
   return 'unanswered';
 }
 
@@ -628,7 +632,7 @@ app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
       query = `insert into ${trainingTable} (email, rsvp_no) values ('${userEmail}', 1);`
       verify.queryMySQL(query);
 
-      console.log('Succesfully updated Users UN-attendance, and training_ ' + trainingID + ' table rsvp_no.');
+      console.log(`Succesfully updated Users UN-attendance, and ${trainingTable} setting rsvp_no = 1.`);
       res.status(200).send('Succesfully rsvpd NO');
     }
     return;
