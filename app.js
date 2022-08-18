@@ -588,7 +588,7 @@ app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
       let sqlResult = await verify.queryMySQL(query);
       let newUserAttendance = sqlResult[0]['rsvp_yes'] +1;
       let newUserUnAttendance = sqlResult[0]['rsvp_no'] -1;
-      query = `update users set rsvp_yes = ${newUserAttendance}, rsvp_no = ${newUserUnAttendance} where email = ${userEmail}`
+      query = `update users set rsvp_yes = ${newUserAttendance}, rsvp_no = ${newUserUnAttendance} where email = '${userEmail}';`
       await verify.queryMySQL(query)
       console.log('Successfully changed Users availability from unavailable > available');
       res.status(200).send("Changed Unavailable to Available.")
