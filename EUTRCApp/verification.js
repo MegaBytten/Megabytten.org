@@ -16,6 +16,7 @@ async function getConnection(){
         database: process.env.mySQLDatabase
     });
   }
+  return connection;
 }
 
 
