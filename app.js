@@ -425,8 +425,8 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
   let resultsList = require('./EUTRCApp/get-next-training.js');
 
   //checking if any headers.. = month training request not just next training
-  if (req.header('month') != null){
-    console.log(`req.header('month') != null) - Converting header ('month', 'year'): ${req.header('month')}, ${req.header('year')}`);
+  if (req.header('request') == 'calendar'){
+    console.log(`request type = 'calendar'! Converting header ('month', 'year'): ${req.header('month')}, ${req.header('year')}`);
     let month = resultsList.convertMonthHeader(req.header('month'))
     let year = req.header('year').slice(2)
 
@@ -444,14 +444,34 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
     return;
   }
 
-  //if no header, means request wants NEXT training!
-  resultsList = await resultsList.getNextTrainingsList();
+  if (req.header('request') == 'next'){
+    //if request type = 'next', the next HP, CB, and DV trainings have been requested
+    console.log(`request type = 'next'! Obtaining next HP, CB, and DV trainings.`);
+    resultsList = await resultsList.getNextTrainingsList();
 
-  let jsonData = {hpTraining: resultsList[0], dvTraining: resultsList[1], cbTraining: resultsList[2]}
-  console.log("\nSending json object to client side: " + JSON.stringify(jsonData));
+    let jsonData = {hpTraining: resultsList[0], dvTraining: resultsList[1], cbTraining: resultsList[2]}
+    console.log("\nSending json object to client side: " + JSON.stringify(jsonData));
 
-  res.setHeader('Content-Type', 'application/json');
-  res.status(200).send(jsonData);
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).send(jsonData);
+  }
+
+  if (req.header('request') == 'modify'){
+    //if request type = 'modify', coach is currently viewing all trainings for deletion/edits
+    console.log(`request type = 'modify'! Obtaining ALL trainings.`);
+
+    const verify = require('./EUTRCApp/verification.js');
+    let query = "select * from trainings;"
+    const sqlResult = await verify.queryMySQL(query);
+
+    if (sqlResult == null){
+      //No training data!
+      res.status(200).send('null');
+    } else {
+      res.status(200).send(sqlResult);
+    }
+    return;
+  }
 });
 
 //link used to publish a training to our trainings DB
@@ -514,20 +534,6 @@ app.post('/eutrcapp/trainings/create', async (req, res) => {
     res.status(998).send("failed login.");
   }
 });
-
-/*
-
-              WORK IN PROGRESS
-Correct. COUNT(*) is all rows in the table, COUNT(Expression) is where the expression is non-null only.
-If all columns are NULL (which indicates you don't have a primary key,
-so this shouldn't happen in a normalized database) COUNT(*) still returns all of the rows inserted. Just don't do that.
-You can think of the * symbol as meaning "in the table" and not "in any column".
-
-Current table structure doesnt work.
-instead of adding email under rsvp_yes/_no
-add new email section, and have rsvp_yes and rsvp_no take in boolean (true/false)
-then would just need to switch the values instead of removing users once they have rsvp'd
-*/
 
 //link used to mark attendance of specific training
 app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
