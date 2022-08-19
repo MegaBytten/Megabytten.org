@@ -3,6 +3,22 @@
 let mysql = require('mysql2/promise');
 require("dotenv").config();
 
+
+var connection;
+async function getConnection(){
+  if (connection != null){
+    return connection;
+  } else {
+    connection = await mysql.createConnection({
+        host: process.env.mySQLHost,
+        user: process.env.mySQLUser,
+        password: process.env.mySQLPass,
+        database: process.env.mySQLDatabase
+    });
+  }
+}
+
+
 /*
   This function is the most widely used in my entire website
   Handles all my SQL queries by taking in the Query as a string
@@ -11,12 +27,7 @@ require("dotenv").config();
   and perform a null check.
 */
 async function queryMySQL(query){
-  const connection = await mysql.createConnection({
-      host: process.env.mySQLHost,
-      user: process.env.mySQLUser,
-      password: process.env.mySQLPass,
-      database: process.env.mySQLDatabase
-  });
+  let connection = await getConnection();
   const result = await connection.query(query)
 
   // this null check checks to see if SQL Results [0] have any items, or if it is empty.
