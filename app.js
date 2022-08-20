@@ -647,7 +647,7 @@ app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
 
 });
 
-//lined used to delete a training via trainingID from database
+//link used to delete a training via trainingID from database
 app.post('/eutrcapp/trainings/delete', async (req, res) => {
   console.log(`\n\n/eutrcapp/trainings/delete reached! Attempting to delete training: ${req.body.trainingID}`);
   let userEmail = req.body.email;
@@ -695,6 +695,58 @@ app.post('/eutrcapp/trainings/delete', async (req, res) => {
 
 })
 
+//link used to update the details of an existing training (Coach perms only)
+app.post('/eutrcapp/trainings/update', async (req, res) => {
+  console.log(`\n\n/eutrcapp/trainings/update reached! Updating training # ${req.header('ID')}`);
+
+  let userEmail = req.body.email;
+  let userPassword = req.body.password;
+  let trainingID = req.header('ID')
+
+  let loginSuccess = await checkUserPassword(userEmail, userPassword);
+
+  //checks if user has correct login details
+  if (loginSuccess != 1){
+    console.log('login failed.');
+    res.status(998).send("failed login.");
+    return;
+  }
+
+  const verify = require('./EUTRCApp/verification.js');
+
+  //checks if user has COACH crediential (=1/true)
+  let query = `select coach from users where email = '${userEmail}';`
+  let userSQLResult = await verify.queryMySQL(query);
+  if (userSQLResult != null){
+    console.log("Coach status received! userSQLResult[0]['coach'] = " + userSQLResult[0]["coach"]);
+    let userSQL_coach = userSQLResult[0]["coach"];
+
+    if (userSQL_coach == 1){ //user confirmed coach
+      //define variables
+      let trainingInfoDate = req.body.date
+      let datesArray = trainingInfoDate.split("/"); //where datesArray[0] = 'dd' && datesArray[1] = 'mm' && datesArray[2] = 'yy'
+      let team = req.body.team;
+      let location = req.body.location;
+      let drills = req.body.drills;
+      let time = req.body.time;
+
+      query = `update trainings set date_day = ${datesArray[0]},`
+        + ` date_month = ${datesArray[1]}, date_year = ${datesArray[2]},`
+        + ` team = ${team}, location = ${location}, drills = ${drills}, time = ${time}`
+        + ` where id = ${training_ID};`
+      await verify.queryMySQL(query);
+
+      console.log(`Successfully updated training #${trainingID}`);
+      res.status(200).send('Successfully updated training!')
+    } else {
+      console.log(`User ${userEmail} attempting to update training #${trainingID}`);
+      res.status(998).send('Incorrect permissions.')
+    }
+  } else {
+    console.log("User's coach query was unsuccessfuly. Query return == null");
+    res.status(999).send('could not verify coach.')
+  }
+})
 
 
 
