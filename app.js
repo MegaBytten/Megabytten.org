@@ -647,6 +647,12 @@ app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
 
 });
 
+//lined used to delete a training via trainingID from database
+app.post('/eutrcapp/trainings/delete', async (req, res) => {
+  console.log(`\n\n/eutrcapp/trainings/delete reached! Attempting to delete training: ${req.header('trainingID')}`);
+  
+})
+
 
 
 
