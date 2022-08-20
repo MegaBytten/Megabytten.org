@@ -733,7 +733,7 @@ app.post('/eutrcapp/trainings/update', async (req, res) => {
       query = `update trainings set date_day = ${datesArray[0]},`
         + ` date_month = ${datesArray[1]}, date_year = ${datesArray[2]},`
         + ` team = ${team}, location = ${location}, drills = ${drills}, time = ${time}`
-        + ` where id = ${training_ID};`
+        + ` where id = ${trainingID};`
       await verify.queryMySQL(query);
 
       console.log(`Successfully updated training #${trainingID}`);
