@@ -748,6 +748,24 @@ app.post('/eutrcapp/trainings/update', async (req, res) => {
   }
 })
 
+//link used to obtain the attendance of a specific training
+app.get('/eutrcapp/trainings/availability.json', async (req, res) => {
+  console.log(`\n\n/eutrcapp/trainings/availability.json reached! Getting availability info for training #${req.header('id')}`);
+  let id = req.header('id');
+
+  const verify = require('./EUTRCApp/verification.js');
+
+  let query = `select count(if(rsvp_yes = 1, email, 0)) as count from training_${id};`
+  let userSQLResult = await verify.queryMySQL(query);
+  if (userSQLResult != null){
+    console.log(JSON.stringify(userSQLResult));
+  }
+
+
+  let data = {"attendance":"John", "unavailability":"Doe"};
+  res.status(200).send()
+});
+
 
 
 
