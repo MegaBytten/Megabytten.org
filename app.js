@@ -619,6 +619,7 @@ app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
       //update training_ID# table, adds user and sets rsvp_yes to 1 (true)
       query = `insert into ${trainingTable} (email, rsvp_yes) values ('${userEmail}', 1);`
       verify.queryMySQL(query);
+      res.status(200).send('Succesfully rsvpd YES');
 
     } else { //user setting (first time) rsvp to no
       //obtain user's current UN-attendance # (rsvp_no)
