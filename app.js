@@ -756,7 +756,7 @@ app.get('/eutrcapp/trainings/availability.json', async (req, res) => {
 
   const verify = require('./EUTRCApp/verification.js');
 
-  let query = `select count(if(rsvp_yes = 1, email, 0)) as count from training_${id};`
+  let query = `select count(if(rsvp_yes = 1, email, NULL)) as count from training_${id};`
   let userSQLResult = await verify.queryMySQL(query);
   if (userSQLResult != null){
     console.log(JSON.stringify(userSQLResult));
