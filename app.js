@@ -625,7 +625,7 @@ app.post('/eutrcapp/trainings/rsvp', async (req, res) => {
       let query = "SELECT rsvp_no FROM users WHERE email = '"
         + userEmail + "';";
       let userSQLResult = await verify.queryMySQL(query);
-      let newUserAttendance = userSQLResult[0]['rsvp_yes'] + 1;
+      let newUserAttendance = userSQLResult[0]['rsvp_no'] + 1;
 
       //update user's UN-attendance (rsvp_no) by +1
       query = "UPDATE users set rsvp_no = " + newUserAttendance
