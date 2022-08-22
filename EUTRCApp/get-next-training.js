@@ -19,6 +19,8 @@ let dateYear = ("0" + date_ob.getFullYear()).slice(-2); //22
 ################################################################################
 */
 async function getNextTrainingsList() {
+  resetDate();
+  
   const verify = require('./verification.js');
   console.log("Current date is: ", dateDay, dateMonth, dateYear);
 
