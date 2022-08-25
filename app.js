@@ -769,7 +769,7 @@ app.get('/eutrcapp/trainings/availability.json', async (req, res) => {
       unavailability = userSQLResult[0]["count"];
     }
   }
-  
+
 
   let data = {"attendance":attendance, "unavailability":unavailability};
   res.status(200).send(data)
