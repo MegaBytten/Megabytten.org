@@ -50,7 +50,7 @@ MySQL Servers have a timeout property which close a silent SQL connection after 
 By calling this 
 */
 async function pingConnection(){
-  let sleepMs = 1_00000; //1_000_000 ms =1,000 seconds ~=15 mins 
+  let sleepMs = 1_000; //1_000_000 ms =1,000 seconds ~=15 mins 
   if (connection == null){
     await getConnection();
   }
