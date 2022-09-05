@@ -50,29 +50,14 @@ MySQL Servers have a timeout property which close a silent SQL connection after 
 By calling this 
 */
 async function pingConnection(){
-  let sleepMs = 1_000; //1_000_000 ms =1,000 seconds ~=15 mins 
+  let sleepMs = 1_000_000; //1_000_000 ms =1,000 seconds ~=15 mins 
   if (connection == null){
     await getConnection();
   }
 
   while (true){
     console.log("Pinging SQL Server.");
-    connection.ping( function(err) {
-      if (err) {
-      console.error('error pinging: ' + err.stack);
-      } else {
-        console.log("pong.");
-      }
-      });
-    //  function (err) {
-    //   console.log("Pong.")
-    //   if (err){
-    //     console.log("SQL server unpingable.");
-    //     return;
-    //   }
-    // });
-
-
+    connection.ping( /* deleted callback function to alert when error/success */ );
     await new Promise(r=> setTimeout(r, sleepMs))
   }
 
