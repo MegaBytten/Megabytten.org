@@ -17,7 +17,7 @@ app.listen(80, 'megabytten.org');
 //middleware
 app.use(express.urlencoded( {extended: true} ));
 let sqlPing = require('./EUTRCApp/verification.js');
-let test = sqlPing.pingConnection;
+console.log(sqlPing.pingConnection);
 
 
 
