@@ -58,13 +58,14 @@ async function pingConnection(){
 
   while (true){
     console.log("Pinging SQL Server.");
-    connection.ping( (err) => {
+    await connection.ping( (err) => {
+      console.log("Pong.")
       if (err){
         console.log("SQL server unpingable.");
         return;
       }
 
-      console.log("Pong.")
+      
     });
     await new Promise(r=> setTimeout(r, sleepMs))
   }
