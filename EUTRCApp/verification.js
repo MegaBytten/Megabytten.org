@@ -58,7 +58,7 @@ async function pingConnection(){
 
   while (true){
     console.log("Pinging SQL Server.");
-    con.ping((err)=>{
+    connection.ping((err)=>{
       if (err) console.log("SQL server unpingable.");
       else console.log("Pong.");
     });
