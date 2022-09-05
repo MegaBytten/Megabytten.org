@@ -57,7 +57,7 @@ async function pingConnection(){
 
   while (true){
     console.log("Pinging SQL Server.");
-    connection.ping( (err) => {
+    connection.ping( function (err) {
       connection = null;
       console.log("Pong.")
       if (err){
