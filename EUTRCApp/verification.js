@@ -1,6 +1,7 @@
 //   This .js file is used to establish a connection to our local MySQL database
 //    It returns the password of the user
 let mysql = require('mysql2/promise');
+const Connection = require('mysql2/typings/mysql/lib/Connection');
 require("dotenv").config();
 
 
@@ -51,16 +52,27 @@ By calling this
 */
 async function pingConnection(){
   let sleepMs = 1_000; //1_000_000 ms =1,000 seconds ~=15 mins 
-  let con = getConnection();
+  if (connection == null){
+    getConnection();
+  }
   
-  while (true){
-    console.log("Pinging SQL Server.");
+  console.log("Pinging SQL Server.");
+  connection.ping( (err) => {
+    console.log("Pong.");
+  });
+
+/*
+while (true){
+    
+
     con.ping((err)=>{
       if (err) console.log("SQL server unpingable.");
       else console.log("Pong.");
     });
     await new Promise(r=> setTimeout(r, 10000))
   }
+*/
+
 }
 
 
