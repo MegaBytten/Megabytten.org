@@ -55,7 +55,7 @@ async function pingConnection(){
   
   while (true){
     console.log("Pinging SQL Server.");
-    con.ping(()=>{
+    con.pingConnection(()=>{
       console.log("Pong.");
     });
     await new Promise(r=> setTimeout(r, 10000))
