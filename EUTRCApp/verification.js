@@ -51,6 +51,7 @@ By calling this
 */
 async function pingConnection(){
   let sleepMs = 1_000; //1_000_000 ms =1,000 seconds ~=15 mins 
+  console.log("ping connection called");
   
   while (true){
     console.log("Pinging SQL Server.");
