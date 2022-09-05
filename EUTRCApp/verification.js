@@ -1,7 +1,7 @@
 //   This .js file is used to establish a connection to our local MySQL database
 //    It returns the password of the user
 let mysql = require('mysql2/promise');
-const Connection = require('mysql2/typings/mysql/lib/Connection');
+// const Connection = require('mysql2/typings/mysql/lib/Connection');
 require("dotenv").config();
 
 
