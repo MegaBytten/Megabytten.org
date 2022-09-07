@@ -16,7 +16,7 @@ app.listen(80, 'megabytten.org');
 
 //middleware
 app.use(express.urlencoded( {extended: true} ));
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 
 let sqlPing = require('./EUTRCApp/verification.js');
