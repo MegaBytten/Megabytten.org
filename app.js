@@ -112,7 +112,7 @@ app.get('/home', (req, res) => {
 */
 //link for EUTRC homepage - sends main.html
 app.get('/eutrcapp', (req, res) => {
-  res.sendFile('/eutrcapp/main.html', dirName);
+  res.sendFile('/eutrcapp/pages/eutrcapp.html', dirName);
 });
 
 //link used by EUTRCApp to check verification code and verify user

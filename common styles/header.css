@@ -1,0 +1,39 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #222222;
+    border-bottom: 2px solid rgb(238, 52, 114);
+
+}
+
+.left-header-section {
+    width: 50px;
+}
+
+.mb-logo {
+    width: 40px;
+    cursor: pointer;
+}
+
+.right-header-section {
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.button-navigation {
+    border: 0px;
+    background-color: transparent;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #EE3472;
+}
+
+.button-navigation:hover {
+    text-decoration: underline;
+}
