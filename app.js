@@ -18,6 +18,9 @@ app.listen(80, 'megabytten.org');
 app.use(express.urlencoded( {extended: true} ));
 app.use(express.static('public'));
 
+var favicon = require('serve-favicon');
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
+
 
 let sqlPing = require('./EUTRCApp/verification.js');
 let pingTest = sqlPing.pingConnection();
