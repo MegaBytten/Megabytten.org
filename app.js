@@ -16,6 +16,9 @@ app.listen(80, 'megabytten.org');
 
 //middleware
 app.use(express.urlencoded( {extended: true} ));
+app.use(express.static('public'));
+
+
 let sqlPing = require('./EUTRCApp/verification.js');
 let pingTest = sqlPing.pingConnection();
 
@@ -114,11 +117,6 @@ app.get('/home', (req, res) => {
 app.get('/eutrcapp', (req, res) => {
   console.log("/eutrcapp got! Sending HTML page.");
   res.sendFile('/eutrcapp/pages/eutrcapp.html', dirName);
-});
-
-app.get('/common styles/header.css', (req, res) =>{
-  console.log("header.css requested! Sending file");
-  res.sendFile('/common styles/header.css', dirName)
 });
 
 //link used by EUTRCApp to check verification code and verify user
