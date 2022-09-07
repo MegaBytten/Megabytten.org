@@ -17,7 +17,7 @@ app.listen(80, 'megabytten.org');
 //middleware
 app.use(express.urlencoded( {extended: true} ));
 app.use(express.static('public'));
-// app.use(express.favicon(dirname + '/public/favicon.ico'));
+app.use(express.favicon(dirname + '/public/favicon.ico'));
 
 
 let sqlPing = require('./EUTRCApp/verification.js');
