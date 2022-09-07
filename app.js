@@ -112,6 +112,7 @@ app.get('/home', (req, res) => {
 */
 //link for EUTRC homepage - sends main.html
 app.get('/eutrcapp', (req, res) => {
+  console.log("/eutrcapp got! Sending HTML page.");
   res.sendFile('/eutrcapp/pages/eutrcapp.html', dirName);
 });
 
