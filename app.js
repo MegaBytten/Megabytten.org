@@ -116,6 +116,11 @@ app.get('/eutrcapp', (req, res) => {
   res.sendFile('/eutrcapp/pages/eutrcapp.html', dirName);
 });
 
+app.get('/common styles/header.css', (req, res) =>{
+  console.log("header.css requested! Sending file");
+  res.sendFile('/common styles/header.css', dirName)
+});
+
 //link used by EUTRCApp to check verification code and verify user
 app.post('/eutrcapp/verify', async (req, res) => {
   console.log('\n\n/eutrcapp/signup/verify reached! User ' + req.body.email);
