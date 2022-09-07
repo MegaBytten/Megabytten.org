@@ -45,6 +45,25 @@ async function queryMySQL(query){
 }
 
 
+/*
+MySQL Servers have a timeout property which close a silent SQL connection after some time
+By calling this 
+*/
+async function pingConnection(){
+  let sleepMs = 1_000_000; //1_000_000 ms =1,000 seconds ~=15 mins 
+  if (connection == null){
+    await getConnection();
+  }
+
+  while (true){
+    console.log("Pinging SQL Server.");
+    connection.ping( /* deleted callback function to alert when error/success */ );
+    await new Promise(r=> setTimeout(r, sleepMs))
+  }
+
+}
+
+
 function generateVerifCode(){
   console.log('Generating EUTRCApp Verification Code.');
   const crypto = require("crypto");
@@ -92,4 +111,4 @@ async function pythonBot(userEmail){
   });
 }
 //export functions to be used elsewhere
-module.exports = { queryMySQL, pythonBot };
+module.exports = { queryMySQL, pingConnection, pythonBot };
