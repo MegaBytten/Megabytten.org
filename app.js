@@ -206,7 +206,7 @@ app.post('/eutrcapp/signup', async (req, res) => {
     if (userEmail.includes("@exeter.ac.uk")) {
       //email is confirmed @exeter.ac.uk
       query = `insert into users (email, first_name, last_name, phone_number, password)`
-        + ` values ("${userFirstName}", "${userLastName}", "${userPhoneNumber}", "${userPassword}");`;
+        + ` values ("${userEmail}", "${userFirstName}", "${userLastName}", "${userPhoneNumber}", "${userPassword}");`;
 
       let userSQLResult = await verify.queryMySQL(query);
       let sqlQueryResult = JSON.stringify(userSQLResult[0]);
