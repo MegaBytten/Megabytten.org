@@ -101,10 +101,10 @@ async function checkUserAlreadyRSVP(userEmail, trainingTableName){
     ################################################################################
 */
 app.get('/',  (req, res) => {
-  res.sendFile('/Main/home.html', dirName);
+  res.sendFile('/public/home/home.html', dirName);
 });
 app.get('/home', (req, res) => {
-  res.sendFile('/Main/home.html', dirName);
+  res.sendFile('/public/home/home.html', dirName);
 });
 
 
