@@ -115,10 +115,16 @@ app.get('/home', (req, res) => {
     ################################################################################
     ################################################################################
 */
-//link for EUTRC homepage - sends main.html
+//link for EUTRC home and about page
 app.get('/eutrcapp', (req, res) => {
   console.log("/eutrcapp got! Sending HTML page.");
   res.sendFile('/public/eutrcapp/about.html', dirName);
+});
+
+//link used for privacy policy page
+app.get('/eutrcapp/privacy', (req, res) => {
+  console.log("/eutrcapp/priavy got! Sending HTML page.");
+  res.sendFile('/public/eutrcapp/privacy.html', dirName);
 });
 
 //link used by EUTRCApp to check verification code and verify user
