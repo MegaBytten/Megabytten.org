@@ -10,6 +10,7 @@
     padding-top: 5px;
     width: 100%; 
     text-align: center;
+    font-size: 16px;
 }
 
 .footer-icon-section {
@@ -43,5 +44,5 @@
     text-decoration: underline;
     text-decoration-color:coral;
     text-underline-offset: 2px;
-    font-size: 8px;
+    font-size: 10px;
 }
