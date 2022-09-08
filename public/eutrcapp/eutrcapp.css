@@ -1,0 +1,113 @@
+.title {
+    text-align: center;
+    color: antiquewhite;
+}
+
+.app-gallery {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.app-logo {
+    object-position: center;
+    width: 100px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.webapp-redirect-text {
+    color: rgb(139, 139, 139);
+    font-size: 12px;
+}
+
+.about-section {
+    margin-left: 10px;
+    margin-bottom: 80px;
+}
+
+h2 {
+    color: rgb(221, 209, 192);
+}
+
+h3 {
+    color: rgb(191, 180, 165);
+}
+
+p {
+    color: rgb(184, 178, 171);
+    margin-left: 20px;
+    line-height: 22px;
+    letter-spacing: 0.6px;
+}
+
+.links {
+    color: azure;
+    text-decoration: underline;
+    text-decoration-color:#EE3472;
+    text-underline-offset: 2px;
+}
+
+.secondary-links {
+    color: azure;
+    text-decoration: underline;
+    text-decoration-color:#9a3858b1;
+    text-underline-offset: 2px;
+}
+
+.screenshots-section {
+    margin-left: 10px;
+    margin-bottom: 80px;
+}
+
+.screenshots-row {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.screenshot-img {
+    width: 30%;
+    max-width: 300px;
+    border-radius: 2px;
+    border-style: solid;
+    border-color:#404040;
+}
+
+.versions-section {
+    margin-left: 10px;
+    margin-bottom: 80px;
+}
+
+.downloads-section {
+    margin-bottom: 80px;
+    margin-left: 20px;
+}
+
+.grid-downloads {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-right: 20px;
+    row-gap: 20px;
+    margin-bottom: 80px;
+    align-items: center;
+    justify-content: center;
+}
+
+.download-button {
+    width: 160px;
+    height: 40px;
+    border-radius: 8px;
+    border-style: none;
+    cursor: pointer;
+    background-color:#ee3472c3;
+    color: black;
+}
+
+.download-link {
+    text-decoration: none;
+    color: black;
+    font-size: medium;
+}
