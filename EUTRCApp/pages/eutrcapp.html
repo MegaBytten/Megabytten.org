@@ -108,10 +108,26 @@
                 border-radius: 8px;
                 border-style: none;
                 cursor: pointer;
-                background-color: rgb(91, 91, 91);
-                color: white;
+                background-color:#ee3472c3;
+                color: black;
             }
 
+            .footer {
+                height: 200px;
+                background-color: #404040;
+            }
+
+            .footer-site-title {
+                margin: 0px;
+                padding-top: 5px;
+                width: 100%; 
+                text-align: center;
+            }
+
+            .footer-section {
+                display:flex;
+                justify-content: space-evenly;
+            }
 
             
         </style>
@@ -132,7 +148,7 @@
                     <a href="/home" class="button-navigation">
                         Home
                     </a>
-                    <a class="button-navigation" style="color: rgb(255, 0, 0);">
+                    <a class="button-navigation" style="color: rgba(255, 0, 0, 0.784);">
                         EUTRC app
                     </a>
                 </div>
@@ -204,7 +220,7 @@
                     (LTS) V1.1.4.aab
                 </a> 
                 <a class="links" href="/downloads/eutrcapp/aab/V1.1.4.aab" download>
-                    <button class="download-button" style="background-color: #ee3472d8; color:black;">
+                    <button class="download-button" style="background-color:rgba(255, 0, 0, 0.784); color:black;">
                         Download
                     </button>
                 </a> 
@@ -261,13 +277,32 @@
                 way to distribute android applications.
             </p>
 
-            <text style="color:rgb(255, 79, 85);">No current APKs available.</text>
+            <text style="color:rgba(255, 79, 85, 0.804);">No current APKs available.</text>
            
 
         </div>
         
 
-        <footer style="margin-top:600px;"></footer>
+        <footer class="footer">
+            <p class="footer-site-title">
+                MegaBytten.org
+            </p>
+
+            <div class="footer-section">
+                <img 
+                    src="mb_github_icon.png" 
+                    alt="MegaBytten's Github profile picture"
+                    style="height:200px">
+                <img 
+                    src="mb_logo.png" 
+                    alt="MegaBytten productions Logo"
+                    style="height:200px">
+                <img 
+                    src="TTT_feature_graphic.png" 
+                    alt="The Feature Graphic of Touch Training Tracker"
+                    style="height:200px">
+            </div>
+        </footer>
 
     </body>
 
