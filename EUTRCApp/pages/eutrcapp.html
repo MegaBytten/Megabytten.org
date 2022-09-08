@@ -96,10 +96,11 @@
 
             .grid-downloads {
                 display: grid;
-                grid-template-columns: 60% 40%;
+                grid-template-columns: 3fr 1fr;
                 margin-right: 20px;
                 row-gap: 20px;
                 margin-bottom: 80px;
+                align-items: center;
             }
 
             .download-button {
@@ -110,6 +111,12 @@
                 cursor: pointer;
                 background-color:#ee3472c3;
                 color: black;
+            }
+
+            .download-link {
+                text-decoration: none;
+                color: black;
+                font-size: medium;
             }
 
             .footer {
@@ -231,55 +238,70 @@
             </p>
 
             <div class="grid-downloads">
-                <a class="links" href="/downloads/eutrcapp/aab/V1.1.4.aab" download>
+                <a 
+                    class="links" 
+                    href="/downloads/eutrcapp/aab/V1.1.4.aab" 
+                    download
+                    style="width:fit-content; font-size: large;">
                     (LTS) V1.1.4.aab
                 </a> 
-                <a class="links" href="/downloads/eutrcapp/aab/V1.1.4.aab" download>
-                    <button class="download-button" style="background-color:rgba(255, 0, 0, 0.784); color:black;">
-                        Download
-                    </button>
-                </a> 
+                <button 
+                    class="download-button" 
+                    style="background-color:rgba(255, 0, 0, 0.784); color:black;">
+                    <a 
+                        class="download-link" 
+                        href="/downloads/eutrcapp/aab/V1.1.4.aab" 
+                        download
+                        style="font-size: large; font-weight:650;">
+                            Download
+                        </a>
+                </button>
 
-                
-
-                <a class="secondary-links" href="/downloads/eutrcapp/aab/V1.1.3.aab" download>
+                <a 
+                    class="secondary-links" 
+                    href="/downloads/eutrcapp/aab/V1.1.3.aab" 
+                    download
+                    style="width:fit-content;">
                     V1.1.3.aab
                 </a> 
-                <a class="secondary-links" href="/downloads/eutrcapp/aab/V1.1.3.aab" download>
-                    <button class="download-button">
-                        Download
-                    </button>
-                </a> 
-               
+                <button class="download-button">
+                    <a class="download-link" href="/downloads/eutrcapp/aab/V1.1.3.aab" download>Download</a>
+                </button>
 
-                <a class="secondary-links" href="/downloads/eutrcapp/aab/V1.1.2.aab" download>
+                <a 
+                    class="secondary-links" 
+                    href="/downloads/eutrcapp/aab/V1.1.2.aab" 
+                    download
+                    style="width:fit-content;">
                 V1.1.2.aab
-                </a> 
-                <a class="secondary-links" href="/downloads/eutrcapp/aab/V1.1.2.aab" download>
-                    <button class="download-button">
-                        Download
-                    </button>
-                </a> 
+                </a>     
+                <button class="download-button">
+                    <a class="download-link" href="/downloads/eutrcapp/aab/V1.1.2.aab" download>Download</a>
+                </button>
                 
 
-                <a class="secondary-links" href="/downloads/eutrcapp/aab/V1.1.1.aab" download>
+                <a 
+                    class="secondary-links" 
+                    href="/downloads/eutrcapp/aab/V1.1.1.aab" 
+                    download
+                    style="width:fit-content;">
                     V1.1.1.aab
                 </a> 
-                <a class="secondary-links" href="/downloads/eutrcapp/aab/V1.1.1.aab" download>
-                    <button class="download-button">
-                        Download
-                    </button>
-                </a> 
+                <button class="download-button">
+                    <a class="download-link" style="color:black ;" href="/downloads/eutrcapp/aab/V1.1.1.aab" download>Download</a>
+                </button>
                
 
-                <a class="secondary-links" href="/downloads/eutrcapp/aab/V1.1.0.aab" download>
+                <a 
+                    class="secondary-links" 
+                    href="/downloads/eutrcapp/aab/V1.0.aab" 
+                    download
+                    style="width:fit-content;">
                     V1.1.0.aab
                 </a> 
-                <a class="secondary-links" href="/downloads/eutrcapp/aab/V1.1.0.aab" download>
-                    <button class="download-button">
-                        Download
-                    </button>
-                </a> 
+                <button class="download-button">
+                    <a class="download-link" href="/downloads/eutrcapp/aab/V1.0.aab" download>Download</a>
+                </button>
                 
             </div>
 
