@@ -14,8 +14,8 @@
 
 .footer-icon-section {
     margin-top: 15px;
-    
     display:flex;
+    align-items: start;
     justify-content: space-evenly;
 
 }
@@ -28,4 +28,20 @@
 
 .footer-ttt-icon {
     border-radius: 18px;
+}
+
+.footer-eutrcapp-subsection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.footer-privacy-link {
+    color: bisque;
+    text-decoration: underline;
+    text-decoration-color:#EE3472;
+    text-underline-offset: 2px;
+    font-size: smaller;
 }
