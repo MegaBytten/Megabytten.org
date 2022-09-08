@@ -122,9 +122,9 @@ app.get('/eutrcapp', (req, res) => {
 });
 
 //link used for privacy policy page
-app.get('/eutrcapp/privacy', (req, res) => {
-  console.log("/eutrcapp/priavy got! Sending HTML page.");
-  res.sendFile('/public/eutrcapp/privacy.html', dirName);
+app.get('/eutrcapp/privacy-policy', (req, res) => {
+  console.log("/eutrcapp/privacy-policy got! Sending HTML page.");
+  res.sendFile('/public/eutrcapp/privacy-policy.html', dirName);
 });
 
 //link used by EUTRCApp to check verification code and verify user
