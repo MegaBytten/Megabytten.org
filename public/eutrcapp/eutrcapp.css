@@ -1,8 +1,3 @@
-.title {
-    text-align: center;
-    color: antiquewhite;
-}
-
 .app-gallery {
     display: flex;
     flex-direction: column;

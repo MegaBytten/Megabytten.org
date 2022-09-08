@@ -37,3 +37,8 @@
 .button-navigation:hover {
     text-decoration: underline;
 }
+
+.title {
+    text-align: center;
+    color: antiquewhite;
+}
