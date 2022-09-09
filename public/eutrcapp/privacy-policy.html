@@ -12,7 +12,9 @@
             }
 
             .intro-section {
+                width: 100%;
                 padding-top: 20px;
+                padding-right: 20px;
                 padding-left: 20px;
                 padding-bottom: 20px;
                 margin-bottom: 20px;
@@ -43,30 +45,55 @@
                 text-underline-offset: 2px;
             }
 
+            .info-section {
+                width: 100%;
+                padding-right: 20px;
+            }
+
             /* Style the button that is used to open and close the collapsible content */
             .collapsible {
-            background-color: #eee;
-            color: #444;
+            background-color: transparent;
+            color: bisque;
             cursor: pointer;
-            padding: 18px;
+            
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 20px;
+
+            margin-left: 20px;
             width: 100%;
-            border: none;
+            
+            border-top: 2px;
+            border-bottom: 2px;
+            border-left: 0px;
+            border-right: 0px;
+            border-style: solid;
+
+
             text-align: left;
             outline: none;
-            font-size: 15px;
+            font-size: 20px;
             }
 
             /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
             .active, .collapsible:hover {
-            background-color: #ccc;
+                background-color:#343333;
             }
 
             /* Style the collapsible content. Note: hidden by default */
             .content {
-            padding: 0 18px;
+            border: 0px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            padding-left: 5px;
+            width: 100%;
+
+            border-style: solid;
+            color: bisque;
+
             display: none;
             overflow: hidden;
-            background-color: #f1f1f1;
+            background-color: #121212;;
             }
 
         </style>
@@ -116,17 +143,107 @@
             <h2>Mega-privacy policy</h2>
             <p class="date">Updated September 10th, 2022</p>
 
-            <p>This privacy policy describes how the MegaBytten network of software collects and uses your personal data. In the final sections of this privacy policy, I advise you on security warnings to consider when using and/or interacting with the MegaBytten software.</p>
-            <p>It is assumed that all users of MegaBytten software have read, understand and agree with the information in this policy prior to using any software.</p>
-            <p>If you have any questions regarding data usage, or the software itself, please feel free to 
-                <a class="link" href=/home#contact-us>contact me</a> via <a class="link" href="mailto:omegabytten@gmail.com">email</a> or <a class="link" href="https://discordapp.com/users/megabytten#6788">discord</a> </p>   
+            <p>
+                This privacy policy describes how the MegaBytten network of software collects and uses your personal data.
+                In the final sections of this privacy policy, I advise you on security warnings to consider when using and/or interacting with the MegaBytten software.
+            </p>
+            <p>
+                It is assumed that all users of MegaBytten software have read, understand and agree with the information in this policy prior to using any software.
+            </p>
+            <p>
+                If you have any questions regarding data usage, or the software itself, please feel free to 
+                <a class="link" href=/home#contact-us>contact me</a> via <a class="link" href="mailto:omegabytten@gmail.com">email</a>
+                or <a class="link" href="https://discordapp.com/users/megabytten#6788">discord</a> 
+            </p>   
         </div>
 
-        <button type="button" class="collapsible">Open Collapsible</button>
-        <div class="content">
-        <p>Lorem ipsum...</p>
+        <div class="info-section">
+            <button 
+            type="button" 
+            class="collapsible"
+            >
+                MegaBytten Vision About Personal Data
+            </button>
+            <div class="content">
+                <p>
+                    I strongly dislike any form of data sharing between companies and unessential data collection.
+                    Cookies - although powerful - have become a bane on everyday data-ownership, with most people unaware of all the data that websites obtain from users via cookies.
+                    With every piece of software I write, my aim is to ask strictly for the essential and functional data required for the software.
+                    Thus far I have been able to keep my website cookie free, giving users back all the power and ownership when it comes to their data.
+                </p>
+            </div>
+
+            <button 
+                type="button" 
+                class="collapsible"
+                style="border-top: 0px;"
+            >
+                Personal Data at MegaBytten
+            </button>
+            <div class="content">
+                <p>
+                    Across all of my developed software, only the Touch Training Tracker (aliased as “EUTRC App”) requires data to function.
+                    More information on this app can be found at megabytten.org/eutrcapp. 
+                    The app asks for the user’s first and last name, registered @exeter.ac.uk email address, phone number, and a password.
+                    Personal data is securely stored, and never shared with any third party companies, for any reason.
+                </p>
+            </div>
+
+            <button 
+                type="button" 
+                class="collapsible"
+                style="border-top: 0px;"
+            >
+                How Touch Training Tracker Uses Your Data
+            </button>
+            <div class="content">
+                <p>
+                    Note: Touch Training Tracker also referred to as by its development name, EUTRC App
+                </p>
+                <p>
+                    Catering the app exclusively for Exeter University Touch Rugby Club members requires certain pieces of information.
+                    A registered @exeter.ac.uk email address being the most pivotal. Users can otherwise freely sign up with any first or last name, whether they be:
+                        nick-names, preferred names, names including personal pronouns, or anything else. 
+                    The freedom across these categories exists to show users that their personal data is solely used for personalisation and functionality, and that users are ultimately in control of their data.
+                    Personal data is securely stored, and never shared with any third party companies, for any reason.
+                </p>
+            </div>
+
+            <button 
+                type="button" 
+                class="collapsible"
+                style="border-top: 0px;"
+            >
+                IMPORTANT: Security Warnings - HTTP
+            </button>
+            <div class="content">
+                <p>
+                    You have probably noticed when logging onto this site that your web browser displayed a warning that the site is not secure. 
+                    This is because MegaBytten.org operates on HTTP, not HTTPS. HTTPS is a more recent, secure re-creation of how devices are able to communicate with each other through the internet (traditionally HTTP).
+                    By always encrypting the data that is transferred between devices, the data transferred by HTTPS is far more secure. 
+                </p>
+                <p>
+                    HTTP-transferred data is not always intercepted, it is still safe to use unless your device or network has been compromised.
+                    To learn more about HTTP vs HTTPS, visit <a class="link" href="https://www.deptagency.com/en-gb/insight/the-dangers-of-non-secure-http/">this blog post</a>.
+                </p>
+            </div>
         </div>
 
+        
+
+        <div 
+            class="intro-section"
+            style="margin-top:20px ;"
+        >
+            <h2>
+                AGREEMENT
+            </h2>
+
+            <p style="margin-left: 10px;">
+                Prior to using any MegaBytten software, the user confirms they have read through the privacy policy,
+                agree with the use of their personal data, and agree to the risks of submitting personal data to MegaBytten.org.
+            </p>
+        </div>
 
         <!-- 
             this script cycles through all collapsible elements
