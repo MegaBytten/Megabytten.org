@@ -1,0 +1,47 @@
+.title-section{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    column-gap: 40px;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.profile-pic-div {
+    display:flex;
+    justify-content: center;
+}
+
+.title-profile-pic {
+    max-width: 350px;
+    margin-right: 0px;
+}
+
+.profile-intro-section {
+    display:flex;
+    flex-direction: column;
+}
+
+h1 {
+    margin-left: 0px;
+    color: antiquewhite;
+    text-align: left;
+    font-size: xx-large;
+    letter-spacing: 2px;
+    width: fit-content;
+}
+
+.title-text-2 {
+    margin-left: 5px;
+}
+
+.title-text-3 {
+    margin-left: 10px;
+}
+
+.profile-underscript {
+    color: rgb(173, 163, 148);
+    margin-top: 20px;
+    margin-left: 15px;
+}
