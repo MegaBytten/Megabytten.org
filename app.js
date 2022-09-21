@@ -118,7 +118,7 @@ app.get('/home', (req, res) => {
 //link for EUTRC home and about page
 app.get('/eutrcapp', (req, res) => {
   console.log("/eutrcapp got! Sending HTML page.");
-  res.sendFile('/public/eutrcapp/about.html', dirName);
+  res.sendFile('/eutrcapp/about.html', dirName);
 });
 
 //link used for privacy policy page
@@ -782,6 +782,18 @@ app.get('/eutrcapp/trainings/availability.json', async (req, res) => {
   let data = {"attendance":attendance, "unavailability":unavailability};
   res.status(200).send(data)
 });
+
+/*  ################################################################################
+    ################################################################################
+    ###############  Handling Routes for EUTRC APP #####################
+    ################################################################################
+    ################################################################################
+*/
+//link for EUTRC signin page
+app.get('/eutrc/app/signin', async (req, res) => {
+  console.log('/eutrc/app/signin reached! Sending login page.');
+  res.sendFile('/eutrc/app/signin/signin.html')
+})
 
 
 
