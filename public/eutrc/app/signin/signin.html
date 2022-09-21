@@ -22,12 +22,55 @@
         .TTT-logo {
             height: 100px;
             width: 100px;
-            color: beige;
+            color: black;
             border-radius: 20px;
+        }
+
+        h1, h2 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-align: center;
+            color: rgb(50, 50, 50);
+        }
+
+        h2 {
+            margin-top: 8px;
         }
 
         .signin-container {
             background-color: beige;
+            display: flex;
+            orientation: vertical;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .signin-form {
+            width: 200px
+        }
+
+        .signin-element {
+            margin-bottom: 30px;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+            border-bottom: 1px;
+            padding: 4px;
+            border-style: solid;
+            background-color: beige;
+            width: 100%;
+        }
+
+        .submit-btn {
+            width: 100%;
+            font-size: large;
+            background-color: rgb(189, 33, 61);
+            border: none;
+            border-radius: 5px;
+            padding: 8px;
+            color: azure;
+            font-weight: 900;
+            letter-spacing: 1px;
         }
 
     </style>
@@ -41,8 +84,23 @@
             alt="An Image displaying MegaBytten's Touch Training Tracker's logo.">
     </div>
 
+    <h1>
+        Touch Training Tracker
+    </h1>
+
+    <h2>
+        Sign In
+    </h2>
+
     <div class="signin-container">
-        <text style="color:aliceblue;">Hello!</text>
+
+        <form class="signin-form" action="/eutrcapp/login">
+            <text>Email</text> <br>
+            <input class="signin-element" type="email" id="email" name="email" placeholder="@exeter.ac.uk">
+            <text>Password</text> <br>
+            <input class="signin-element" type="password" id="password" name="password" placeholder="***********">
+            <input class="submit-btn" type="submit" value="Submit">
+          </form> 
     </div>
     
 </body>
