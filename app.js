@@ -254,7 +254,7 @@ app.post('/eutrcapp/login', async (req, res) => {
     case 1:
       //login was a success
       //// TODO: Future website/application requires an HTML response here, not just 2 words
-      res.status(200).render('/eutrc_app/home.ejs', {name:userEmail})
+      res.status(200).render('./eutrc_app/home', {name:userEmail})
       break;
     case 2:
       //login was failure: Passwords did not match
