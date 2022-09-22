@@ -17,6 +17,7 @@ app.listen(80, 'megabytten.org');
 //middleware
 app.use(express.urlencoded( {extended: true} ));
 app.use(express.static('public'));
+app.set('view engine', 'ejs');
 
 var favicon = require('serve-favicon');
 app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -253,7 +254,7 @@ app.post('/eutrcapp/login', async (req, res) => {
     case 1:
       //login was a success
       //// TODO: Future website/application requires an HTML response here, not just 2 words
-      res.status(200).send('Login Success!');
+      res.status(200).render('/eutrc_app/home.ejs', {name:userEmail})
       break;
     case 2:
       //login was failure: Passwords did not match

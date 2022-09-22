@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EUTRC APP</title>
+
+    <style>
+        .page {
+            display: flex;
+        }
+
+        .left-nav-section {
+            width: 60px;
+            background-color: aqua;
+            display: flex;
+            flex-direction: column;
+            row-gap: 30px;
+            padding-top: 40px;
+        }
+
+        .icon-btns {
+            background-color: transparent;
+            border: none;
+        }
+
+        .icon-imgs {
+            width: 100%;
+        }
+
+        .right-content-section {
+            flex: 8;
+            background-color: bisque;
+            display: flex;
+            flex-direction: column;
+            row-gap: 30px;
+            padding: 15px;
+        }
+
+        .trainings-section {
+            display: flex;
+            background-color: azure;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        h2 {
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+            border-bottom: 1px;
+            border-style: solid;
+            border-color: black;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="page">
+        <div class="left-nav-section">
+            <a 
+                class="icon-btns"
+                href="/"
+            >
+                <img 
+                    class="icon-imgs"
+                    src="/public/website images/mb_logo.png" 
+                    alt="MegaBytten Logo"
+                >
+            </a>
+
+            
+            <a 
+                class="icon-btns"
+                href="./home.ejs"
+            >
+                <img 
+                    class="icon-imgs"
+                    src="/public/website images/eutrc app/icons/home_icon.png" 
+                    alt="Home Icon"
+                >
+            </a>
+            
+        </div>
+        <div class="right-content-section">
+            <h1 style="text-align:center ;">
+                EUTRC APP Home Page
+            </h1>
+
+            <div class="trainings-section">
+                <h2>EUTRC Trainings</h2>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
