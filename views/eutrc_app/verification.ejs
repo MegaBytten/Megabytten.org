@@ -34,11 +34,16 @@
             color: rgb(255, 79, 79);
         }
 
-        .action-btns-section {
+        .action-btns-section,
+        .check-code-section {
             display:flex;
             justify-content: center;
             align-items: center;
             column-gap: 50px;
+        }
+
+        .check-code-section {
+            display:none;
         }
 
         .action-btns {
@@ -58,9 +63,6 @@
         <h1 style="text-align:center ;">
             EUTRC APP Verification
         </h1>
-
-        
-
     </div>
 
     <div class="info-section">
@@ -76,45 +78,50 @@
         </p>
     </div>
 
+    <div class="action-btns-section" id="action-btns-section">
+        <form 
+        action="http://megabytten.org/eutrcapp/verfbot"
+        method="post"
+        >
+            <input type="hidden" id="email" name="email" value="<%= email %>">
+            <input type="hidden" id="password" name="password" value="<%= password %>">
+            <input class="action-btns" type="submit" value="Send Code" onclick="sendVerif()">
+        </form>
+        <button class="action-btns" onclick="enterCode()">
+            Enter Code
+        </button>
+    </div>
 
-    <% if (status == 0) { %> 
-        <div class="action-btns-section" id="actionbtns-section">
-            <form 
-            action="http://megabytten.org/eutrcapp/verfbot"
-            method="post"
-            >
-                <input type="hidden" id="email" name="email" value="<%= email %>">
-                <input type="hidden" id="password" name="password" value="<%= password %>">
-                <input class="action-btns" type="submit" value="Send Code">
-            </form>
-            <button class="action-btns" onclick="enterCode()">
-                Enter Code
-            </button>
-        </div>
-    <% } else if (status == 1) { %>
-        <div class="action-btns-section" id="entercode-section">
-            <p>
-                Verification email sent. Please enter the verif code below!
-            </p>
-            <form 
-            action="http://megabytten.org/eutrcapp/verify"
-            method="post"
-            >
-                <input type="hidden" id="email" name="email" value="<%= email %>">
-                <input type="hidden" id="password" name="password" value="<%= password %>">
-                <input type="number" maxlength="10" name="verifCode" id="verifCode" placeholder="code">
-                <input type="submit" value="Verify">
-            </form>
-        </div> 
-    <% } %> 
+    <div class="check-code-sctn" id="enter-code-section">
+        <p>
+            Verification email sent. Please enter the verif code below!
+        </p>
+        <form 
+        action="http://megabytten.org/eutrcapp/verify"
+        method="post"
+        >
+            <input type="hidden" id="email" name="email" value="<%= email %>">
+            <input type="hidden" id="password" name="password" value="<%= password %>">
+            <input type="number" maxlength="10" name="verifCode" id="verifCode" placeholder="code">
+            <input type="submit" value="Verify">
+        </form>
+    </div> 
     
 
     <script>
         function enterCode(){
-            let btnsSection = document.getElementById("actionsbtns-section")
+            let btnsSection = document.getElementById("action-btns-section")
             btnsSection.style.display = "none"
 
-            let enterSection = document.getElementById("entercode-section")
+            let enterSection = document.getElementById("enter-code-section")
+            btnsSection.style.display = "flex"
+        }
+
+        function sendVerif(){
+            let btnsSection = document.getElementById("action-btns-section")
+            btnsSection.style.display = "none"
+
+            let enterSection = document.getElementById("enter-code-section")
             btnsSection.style.display = "flex"
         }
     </script>
