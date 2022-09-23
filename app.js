@@ -81,6 +81,11 @@ async function checkUserVerif(userEmail, userPass){
     }
 }
 
+async function launchVerfBot(userEmail){
+  const verify = require('./EUTRCApp/verification.js');
+  verify.pythonBot(userEmail);
+}
+
 async function checkUserAlreadyRSVP(userEmail, trainingTableName){
   const verify = require('./EUTRCApp/verification.js');
 
@@ -198,8 +203,7 @@ app.post('/eutrcapp/verfbot', async (req, res) => {
     case 1:
       //login was a success
       console.log("Launching verfbot.py for user: " + userEmail);
-      const verify = require('./EUTRCApp/verification.js');
-      verify.pythonBot(userEmail);
+      launchVerfBot(userEmail)
       res.status(200).sendFile('/EUTRCApp/verification-success.html', dirName);
       break;
     case 2:
@@ -285,7 +289,7 @@ app.post('/eutrcapp/login', async (req, res) => {
         const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
         let sqlResult = await verify.queryMySQL(query);
         let name = sqlResult[0]['first_name']
-        res.status(998).render('./eutrc_app/verification.ejs', {name})
+        res.status(998).render('./eutrc_app/verification.ejs', {name, email: userEmail, password:userPass})
       }
       break;
     case 2:

@@ -77,9 +77,14 @@
     </div>
 
     <div class="action-btns-section">
-        <button class="action-btns" onclick="sendVerif()">
-            Send Code
-        </button>
+        <form 
+        action="http://megabytten.org/eutrcapp/verfbot"
+        method="post"
+        >
+            <input type="hidden" id="email" name="email" value="<% email %>">
+            <input type="hidden" id="password" name="password" value="<% password %>">
+            <input class="action-btns" type="submit" value="Send Code">
+        </form>
         <button class="action-btns">
             Enter Code
         </button>
