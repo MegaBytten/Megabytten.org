@@ -67,7 +67,7 @@
     </div>
 
     <div class="info-section">
-        <h2 style="text-align:center;">
+        <h2 style="text-align:center;" id="header">
             <%= name %>!
             Your email has not yet been 
             <span class="highlighted-warning">
@@ -116,8 +116,13 @@
         if (statusCode == 0) {
             //native state, just freshly joined the page
         } else if (statusCode == 1) {
-            //redirected after submitting form
+            //redirected after submitting form, display entercode option
             enterCode()
+        } else if (statusCode == 2) {
+            //redirected after submitting form, incorrect verif code
+            enterCode()
+            let header = document.getElementById('header')
+            header.textContent = '<%name%>' + ', Incorrect verificationc code. Please try again.'
         }
 
         function enterCode(){

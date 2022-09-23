@@ -117,6 +117,13 @@ async function checkUserAlreadyRSVP(userEmail, trainingTableName){
   return 'unanswered';
 }
 
+async function getName(userEmail){
+  const verify = require('./EUTRCApp/verification.js');
+  const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
+  let sqlResult = await verify.queryMySQL(query);
+  return sqlResult[0]['first_name']
+}
+
 
 
 /*  ################################################################################
@@ -125,7 +132,7 @@ async function checkUserAlreadyRSVP(userEmail, trainingTableName){
     ################################################################################
     ################################################################################
 */
-app.get('/',  (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile('/public/home/home.html', dirName);
 });
 app.get('/home', (req, res) => {
@@ -156,35 +163,51 @@ app.get('/eutrcapp/privacy-policy', (req, res) => {
 app.post('/eutrcapp/verify', async (req, res) => {
   console.log('\n\n/eutrcapp/signup/verify reached! User ' + req.body.email);
   const userEmail = req.body.email;
+  const userPass = req.body.password;
   const verifCode = req.body.verifCode;
 
-  const verify = require('./EUTRCApp/verification.js');
-  let query = "SELECT verification_code FROM users WHERE email = '"
-    + userEmail + "';";
-  let userSQLResult = await verify.queryMySQL(query);
-  let userSQLVerifCode = userSQLResult[0]["verification_code"];
+  const loginSuccess = await checkUserPassword(userEmail, userPass);
+  switch (loginSuccess) {
+    case 0:
+      //login was failure: User not recognised in DB
+      res.status(999).sendFile('/EUTRCApp/verification-failure.html', dirName);
+      break;
+    case 1:
+      //login was a success
+      const verify = require('./EUTRCApp/verification.js');
+      let query = "SELECT verification_code FROM users WHERE email = '"
+        + userEmail + "';";
+      let userSQLResult = await verify.queryMySQL(query);
+      let userSQLVerifCode = userSQLResult[0]["verification_code"];
 
-  if (userSQLVerifCode == "null"){
-    //verification code not found in database =
-    //  1. no verification code sent
-    //  2. no user registered
-    // 3. user already verified and attempting to verify again
-    console.log('userSQLVerifCode == null');
-    res.status(999).end();
+      if (userSQLVerifCode == "null"){
+        console.log('userSQLVerifCode == null');
+        res.status(500).send("Server Error. User verif code not recognised.")
+      } else if (verifCode == userSQLVerifCode){
+        query = "UPDATE users SET verified = 1, verification_code = 'null' WHERE email = '"
+        + userEmail + "';"
+        let userSQLResult = await verify.queryMySQL(query);
+        let sqlQueryStatus = userSQLResult[0];
+        console.log("User: " + userEmail + " verified.");
+        res.status(200).render('eutrc_app/home', {name:'name!'})
 
-  } else if (verifCode == userSQLVerifCode){
-    query = "UPDATE users SET verified = 1, verification_code = 'null' WHERE email = '"
-    + userEmail + "';"
-    let userSQLResult = await verify.queryMySQL(query);
-    let sqlQueryStatus = userSQLResult[0];
-    console.log("User: " + userEmail + " verified.");
-    res.status(200).end();
-
-  } else {
-    //other error
-    console.log("Verification codes do not match.");
-    res.status(998).end();
+      } else {
+        console.log("Verification codes do not match.");
+        let name = getName(userEmail, userPass)
+        res.status(200).render('eutrc_app/verification', {name, email: userEmail, password:userPass, status:2})
+      }
+      break;
+    case 2:
+      //login was failure: Passwords did not match
+      res.status(998).sendFile('/EUTRCApp/verification-failure.html', dirName);
+      break;
+    default:
+      //other error.
+      console.log("Server Error (Code: 01)");
+      res.status(500).send('Error (01)');
   }
+
+  
 });
 
 //Common link: Used by any source, sends an automated verification email after checkUserPassword()
@@ -209,7 +232,7 @@ app.post('/eutrcapp/verfbot', async (req, res) => {
       const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
       let sqlResult = await verify.queryMySQL(query);
       let name = sqlResult[0]['first_name']
-      
+
       res.status(200).render('./eutrc_app/verification.ejs', {name, email: userEmail, password:userPass, status:1})
       break;
     case 2:
