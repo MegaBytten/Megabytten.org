@@ -130,8 +130,7 @@
             enterCode()
             let header = document.getElementById('header')
             header.textContent = 'Incorrect verificationc code.'
-            let infoText = document.getElementById("info-text")
-            infoText.textContent = 'Please enter the verif code below!'
+            
         }
 
         function enterCode(){
@@ -140,6 +139,9 @@
 
             let enterSection = document.getElementById("enter-code-section")
             enterSection.style.display = "flex"
+
+            let infoText = document.getElementById("info-text")
+            infoText.textContent = 'Please enter the verif code below!'
         }
     </script>
     
