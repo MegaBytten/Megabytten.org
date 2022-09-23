@@ -80,8 +80,8 @@
     <div class="logo-container">
         <img 
             class="TTT-logo"
-            src="/website images/eutrc app/playstoreicon.png" 
-            alt="An Image displaying MegaBytten's Touch Training Tracker's logo.">
+            src="/website images/eutrc app/waving_hand.png" 
+            alt="An Image displaying a waving hand icon.">
     </div>
 
     <h1>
@@ -89,14 +89,34 @@
     </h1>
 
     <div class="signin-container">
-        <form class="signin-form" action="/eutrcapp/login" method="post">
-            <text>Email</text> <br>
+        <form class="signin-form" onsubmit="return checkPwd()" action="/eutrcapp/login" method="post">
+            <text>University Email</text> <br>
             <input class="signin-element" type="email" id="email" name="email" placeholder="@exeter.ac.uk">
-            <text>Password</text> <br>
-            <input class="signin-element" type="password" id="password" name="password" placeholder="***********">
+            <text>First Name</text> <br>
+            <input class="signin-element" type="text" id="firstName" name="firstName" placeholder="Ethan">
+            <text>Last Name</text> <br>
+            <input class="signin-element" type="text" id="lastName" name="lastName" placeholder="de Villiers">
+            <text>Phone Number</text> <br>
+            <input class="signin-element" type="number" id="number" name="number" placeholder="07238756120">
+            <text>Create Password</text> <br>
+            <input class="signin-element" type="password" id="newPassword" name="newPassword" placeholder="***********">
+            <text>Confirm Password</text> <br>
+            <input class="signin-element" type="password" id="confirmPassword" name="confirmPassword" placeholder="***********">
             <input class="submit-btn" type="submit" value="Submit">
           </form> 
     </div>
+
+    <script>
+        function checkPwd(){
+            let pwd1 = document.getElementById('newPassword').value;
+            let pwd2 = document.getElementById('confirmPassword').value;
+            if (pwd1 != pwd2){
+                return false
+            } else {
+                return true;
+            }
+        }
+    </script>
     
 </body>
 </html>
