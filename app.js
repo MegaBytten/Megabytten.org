@@ -204,9 +204,12 @@ app.post('/eutrcapp/verfbot', async (req, res) => {
       //login was a success
       console.log("Launching verfbot.py for user: " + userEmail);
       launchVerfBot(userEmail)
+
+      const verify = require('./EUTRCApp/verification.js');
       const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
       let sqlResult = await verify.queryMySQL(query);
       let name = sqlResult[0]['first_name']
+      
       res.status(200).render('./eutrc_app/verification.ejs', {name, email: userEmail, password:userPass, status:1})
       break;
     case 2:
