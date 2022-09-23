@@ -273,9 +273,19 @@ app.post('/eutrcapp/login', async (req, res) => {
     case 1:
       //login was a success
       const verify = require('./EUTRCApp/verification.js');
-      const query = `SELECT * FROM users WHERE email = '${userEmail}';`
-      let userSQLResult = await verify.queryMySQL(query);
-      res.status(200).render('./eutrc_app/home', {name:userEmail})
+      // const query = `SELECT * FROM users WHERE email = '${userEmail}';`
+      // let userSQLResult = await verify.queryMySQL(query);
+      let verif = await checkUserVerif(userEmail, userPass)
+      if (verif == null){
+        console.log('user verif was == null. Sending server error.');
+        res.status(500).send("server error.")
+      } else if (verif == 1){
+        console.log('user is verified! Sending to app.home');
+        res.status(200).render('./eutrc_app/home.ejs')
+      } else {
+        console.log('user has not yet been verified! Sending to app.verif');
+        res.status(998).render('./eutrc_app/verification.ejs')
+      }
       break;
     case 2:
       //login was failure: Passwords did not match
