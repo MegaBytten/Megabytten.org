@@ -111,9 +111,10 @@
             let pwd1 = document.getElementById('newPassword').value;
             let pwd2 = document.getElementById('confirmPassword').value;
             if (pwd1 != pwd2){
+                Window.postMessage("Error! Passwords do not match.")
                 return false
             } else {
-                return true;
+                return true
             }
         }
     </script>
