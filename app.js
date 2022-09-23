@@ -855,6 +855,10 @@ app.get('/eutrc/app/signin', async (req, res) => {
   res.sendFile('/public/eutrc/app/signin/signin.html', dirName)
 })
 
+app.get('/eutrc/app/signup', async (req, res) => {
+  console.log('/eutrc/app/signup reached! Sending signup page.');
+  res.status(200).render('eutrc_app/signup', { })
+})
 
 
 
