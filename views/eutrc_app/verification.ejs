@@ -85,7 +85,7 @@
         >
             <input type="hidden" id="email" name="email" value="<%= email %>">
             <input type="hidden" id="password" name="password" value="<%= password %>">
-            <input class="action-btns" type="submit" value="Send Code" onclick="sendVerif()">
+            <input class="action-btns" type="submit" value="Send Code">
         </form>
         <button class="action-btns" onclick="enterCode()">
             Enter Code
@@ -109,15 +109,16 @@
     
 
     <script>
-        function enterCode(){
-            let btnsSection = document.getElementById("action-btns-section")
-            btnsSection.style.display = "none"
-
-            let enterSection = document.getElementById("enter-code-section")
-            btnsSection.style.display = "flex"
+        let statusCode = '<%status%>'
+        console.log(statusCode);
+        if (statusCode == 0){
+            //native state, just freshly joined the page
+        } else if (statusCode==1) {
+            //redirected after submitting form
+            enterCode()
         }
 
-        function sendVerif(){
+        function enterCode(){
             let btnsSection = document.getElementById("action-btns-section")
             btnsSection.style.display = "none"
 
