@@ -22,11 +22,15 @@
         h2 {
             color: bisque;
         }
+        
+        p {
+            color: rgb(184, 168, 148);
+        }
 
         .info-section {
             display: flex;
             justify-content: center;
-            color: rgb(184, 168, 148);
+            color:  rgb(184, 168, 148);
             flex-direction: column;
         }
 
@@ -37,6 +41,7 @@
         .check-code-section,
         .action-btns-section {
             display:flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             column-gap: 50px;
@@ -74,12 +79,14 @@
                 verified.
             </span>
         </h2>
-        <p>If you have been sent a verification email before, please check 
-            your email and spam folder for your verification code
-        </p>
+        
     </div>
 
     <div class="action-btns-section" id="action-btns-section">
+        <p>
+            If you have been sent a verification email before, please check 
+            your email and spam folder for your verification code
+        </p>
         <form 
         action="http://megabytten.org/eutrcapp/verfbot"
         method="post"
