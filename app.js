@@ -204,7 +204,7 @@ app.post('/eutrcapp/verfbot', async (req, res) => {
       //login was a success
       console.log("Launching verfbot.py for user: " + userEmail);
       launchVerfBot(userEmail)
-      res.status(200)
+      res.status(200).end()
       break;
     case 2:
       //login was failure: Passwords did not match
