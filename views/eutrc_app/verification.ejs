@@ -113,7 +113,7 @@
         let statusCode = '<%=status%>'
         console.log('HELLO!');
         console.log('status code: ' + statusCode);
-        if (statusCode == 0){
+        if (statusCode == 0) {
             //native state, just freshly joined the page
         } else if (statusCode == 1) {
             //redirected after submitting form
@@ -121,6 +121,7 @@
         }
 
         function enterCode(){
+            console.log('enterCode called!');
             let btnsSection = document.getElementById("action-btns-section")
             btnsSection.style.display = "none"
 
