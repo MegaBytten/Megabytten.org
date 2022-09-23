@@ -15,24 +15,18 @@
         .title-section {
             display: flex;
             justify-content: center;
-            color: beige;
+            color: rgb(216, 216, 205);
             flex-direction: column;
         }
 
-        .icon-imgs {
-            width: 200px;
-            border-radius: 20px;
-        }
-
-        .welcome-msg {
-            text-align:center;
-            margin-bottom: 20px;
+        h2 {
+            color: bisque;
         }
 
         .info-section {
             display: flex;
             justify-content: center;
-            color: beige;
+            color: rgb(184, 168, 148);
             flex-direction: column;
         }
 
@@ -52,7 +46,9 @@
             height: 50px;
             font-size: larger;
             font-weight: 800;
-            background-color: blanchedalmond;
+            background-color: bisque;
+            border-radius: 5px;
+            border: none;
         }
 
     </style>
@@ -63,15 +59,13 @@
             EUTRC APP Verification
         </h1>
 
-        <img 
-        class="icon-imgs"
-        src="/website images/mb_logo.png" 
-        alt="MegaBytten Logo"
-        >
+        
+
     </div>
 
     <div class="info-section">
         <h2 style="text-align:center;">
+            <%= name %>!
             Your email has not yet been 
             <span class="highlighted-warning">
                 verified.
@@ -97,5 +91,6 @@
         }
     </script>
 
+    
 </body>
 </html>
