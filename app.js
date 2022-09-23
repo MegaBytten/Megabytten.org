@@ -62,6 +62,25 @@ async function checkUserPassword(userEmail, userPass){
   }
 }
 
+async function checkUserVerif(userEmail, userPass){
+  console.log(`async func checkUserVerif, checking user ${userEmail}`);
+  const verify = require('./EUTRCApp/verification.js');
+    let query =  `select verified from users where email = '${userEmail}';`
+    let userSQLResult = await verify.queryMySQL(query);
+
+    if (userSQLResult == null){
+      //no result, but no user in database bypassed checkUserPassword?
+      console.log("Error (02)");
+      return null; //server error
+    } else {
+      let userSQLVerif = userSQLResult[0]["verified"];
+      //sending a 0 or 1 is interpreted as a status code from node = error
+      //so need to send a "true" or "false" instead
+      if (userSQLVerif == 1){ return true; }
+      else { return false; }
+    }
+}
+
 async function checkUserAlreadyRSVP(userEmail, trainingTableName){
   const verify = require('./EUTRCApp/verification.js');
 
@@ -253,7 +272,9 @@ app.post('/eutrcapp/login', async (req, res) => {
       break;
     case 1:
       //login was a success
-      //// TODO: Future website/application requires an HTML response here, not just 2 words
+      const verify = require('./EUTRCApp/verification.js');
+      const query = `SELECT * FROM users WHERE email = '${userEmail}';`
+      let userSQLResult = await verify.queryMySQL(query);
       res.status(200).render('./eutrc_app/home', {name:userEmail})
       break;
     case 2:
@@ -402,22 +423,16 @@ app.post('/eutrcapp/checkverif', async (req, res) => {
 
   if (loginSuccess == 1){
     //login success!
-    const verify = require('./EUTRCApp/verification.js');
-    let query = "SELECT verified FROM users WHERE email = '"
-      + userEmail + "';";
-    let userSQLResult = await verify.queryMySQL(query);
-
-    if (userSQLResult == null){
-      //no result, but no user in database bypassed checkUserPassword?
-      console.log("Error (02)");
-      res.status(500).send('Error (02)');
+    let verif = await checkUserVerif(userEmail, userPass)
+    if (verif == null){
+      console.log('user verif was == null. Sending server error.');
+      res.status(500).send("server error.")
+    } else if (verif == 1){
+      console.log('user is verified! Sending to app.home');
+      res.status(200).render('./eutrc_app/home.ejs')
     } else {
-      let userSQLVerif = userSQLResult[0]["verified"];
-      //sending a 0 or 1 is interpreted as a status code from node = error
-      //so need to send a "true" or "false" instead
-      if (userSQLVerif == 1){ userSQLVerif = true; }
-      else { userSQLVerif = false; }
-      res.status(200).send(userSQLVerif);
+      console.log('user has not yet been verified! Sending to app.verif');
+      res.status(998).render('./eutrc_app/verification.ejs')
     }
 
   } else {
