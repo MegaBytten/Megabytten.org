@@ -123,11 +123,15 @@
         } else if (statusCode == 1) {
             //redirected after submitting form, display entercode option
             enterCode()
+            let infoText = document.getElementById("info-text")
+            infoText.textContent = 'Verification email sent. Please enter the verif code below!'
         } else if (statusCode == 2) {
             //redirected after submitting form, incorrect verif code
             enterCode()
             let header = document.getElementById('header')
-            header.textContent = '<%name%>' + ', Incorrect verificationc code. Please try again.'
+            header.textContent = 'Incorrect verificationc code.'
+            let infoText = document.getElementById("info-text")
+            infoText.textContent = 'Please enter the verif code below!'
         }
 
         function enterCode(){
@@ -136,9 +140,6 @@
 
             let enterSection = document.getElementById("enter-code-section")
             enterSection.style.display = "flex"
-
-            let infoText = document.getElementById("info-text")
-            infoText.textContent = 'Verification email sent. Please enter the verif code below!'
         }
     </script>
     
