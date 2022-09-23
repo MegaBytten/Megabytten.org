@@ -76,25 +76,36 @@
         </p>
     </div>
 
-    <div class="action-btns-section">
-        <form 
-        action="http://megabytten.org/eutrcapp/verfbot"
-        method="post"
-        >
-            <input type="hidden" id="email" name="email" value="<%= email %>">
-            <input type="hidden" id="password" name="password" value="<%= password %>">
-            <input class="action-btns" type="submit" value="Send Code">
-        </form>
-        <button class="action-btns">
-            Enter Code
-        </button>
-    </div>
-
-    <script>
-        function sendVerif(){
-            console.log('hello!');
-        }
-    </script>
+    <% if (status == 0) { %>
+        <div class="action-btns-section">
+            <form 
+            action="http://megabytten.org/eutrcapp/verfbot"
+            method="post"
+            >
+                <input type="hidden" id="email" name="email" value="<%= email %>">
+                <input type="hidden" id="password" name="password" value="<%= password %>">
+                <input class="action-btns" type="submit" value="Send Code">
+            </form>
+            <button class="action-btns">
+                Enter Code
+            </button>
+        </div>
+    <% } else if (status == 1) { %> 
+        <div>
+            <p>
+                Verification email sent. Please enter the verif code below!
+            </p>
+            <form 
+            action="http://megabytten.org/eutrcapp/verify"
+            method="post"
+            >
+                <input type="hidden" id="email" name="email" value="<%= email %>">
+                <input type="hidden" id="password" name="password" value="<%= password %>">
+                <input type="number" maxlength="10" name="verifCode" id="verifCode" placeholder="code">
+                <input type="submit" value="Verify">
+            </form>
+        </div> 
+    <% } %> 
 
     
 </body>
