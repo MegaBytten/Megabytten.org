@@ -273,8 +273,6 @@ app.post('/eutrcapp/login', async (req, res) => {
     case 1:
       //login was a success
       const verify = require('./EUTRCApp/verification.js');
-      // const query = `SELECT * FROM users WHERE email = '${userEmail}';`
-      // let userSQLResult = await verify.queryMySQL(query);
       let verif = await checkUserVerif(userEmail, userPass)
       if (verif == null){
         console.log('user verif was == null. Sending server error.');
@@ -284,7 +282,10 @@ app.post('/eutrcapp/login', async (req, res) => {
         res.status(200).render('./eutrc_app/home.ejs')
       } else {
         console.log('user has not yet been verified! Sending to app.verif');
-        res.status(998).render('./eutrc_app/verification.ejs', {name:'anca'})
+        const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
+        let sqlResult = await verify.queryMySQL(query);
+        let name = sqlResult[0]['first_name']
+        res.status(998).render('./eutrc_app/verification.ejs', {name})
       }
       break;
     case 2:
