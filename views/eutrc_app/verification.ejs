@@ -82,11 +82,12 @@
         
     </div>
 
+    <p id="info-text">
+        If you have been sent a verification email before, please check 
+        your email and spam folder for your verification code
+    </p>
+
     <div class="action-btns-section" id="action-btns-section">
-        <p style="display: block;">
-            If you have been sent a verification email before, please check 
-            your email and spam folder for your verification code
-        </p>
         <form 
         action="http://megabytten.org/eutrcapp/verfbot"
         method="post"
@@ -101,9 +102,6 @@
     </div>
 
     <div class="check-code-section" id="enter-code-section">
-        <p>
-            Verification email sent. Please enter the verif code below!
-        </p>
         <form 
         action="http://megabytten.org/eutrcapp/verify"
         method="post"
@@ -138,6 +136,9 @@
 
             let enterSection = document.getElementById("enter-code-section")
             enterSection.style.display = "flex"
+
+            let infoText = document.getElementById("info-text")
+            infoText.textContent = 'Verification email sent. Please enter the verif code below!'
         }
     </script>
     
