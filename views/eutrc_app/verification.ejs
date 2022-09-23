@@ -79,7 +79,7 @@
         </p>
     </div>
 
-    <div class="action-btns-section" id="1">
+    <div class="action-btns-section" id="action-btns-section">
         <form 
         action="http://megabytten.org/eutrcapp/verfbot"
         method="post"
@@ -93,7 +93,7 @@
         </button>
     </div>
 
-    <div class="check-code-section" id="2">
+    <div class="check-code-section" id="enter-code-section">
         <p>
             Verification email sent. Please enter the verif code below!
         </p>
@@ -117,16 +117,15 @@
             //native state, just freshly joined the page
         } else if (statusCode == 1) {
             //redirected after submitting form
-            enterCode();
+            enterCode()
         }
 
         function enterCode(){
-            console.log('enterCode called!');
-            let btnsSection = document.getElementById("1");
-            btnsSection.style.display = "none";
+            let btnsSection = document.getElementById("action-btns-section")
+            btnsSection.style.display = "none"
 
-            let enterSection = document.getElementById("2");
-            btnsSection.style.display = "flex";
+            let enterSection = document.getElementById("enter-code-section")
+            enterSection.style.display = "flex"
         }
     </script>
     
