@@ -54,6 +54,7 @@
             background-color: bisque;
             border-radius: 5px;
             border: none;
+            cursor: pointer;
         }
 
     </style>
@@ -114,7 +115,7 @@
         console.log('status code: ' + statusCode);
         if (statusCode == 0){
             //native state, just freshly joined the page
-        } else if (statusCode==1) {
+        } else if (statusCode == 1) {
             //redirected after submitting form
             enterCode()
         }
