@@ -284,7 +284,7 @@ app.post('/eutrcapp/login', async (req, res) => {
         res.status(200).render('./eutrc_app/home.ejs')
       } else {
         console.log('user has not yet been verified! Sending to app.verif');
-        res.status(998).render('./eutrc_app/verification.ejs')
+        res.status(998).render('./eutrc_app/verification.ejs', {name:'anca'})
       }
       break;
     case 2:
