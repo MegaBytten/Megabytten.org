@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EUTRC APP</title>
+    <title>EUTRC APP | Home</title>
 
     <style>
+        body {
+            background-color: black;
+        }
+        
         .page {
             display: flex;
         }
 
         .left-nav-section {
             width: 60px;
-            background-color: aqua;
             display: flex;
             flex-direction: column;
             row-gap: 30px;
@@ -21,7 +24,6 @@
         }
 
         .icon-btns {
-            background-color: transparent;
             border: none;
         }
 
@@ -31,18 +33,23 @@
 
         .right-content-section {
             flex: 8;
-            background-color: bisque;
             display: flex;
             flex-direction: column;
-            row-gap: 30px;
             padding: 15px;
+            color: rgb(252, 237, 218);
         }
 
         .trainings-section {
             display: flex;
-            background-color: azure;
+            flex-direction: column;
+            color: bisque;
             justify-content: center;
             padding: 10px;
+        }
+
+        .welcome-msg {
+            text-align:center;
+            margin-bottom: 20px;
         }
 
         h2 {
@@ -51,8 +58,12 @@
             border-right: 0px;
             border-bottom: 1px;
             border-style: solid;
-            border-color: black;
+            border-color: beige;
             padding: 5px;
+        }
+
+        .hp-training {
+            display: flex;
         }
 
     </style>
@@ -67,7 +78,7 @@
             >
                 <img 
                     class="icon-imgs"
-                    src="/public/website images/mb_logo.png" 
+                    src="/website images/mb_logo.png" 
                     alt="MegaBytten Logo"
                 >
             </a>
@@ -79,7 +90,7 @@
             >
                 <img 
                     class="icon-imgs"
-                    src="/public/website images/eutrc app/icons/home_icon.png" 
+                    src="/website images/eutrc app/icons/home_icon.png" 
                     alt="Home Icon"
                 >
             </a>
@@ -90,8 +101,28 @@
                 EUTRC APP Home Page
             </h1>
 
+            <text class="welcome-msg">Welcome back <%= name %></text>
+
             <div class="trainings-section">
-                <h2>EUTRC Trainings</h2>
+                <h2>Upcoming EUTRC Trainings</h2>
+
+                <div class="hp-training">
+                    <h3>High Performance (HP)</h3>
+                    
+                </div>
+
+                <div class="dv-training">
+                    <h3>Development (DV)</h3>
+                </div>
+
+                <div class="cb-training">
+                    <h3>Club (CB)</h3>
+                </div>
+
+                
+                
+                
+
             </div>
         </div>
     </div>
