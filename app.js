@@ -312,7 +312,7 @@ app.post('/eutrcapp/login', async (req, res) => {
         res.status(500).send("server error.")
       } else if (verif == 1){
         console.log('user is verified! Sending to app.home');
-        res.status(200).render('./eutrc_app/home.ejs')
+        res.status(200).render('./eutrc_app/home.ejs', {name:'Ethan'})
       } else {
         console.log('user has not yet been verified! Sending to app.verif');
         const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
