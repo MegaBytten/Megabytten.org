@@ -115,9 +115,12 @@
                 alt="Home Icon"
             >
 
-            <button class="icon-imgs" onclick="showEvents()">
-                CLICK MEEEE
-            </button>
+            <img 
+                class="icon-imgs"
+                onclick="showEvents()"
+                src="/website images/eutrc app/icons/events_icon.png" 
+                alt="Events Icon"
+            >
             
         </div>
         <!-- This right content section will be what changes on button click -->
@@ -138,7 +141,7 @@
                         <h3>High Performance (HP)</h3>
                         <% if (hpTraining['date_day'] != 'none') { %>
                             <div class="training-info">
-                                <text>Date: <%= hpTraining['date_day'] %>/<%= hpTraining['date_month'] %>//<%= hpTraining['date_year'] %></text>
+                                <text>Date: <%= hpTraining['date_day'] %>/<%= hpTraining['date_month'] %>/<%= hpTraining['date_year'] %></text>
                                 <text>Time: <%= hpTraining['time'] %></text>
                                 <text>Location: <%= hpTraining['location'] %></text>
                                 <text>Drills: <%= hpTraining['drills'] %></text>
