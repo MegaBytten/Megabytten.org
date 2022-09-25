@@ -338,6 +338,7 @@ app.post('/eutrcapp/login', async (req, res) => {
         resultsList = await resultsList.getNextTrainingsList();
         console.log("\nSending json object to client side: " + JSON.stringify(resultsList));
 
+        console.log(`debug log: ${resultsList[0]}`);
         res.status(200).render('eutrc_app/home', {name:'name!', hpTraining: resultsList[0],
           dvTraining: resultsList[1], cbTraining: resultsList[2]})
       } else {
