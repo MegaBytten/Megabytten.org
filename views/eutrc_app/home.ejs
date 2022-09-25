@@ -261,13 +261,53 @@
                     </div>
 
                     <script>
-                        function getFirstDayOfMonth(year, month) {
-                            return new Date(year, month, 1);
+                        const date = new Date();
+                        const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1);
+                        let x;
+                        
+                        switch (firstDayCurrentMonth) {
+                            case 0:
+                                //sunday
+                                x = 7
+                                break;
+                            case 1:
+                                //monday
+                                x = 1
+                                break;
+                            case 2:
+                                //tuesday
+                                x = 2
+                                break;
+                            case 3:
+                                //wednesday
+                                x = 3
+                                break;
+                            case 4:
+                                //thursday
+                                x = 4
+                                break;
+                            case 5:
+                                //friday
+                                x = 5
+                                break;
+                            case 6:
+                                //saturday
+                                x = 6
+                                break;
+                            default:
+                                break;
                         }
 
-                        const date = new Date();
-                        const firstDayCurrentMonth = getFirstDayOfMonth(date.getFullYear(), date.getMonth());
-                        console.log(firstDayCurrentMonth.getDay());
+                        for (y=1; y < x; y++){
+                            let cell = document.getElementById('cell' + y)
+                            cell.style.visibility = 'hidden'
+                        }
+
+                        for (x; x<=42; x++){
+                            let cell = document.getElementById('cell' + x)
+                            cell.textContent = 'x'
+                        }
+
                     </script>
 
                 </div>
