@@ -94,90 +94,22 @@
         }
 
         /* Exclusively calendar stuff */
-        .wrapper {
-            width: 100%;
+        .calendar-wrapper {
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
         }
 
-        .container-calendar {
-            background: #505050;
-            padding: 15px;
-        }
-
-        .button-container-calendar button {
-            cursor: pointer;
-            display: inline-block;
-            zoom: 1;
-            background: #00a2b7;
-            color: #fff;
-            border: 1px solid #0aa2b5;
-            border-radius: 4px;
-            padding: 5px 10px;
-        }
-
-        .table-calendar {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        .table-calendar td, .table-calendar th {
-            padding: 5px;
-            border: 1px solid #e2e2e2;
-            text-align: center;
-            vertical-align: top;
-        }
-
-        .date-picker.selected {
-            font-weight: bold;
-            outline: 1px dashed #00BCD4;
-        }
-
-        .date-picker.selected span {
-            border-bottom: 2px solid currentColor;
-        }
-
-        
-        /* .date-picker:nth-child(1) { // sunday 
-        color: rgb(99, 16, 16);
-        }
-        .date-picker:nth-child(6) { // friday 
-        color: rgb(10, 69, 10);
-        } */
-
-        #monthAndYear {
-            text-align: center;
-            margin-top: 0;
-        }
-
-        .button-container-calendar {
-            position: relative;
-            margin-bottom: 1em;
-            overflow: hidden;
-            clear: both;
-        }
-
-        #previous {
-            float: left;
-        }
-
-        #next {
-            float: right;
-        }
-
-        .footer-container-calendar {
-            margin-top: 1em;
-            border-top: 1px solid #585252;
-            padding: 10px 0;
-        }
-
-        .footer-container-calendar select {
-            cursor: pointer;
-            display: inline-block;
-            zoom: 1;
-            background: #ffffff;
-            color: #585858;
-            border: 1px solid #bfc5c5;
-            border-radius: 3px;
-            padding: 5px 1em;
+        .title-section{
+            display: flex;
+            justify-content:space-evenly;
+            flex-direction: row;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+            border-bottom: 1px;
+            border-style: solid;
+            border-color: antiquewhite;
         }
 
     </style>
@@ -277,36 +209,28 @@
                     EUTRC Events
                 </h1>
 
-                <div class="wrapper">
-                    <div class="container-calendar">
-                        <h3 id="monthAndYear"></h3>
-                        <div class="button-container-calendar">
-                            <button id="previous" onclick="previous()">&#8249;</button>
-                            <button id="next" onclick="next()">&#8250;</button>
-                        </div>
-                        <table class="table-calendar" id="calendar" data-lang="en">
-                            <thead id="thead-month"></thead>
-                            <tbody id="calendar-body"></tbody>
-                        </table>
-                        <div class="footer-container-calendar">
-                            <label for="month">Jump To: </label>
-                            <select id="month" onchange="jump()">
-                                 <option value=0>Jan</option>
-                                 <option value=1>Feb</option>
-                                 <option value=2>Mar</option>
-                                 <option value=3>Apr</option>
-                                 <option value=4>May</option>
-                                 <option value=5>Jun</option>
-                                 <option value=6>Jul</option>
-                                 <option value=7>Aug</option>
-                                 <option value=8>Sep</option>
-                                 <option value=9>Oct</option>
-                                 <option value=10>Nov</option>
-                                 <option value=11>Dec</option>
-                             </select>
-                             <select id="year" onchange="jump()"></select>       
-                        </div>
+                <!-- This is the calendar! -->
+                <div class="calendar-wrapper">
+                    <div class="title-section">
+                        <button>&#8592</button>
+                        <h3>MONTH</h3>
+                        <button>&#8594</button>
                     </div>
+
+                    <div class="weekday-labels-container">
+                        <text>Monday</text>
+                        <text>Tuesday</text>
+                        <text>Wednesday</text>
+                        <text>Thursday</text>
+                        <text>Friday</text>
+                        <text>Saturday</text>
+                        <text>Sunday</text>
+                    </div>
+
+                    <div class="cells-container">
+
+                    </div>
+
                 </div>
 
             </div>
