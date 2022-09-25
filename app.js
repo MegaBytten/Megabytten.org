@@ -257,7 +257,7 @@ app.post('/eutrcapp/signup', async (req, res) => {
   const userPassword = req.body.password;
   const userCoach = false;
 
-  let verify = require('./EUTRCApp/verification.js');
+  const verify = require('./EUTRCApp/verification.js');
 
   //check if user already Exists
   //queries MySQL database for user's password
@@ -269,7 +269,6 @@ app.post('/eutrcapp/signup', async (req, res) => {
 
     if (userEmail.includes("@exeter.ac.uk")) {
       //email is confirmed @exeter.ac.uk
-      let verify = require('./EUTRCApp/verification.js');
       query = `insert into users (email, first_name, last_name, phone_number, password)`
         + ` values ("${userEmail}", "${userFirstName}", "${userLastName}", "${userPhoneNumber}", "${userPassword}");`
       
@@ -277,7 +276,6 @@ app.post('/eutrcapp/signup', async (req, res) => {
       console.log("User added to DB!");
 
       //check user's verification
-      const verify = require('./EUTRCApp/verification.js');
       let verif = await checkUserVerif(userEmail, userPassword)
       if (verif == null){
         console.log('user verif was == null. Sending server error.');
