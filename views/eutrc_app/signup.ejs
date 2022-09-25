@@ -89,7 +89,7 @@
     </h1>
 
     <div class="signin-container">
-        <form class="signin-form" onsubmit="return checkPwd()" action="/eutrcapp/login" method="post">
+        <form class="signin-form" onsubmit="return checkPwd(event)" action="/eutrcapp/login" method="post">
             <text>University Email</text> <br>
             <input class="signin-element" type="email" id="email" name="email" placeholder="@exeter.ac.uk">
             <text>First Name</text> <br>
@@ -107,12 +107,13 @@
     </div>
 
     <script type="text/javascript">
-        function checkPwd(){
+        function checkPwd(e){
+            e.preventDefault();
             let pwd1 = document.getElementById('newPassword').value;
             let pwd2 = document.getElementById('confirmPassword').value;
             console.log(`trace: ${pwd1} and ${pwd2}`);
             if (pwd1 != pwd2){
-                Window.postMessage("Error! Passwords do not match.")
+                alert("Error! Passwords do not match.")
                 return false
             } else {
                 return true
