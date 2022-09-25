@@ -135,12 +135,6 @@
 
         .cells {
             padding: 5px;
-            border-top: 1px;
-            border-left: 1px;
-            border-right: 1px;
-            border-bottom: 1px;
-            border-style: solid;
-            border-color: antiquewhite;
             min-height: 35px;
         }
 
@@ -265,6 +259,12 @@
                         <% } %> 
 
                     </div>
+
+                    <script>
+                        const date = new Date();
+                        const firstDayCurrentMonth = getFirstDayOfMonth(date.getFullYear(), date.getMonth());
+                        console.log(firstDayCurrentMonth);
+                    </script>
 
                 </div>
 
