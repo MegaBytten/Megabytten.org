@@ -261,6 +261,10 @@
                     </div>
 
                     <script>
+                        function getFirstDayOfMonth(year, month) {
+                            return new Date(year, month, 1);
+                        }
+
                         const date = new Date();
                         const firstDayCurrentMonth = getFirstDayOfMonth(date.getFullYear(), date.getMonth());
                         console.log(firstDayCurrentMonth);
