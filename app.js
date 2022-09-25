@@ -121,7 +121,6 @@ async function getName(userEmail){
   const verify = require('./EUTRCApp/verification.js');
   const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
   let sqlResult = await verify.queryMySQL(query);
-  console.log(`getName function: ${sqlResult[0]['first_name']}`);
   return sqlResult[0]['first_name']
 }
 
@@ -195,14 +194,14 @@ app.post('/eutrcapp/verify', async (req, res) => {
         let resultsList = require('./EUTRCApp/get-next-training.js');
         resultsList = await resultsList.getNextTrainingsList();
         console.log("\nSending json object to client side: " + JSON.stringify(resultsList));
-        let name = getName(userEmail)
+        let name = await getName(userEmail)
 
         res.status(200).render('eutrc_app/home', {name, hpTraining: resultsList[0],
           dvTraining: resultsList[1], cbTraining: resultsList[2]})
 
       } else {
         console.log("Verification codes do not match.");
-        let name = getName(userEmail)
+        let name = await getName(userEmail)
         res.status(200).render('eutrc_app/verification', {name, email: userEmail, password:userPass, status:2})
       }
       break;
@@ -339,13 +338,13 @@ app.post('/eutrcapp/login', async (req, res) => {
         let resultsList = require('./EUTRCApp/get-next-training.js');
         resultsList = await resultsList.getNextTrainingsList();
         console.log("\nSending json object to client side: " + JSON.stringify(resultsList));
-        let name = getName(userEmail)
+        let name = await getName(userEmail)
 
         res.status(200).render('eutrc_app/home', {name, hpTraining: resultsList[0],
           dvTraining: resultsList[1], cbTraining: resultsList[2]})
       } else {
         console.log('user has not yet been verified! Sending to app.verif');
-        let name = getName(userEmail)
+        let name = await getName(userEmail)
         
         res.status(200).render('./eutrc_app/verification.ejs', {name, email: userEmail, password:userPass, status:0})
       }
