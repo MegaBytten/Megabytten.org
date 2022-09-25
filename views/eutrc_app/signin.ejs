@@ -85,21 +85,20 @@
             alt="An Image displaying MegaBytten's Touch Training Tracker's logo.">
     </div>
 
-    
+    <h1>
+        EUTRC APP Sign in
+    </h1>
 
     <div class="signin-container">
-
-        <h1>
-            EUTRC APP Sign in
-        </h1>
-
-        <h4 id="error-msg">This email address already exists. Try signing in instead?</h4>
+        <h4 id="error-msg" style="text-align: center;">
+            This email address already exists. Try signing in instead?
+        </h4>
 
         <script>
             let statusCode = '<%status%>'
             if (statusCode == 0){
                 let errorMsg = document.getElementById('error-msg')
-                errorMsg.style.display = 'hidden'
+                btnsSection.style.display = "none"
             } else if (statusCode == 1){
                 //nothing to change.
             }
