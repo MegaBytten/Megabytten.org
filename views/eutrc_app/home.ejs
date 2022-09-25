@@ -64,6 +64,11 @@
 
         .hp-training {
             display: flex;
+            flex-direction: column;
+        }
+
+        .training-info {
+            margin-left: 10px;
         }
 
     </style>
@@ -83,7 +88,6 @@
                 >
             </a>
 
-            
             <a 
                 class="icon-btns"
                 href="./home.ejs"
@@ -96,6 +100,7 @@
             </a>
             
         </div>
+        <!-- This right content section will be what changes on button click -->
         <div class="right-content-section">
             <h1 style="text-align:center ;">
                 EUTRC APP Home Page
@@ -108,15 +113,32 @@
 
                 <div class="hp-training">
                     <h3>High Performance (HP)</h3>
-                    
+                    <text>
+                        Date: <%= hpTraining[date_day] %>/<%= hpTraining[date_month] %>//<%= hpTraining[date_year] %>
+                        Time: <%= hpTraining[time] %>
+                        Location: <%= hpTraining[location] %> 
+                        Drills: <%= hpTraining[drills] %>
+                    </text>
                 </div>
 
                 <div class="dv-training">
                     <h3>Development (DV)</h3>
+                    <text>
+                        Date: <%= dvTraining[date_day] %>/<%= dvTraining[date_month] %>//<%= dvTraining[date_year] %>
+                        Time: <%= dvTraining[time] %>
+                        Location: <%= dvTraining[location] %> 
+                        Drills: <%= dvTraining[drills] %>
+                    </text>
                 </div>
 
                 <div class="cb-training">
                     <h3>Club (CB)</h3>
+                    <text>
+                        Date: <%= cbTraining[date_day] %>/<%= cbTraining[date_month] %>//<%= cbTraining[date_year] %>
+                        Time: <%= cbTraining[time] %>
+                        Location: <%= cbTraining[location] %> 
+                        Drills: <%= cbTraining[drills] %>
+                    </text>
                 </div>
 
                 

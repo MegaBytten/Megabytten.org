@@ -187,9 +187,16 @@ app.post('/eutrcapp/verify', async (req, res) => {
         query = "UPDATE users SET verified = 1, verification_code = 'null' WHERE email = '"
         + userEmail + "';"
         let userSQLResult = await verify.queryMySQL(query);
-        let sqlQueryStatus = userSQLResult[0];
         console.log("User: " + userEmail + " verified.");
-        res.status(200).render('eutrc_app/home', {name:'name!'})
+
+        //The next HP, CB, and DV trainings have been requested
+        console.log(`Obtaining next HP, CB, and DV trainings.`);
+        let resultsList = require('./EUTRCApp/get-next-training.js');
+        resultsList = await resultsList.getNextTrainingsList();
+
+        let jsonData = {hpTraining: resultsList[0], dvTraining: resultsList[1], cbTraining: resultsList[2]}
+        console.log("\nSending json object to client side: " + JSON.stringify(jsonData));
+        res.status(200).render('eutrc_app/home', {name:'name!', jsonData})
 
       } else {
         console.log("Verification codes do not match.");
@@ -323,8 +330,16 @@ app.post('/eutrcapp/login', async (req, res) => {
         console.log('user verif was == null. Sending server error.');
         res.status(500).send("server error.")
       } else if (verif == 1){
-        console.log('user is verified! Sending to app.home');
-        res.status(200).render('./eutrc_app/home.ejs', {name:'Ethan'})
+        console.log('user is verified! Pulling training data and sending to app.home');
+        
+        //The next HP, CB, and DV trainings have been requested
+        console.log(`Obtaining next HP, CB, and DV trainings.`);
+        let resultsList = require('./EUTRCApp/get-next-training.js');
+        resultsList = await resultsList.getNextTrainingsList();
+
+        let jsonData = {hpTraining: resultsList[0], dvTraining: resultsList[1], cbTraining: resultsList[2]}
+        console.log("\nSending json object to client side: " + JSON.stringify(jsonData));
+        res.status(200).render('eutrc_app/home', {name:'name!', jsonData})
       } else {
         console.log('user has not yet been verified! Sending to app.verif');
         const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
@@ -863,6 +878,10 @@ app.get('/eutrcapp/trainings/availability.json', async (req, res) => {
 */
 //link for EUTRC signin page
 app.get('/eutrc/app/signin', async (req, res) => {
+  console.log('/eutrc/app/signin reached! Sending login page.');
+  res.status(200).render('eutrc_app/signin', {status:0})
+})
+app.get('/eutrc/app/login', async (req, res) => {
   console.log('/eutrc/app/signin reached! Sending login page.');
   res.status(200).render('eutrc_app/signin', {status:0})
 })
