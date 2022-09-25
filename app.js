@@ -189,15 +189,12 @@ app.post('/eutrcapp/verify', async (req, res) => {
         userSQLResult = await verify.queryMySQL(query);
         console.log("User: " + userEmail + " verified.");
 
-        query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
-        let sqlResult = await verify.queryMySQL(query);
-        let name = sqlResult[0]['first_name']
-
         //The next HP, CB, and DV trainings have been requested
         console.log(`Obtaining next HP, CB, and DV trainings.`);
         let resultsList = require('./EUTRCApp/get-next-training.js');
         resultsList = await resultsList.getNextTrainingsList();
         console.log("\nSending json object to client side: " + JSON.stringify(resultsList));
+        let name = getName(userEmail, userPass)
 
         res.status(200).render('eutrc_app/home', {name, hpTraining: resultsList[0],
           dvTraining: resultsList[1], cbTraining: resultsList[2]})
@@ -335,24 +332,19 @@ app.post('/eutrcapp/login', async (req, res) => {
         res.status(500).send("server error.")
       } else if (verif == 1){
         console.log('user is verified! Pulling training data and sending to app.home');
-
-        const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
-        let sqlResult = await verify.queryMySQL(query);
-        let name = sqlResult[0]['first_name']
         
         //The next HP, CB, and DV trainings have been requested
         console.log(`Obtaining next HP, CB, and DV trainings.`);
         let resultsList = require('./EUTRCApp/get-next-training.js');
         resultsList = await resultsList.getNextTrainingsList();
         console.log("\nSending json object to client side: " + JSON.stringify(resultsList));
+        let name = getName(userEmail, userPass)
 
-        res.status(200).render('eutrc_app/home', {name:'name!', hpTraining: resultsList[0],
+        res.status(200).render('eutrc_app/home', {name:, hpTraining: resultsList[0],
           dvTraining: resultsList[1], cbTraining: resultsList[2]})
       } else {
         console.log('user has not yet been verified! Sending to app.verif');
-        const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
-        let sqlResult = await verify.queryMySQL(query);
-        let name = sqlResult[0]['first_name']
+        
         res.status(200).render('./eutrc_app/verification.ejs', {name, email: userEmail, password:userPass, status:0})
       }
       break;
