@@ -124,6 +124,17 @@ async function getName(userEmail){
   return sqlResult[0]['first_name']
 }
 
+async function isCoach(userEmail){
+  const verify = require('./EUTRCApp/verification.js');
+  const query = `SELECT coach FROM users WHERE email = '${userEmail}';`
+  let sqlResult = await verify.queryMySQL(query);
+  if (sqlResult[0]['coach'] == 1){
+    return true;
+  } else {
+    return false;
+  }
+}
+
 
 
 /*  ################################################################################
@@ -196,8 +207,9 @@ app.post('/eutrcapp/verify', async (req, res) => {
         console.log("\nSending json object to client side: " + JSON.stringify(resultsList));
         let name = await getName(userEmail)
 
-        res.status(200).render('eutrc_app/home', {name, hpTraining: resultsList[0],
-          dvTraining: resultsList[1], cbTraining: resultsList[2]})
+        res.status(200).render('eutrc_app/home', 
+          {userInfo: {name, isCoach: isCoach(userEmail), email: userEmail, password: userPass}, 
+          hpTraining: resultsList[0], dvTraining: resultsList[1], cbTraining: resultsList[2]})
 
       } else {
         console.log("Verification codes do not match.");
@@ -340,8 +352,9 @@ app.post('/eutrcapp/login', async (req, res) => {
         console.log("\nSending json object to client side: " + JSON.stringify(resultsList));
         let name = await getName(userEmail)
 
-        res.status(200).render('eutrc_app/home', {name, hpTraining: resultsList[0],
-          dvTraining: resultsList[1], cbTraining: resultsList[2]})
+        res.status(200).render('eutrc_app/home', 
+          {userInfo: {name, isCoach: isCoach(userEmail), email: userEmail, password: userPass}, 
+          hpTraining: resultsList[0], dvTraining: resultsList[1], cbTraining: resultsList[2]})
       } else {
         console.log('user has not yet been verified! Sending to app.verif');
         let name = await getName(userEmail)
