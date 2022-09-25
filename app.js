@@ -299,7 +299,7 @@ app.post('/eutrcapp/signup', async (req, res) => {
   } else {
     //user already exists!
     console.log("User Already exists in database! Sending error message");
-    res.status(200).render('eutrc_app/signin.ejs', {status: 1})
+    res.status(200).render('eutrc_app/signin.ejs', {status: 3})
   }
 });
 
@@ -313,7 +313,7 @@ app.post('/eutrcapp/login', async (req, res) => {
   switch (loginSuccess) {
     case 0:
       //login was failure: User not recognised in DB
-      res.status(999).send('Login error: User not found');
+      res.status(200).render('eutrc_app/signin', {status:1})
       break;
     case 1:
       //login was a success
@@ -335,7 +335,7 @@ app.post('/eutrcapp/login', async (req, res) => {
       break;
     case 2:
       //login was failure: Passwords did not match
-      res.status(998).send('Login error: Incorrect Password.');
+      res.status(200).render('eutrc_app/signin', {status:2})
       break;
     default:
       //other error.
