@@ -261,10 +261,12 @@
                     </div>
 
                     <script>
+                        console.log('script launched');
                         const date = new Date();
                         const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1);
-                        let x;
-                        
+                        let x = 0;
+                        console.log('firstDay = ' + firstDayCurrentMonth);
+
                         switch (firstDayCurrentMonth) {
                             case 0:
                                 //sunday
@@ -285,6 +287,7 @@
                             case 4:
                                 //thursday
                                 x = 4
+                                console.log('x=4');
                                 break;
                             case 5:
                                 //friday
@@ -299,11 +302,13 @@
                         }
 
                         for (y=1; y < x; y++){
+                            console.log('looping through y! y='+y);
                             let cell = document.getElementById('cell' + y)
                             cell.style.visibility = 'hidden'
                         }
 
                         for (x; x<=42; x++){
+                            console.log('looping through y! x='+x);
                             let cell = document.getElementById('cell' + x)
                             cell.textContent = 'x'
                         }
