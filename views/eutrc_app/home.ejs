@@ -131,12 +131,12 @@
                 <div class="dv-training">
                     <h3>Development (DV)</h3>
                     <% if (dvTraining['date_day'] != 'none') { %>
-                        <text class="training-info">
-                            Date: <%= dvTraining['date_day'] %>/<%= dvTraining['date_month'] %>//<%= dvTraining['date_year'] %>
-                            Time: <%= dvTraining['time'] %>
-                            Location: <%= dvTraining['location'] %> 
-                            Drills: <%= dvTraining['drills'] %>
-                        </text>
+                        <div class="training-info">
+                            <text>Date: <%= dvTraining['date_day'] %>/<%= dvTraining['date_month'] %>//<%= dvTraining['date_year'] %></text>
+                            <text>Time: <%= dvTraining['time'] %></text>
+                            <text>Location: <%= dvTraining['location'] %></text>
+                            <text>Drills: <%= dvTraining['drills'] %></text>
+                        </div>
                     <% } else { %> 
                         <p style="margin-left: 10px;">There is no Development training within the next week.</p>
                     <% } %> 
@@ -145,12 +145,12 @@
                 <div class="cb-training">
                     <h3>Club (CB)</h3>
                     <% if (cbTraining['date_day'] != 'none') { %>
-                        <text class="training-info">
-                            Date: <%= cbTraining['date_day'] %>/<%= cbTraining['date_month'] %>//<%= cbTraining['date_year'] %>
-                            Time: <%= cbTraining['time'] %>
-                            Location: <%= cbTraining['location'] %> 
-                            Drills: <%= cbTraining['drills'] %>
-                        </text>
+                        <div class="training-info">
+                            <text>Date: <%= cbTraining['date_day'] %>/<%= cbTraining['date_month'] %>//<%= cbTraining['date_year'] %></text>
+                            <text>Time: <%= cbTraining['time'] %></text>
+                            <text>Location: <%= cbTraining['location'] %> </text>
+                            <text>Drills: <%= cbTraining['drills'] %></text>
+                        </div>
                     <% } else { %> 
                         <p style="margin-left: 10px;">There is no Club training within the next week.</p>
                     <% } %> 
