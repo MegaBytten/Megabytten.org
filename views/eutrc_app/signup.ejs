@@ -108,11 +108,11 @@
 
     <script type="text/javascript">
         function checkPwd(e){
-            e.preventDefault();
             let pwd1 = document.getElementById('newPassword').value;
             let pwd2 = document.getElementById('confirmPassword').value;
             console.log(`trace: ${pwd1} and ${pwd2}`);
             if (pwd1 != pwd2){
+                e.preventDefault();
                 alert("Error! Passwords do not match.")
                 return false
             } else {
