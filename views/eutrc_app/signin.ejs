@@ -96,11 +96,13 @@
 
         <script>
             let statusCode = '<%status%>'
+            console.log(statusCode);
             if (statusCode == 0){
                 let errorMsg = document.getElementById('error-msg')
                 errorMsg.style.display = "none"
             } else if (statusCode == 1){
-                //nothing to change.
+                let errorMsg = document.getElementById('error-msg')
+                errorMsg.style.display = "block"
             }
         </script>
 
