@@ -186,10 +186,10 @@ app.post('/eutrcapp/verify', async (req, res) => {
       } else if (verifCode == userSQLVerifCode){
         query = "UPDATE users SET verified = 1, verification_code = 'null' WHERE email = '"
         + userEmail + "';"
-        let userSQLResult = await verify.queryMySQL(query);
+        userSQLResult = await verify.queryMySQL(query);
         console.log("User: " + userEmail + " verified.");
 
-        const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
+        query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
         let sqlResult = await verify.queryMySQL(query);
         let name = sqlResult[0]['first_name']
 
