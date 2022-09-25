@@ -344,6 +344,7 @@ app.post('/eutrcapp/login', async (req, res) => {
           dvTraining: resultsList[1], cbTraining: resultsList[2]})
       } else {
         console.log('user has not yet been verified! Sending to app.verif');
+        let name = getName(userEmail, userPass)
         
         res.status(200).render('./eutrc_app/verification.ejs', {name, email: userEmail, password:userPass, status:0})
       }
