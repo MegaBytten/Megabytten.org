@@ -299,7 +299,7 @@ app.post('/eutrcapp/signup', async (req, res) => {
   } else {
     //user already exists!
     console.log("User Already exists in database! Sending error message");
-    res.send("Exists")
+    res.status(200).render('eutrc_app/signin.ejs', {status: 1})
   }
 });
 
