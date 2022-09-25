@@ -193,8 +193,8 @@ app.post('/eutrcapp/verify', async (req, res) => {
         console.log(`Obtaining next HP, CB, and DV trainings.`);
         let resultsList = require('./EUTRCApp/get-next-training.js');
         resultsList = await resultsList.getNextTrainingsList();
-        console.log("\nSending json object to client side: " + JSON.stringify(jsonData));
-        
+        console.log("\nSending json object to client side: " + JSON.stringify(resultsList));
+
         res.status(200).render('eutrc_app/home', {name:'name!', hpTraining: resultsList[0],
           dvTraining: resultsList[1], cbTraining: resultsList[2]})
 
