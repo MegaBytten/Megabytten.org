@@ -254,15 +254,14 @@ app.post('/eutrcapp/signup', async (req, res) => {
   const userFirstName = req.body.firstName;
   const userLastName = req.body.lastName;
   const userPhoneNumber = req.body.phoneNumber;
-  const userPassword = req.body.password
-  const userCoach = req.body.coach;
+  const userPassword = req.body.password;
+  const userCoach = false;
 
   const verify = require('./EUTRCApp/verification.js');
 
   //check if user already Exists
   //queries MySQL database for user's password
-  let query = "SELECT * FROM users WHERE email = '"
-    + userEmail + "';";
+  let query = `select * from users where email = '${userEmail}';`
   let userSQLResult = await verify.queryMySQL(query);
 
   if (userSQLResult == null){
@@ -275,8 +274,7 @@ app.post('/eutrcapp/signup', async (req, res) => {
 
       let userSQLResult = await verify.queryMySQL(query);
       let sqlQueryResult = JSON.stringify(userSQLResult[0]);
-      console.log("sqlQueryResult: " + sqlQueryResult + ". User added to DB!");
-
+      console.log("User added to DB!");
       res.status(200).send("added")
     } else {
       //email is not @exeter.ac.uk
