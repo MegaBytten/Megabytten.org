@@ -91,14 +91,14 @@
 
     <div class="signin-container">
         <h4 name="error-msg" id="error-msg" style="text-align: center;">
-            This email address already exists. Try signing in instead?
+            This email has already been registered. Try signing in instead.
         </h4>
 
         <script>
             let statusCode = '<%status%>'
             if (statusCode == 0){
                 let errorMsg = document.getElementById('error-msg')
-                btnsSection.style.display = "none"
+                errorMsg.style.display = "none"
             } else if (statusCode == 1){
                 //nothing to change.
             }
