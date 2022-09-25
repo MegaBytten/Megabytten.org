@@ -340,7 +340,7 @@ app.post('/eutrcapp/login', async (req, res) => {
         console.log("\nSending json object to client side: " + JSON.stringify(resultsList));
         let name = getName(userEmail, userPass)
 
-        res.status(200).render('eutrc_app/home', {name:, hpTraining: resultsList[0],
+        res.status(200).render('eutrc_app/home', {name, hpTraining: resultsList[0],
           dvTraining: resultsList[1], cbTraining: resultsList[2]})
       } else {
         console.log('user has not yet been verified! Sending to app.verif');
