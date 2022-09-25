@@ -194,14 +194,14 @@ app.post('/eutrcapp/verify', async (req, res) => {
         let resultsList = require('./EUTRCApp/get-next-training.js');
         resultsList = await resultsList.getNextTrainingsList();
         console.log("\nSending json object to client side: " + JSON.stringify(resultsList));
-        let name = getName(userEmail, userPass)
+        let name = getName(userEmail)
 
         res.status(200).render('eutrc_app/home', {name, hpTraining: resultsList[0],
           dvTraining: resultsList[1], cbTraining: resultsList[2]})
 
       } else {
         console.log("Verification codes do not match.");
-        let name = getName(userEmail, userPass)
+        let name = getName(userEmail)
         res.status(200).render('eutrc_app/verification', {name, email: userEmail, password:userPass, status:2})
       }
       break;
@@ -338,13 +338,13 @@ app.post('/eutrcapp/login', async (req, res) => {
         let resultsList = require('./EUTRCApp/get-next-training.js');
         resultsList = await resultsList.getNextTrainingsList();
         console.log("\nSending json object to client side: " + JSON.stringify(resultsList));
-        let name = getName(userEmail, userPass)
+        let name = getName(userEmail)
 
         res.status(200).render('eutrc_app/home', {name, hpTraining: resultsList[0],
           dvTraining: resultsList[1], cbTraining: resultsList[2]})
       } else {
         console.log('user has not yet been verified! Sending to app.verif');
-        let name = getName(userEmail, userPass)
+        let name = getName(userEmail)
         
         res.status(200).render('./eutrc_app/verification.ejs', {name, email: userEmail, password:userPass, status:0})
       }
