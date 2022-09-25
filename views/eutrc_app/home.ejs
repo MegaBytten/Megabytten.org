@@ -129,11 +129,12 @@
         }
 
         .cells-container {
-            display: grid; 
-            grid-template-columns: 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr;
+            display: flex;
+            flex-direction: row;
         }
 
         .cells {
+            flex: 1;
             padding: 5px;
             border-top: 1px;
             border-left: 1px;
