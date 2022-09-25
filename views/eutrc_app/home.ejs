@@ -117,12 +117,12 @@
                 <div class="hp-training">
                     <h3>High Performance (HP)</h3>
                     <% if (hpTraining['date_day'] != 'none') { %>
-                        <text class="training-info">
+                        <div class="training-info">
                             Date: <%= hpTraining['date_day'] %>/<%= hpTraining['date_month'] %>//<%= hpTraining['date_year'] %>
                             Time: <%= hpTraining['time'] %>
                             Location: <%= hpTraining['location'] %> 
                             Drills: <%= hpTraining['drills'] %>
-                        </text>
+                        </div>
                     <% } else { %> 
                         <p style="margin-left: 10px;">There is no High Performance training within the next week.</p>
                     <% } %> 
