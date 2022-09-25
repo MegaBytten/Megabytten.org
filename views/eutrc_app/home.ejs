@@ -263,7 +263,7 @@
                     <script>
                         console.log('script launched');
                         const date = new Date();
-                        const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1);
+                        const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
                         let x = 0;
                         console.log('firstDay = ' + firstDayCurrentMonth);
 
