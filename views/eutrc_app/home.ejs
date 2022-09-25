@@ -69,6 +69,9 @@
 
         .training-info {
             margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
         }
 
     </style>
@@ -121,7 +124,7 @@
                             Drills: <%= hpTraining['drills'] %>
                         </text>
                     <% } else { %> 
-                        <p class="training-info">There is no High Performance training within the next week.</p>
+                        <p style="margin-left: 10px;">There is no High Performance training within the next week.</p>
                     <% } %> 
                 </div>
 
@@ -135,7 +138,7 @@
                             Drills: <%= dvTraining['drills'] %>
                         </text>
                     <% } else { %> 
-                        <p class="training-info">There is no Development training within the next week.</p>
+                        <p style="margin-left: 10px;">There is no Development training within the next week.</p>
                     <% } %> 
                 </div>
 
@@ -149,7 +152,7 @@
                             Drills: <%= cbTraining['drills'] %>
                         </text>
                     <% } else { %> 
-                        <p class="training-info">There is no Club training within the next week.</p>
+                        <p style="margin-left: 10px;">There is no Club training within the next week.</p>
                     <% } %> 
                 </div>
             </div>
