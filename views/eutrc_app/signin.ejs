@@ -46,6 +46,8 @@
         }
 
         .signin-form {
+            display: flex;
+            flex-direction: column;
             align-self: center;
             width: 200px
         }
@@ -119,9 +121,9 @@
         </script>
 
         <form class="signin-form" action="/eutrcapp/login" method="post">
-            <text>Email</text> <br>
+            <text>Email</text>
             <input class="signin-element" type="email" id="email" name="email" placeholder="@exeter.ac.uk">
-            <text>Password</text> <br>
+            <text>Password</text>
             <input class="signin-element" type="password" id="password" name="password" placeholder="***********">
             <text style="text-align: center; margin-bottom: 10px; font-size: small;">Forgotten password? Contact admin!</text>
             <input class="submit-btn" type="submit" value="Submit">
