@@ -302,15 +302,16 @@
                         }
 
                         for (y=1; y < x; y++){
-                            console.log('looping through y! y='+y);
                             let cell = document.getElementById('cell' + y)
                             cell.style.visibility = 'hidden'
                         }
 
-                        for (x; x<=42; x++){
-                            console.log('looping through y! x='+x);
+                        var today = new Date();
+                        var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
+                        for (var day = 1; day <=lastDayOfMonth; x++){
                             let cell = document.getElementById('cell' + x)
-                            cell.textContent = x
+                            cell.textContent = day
+                            x++;
                         }
 
                     </script>
