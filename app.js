@@ -288,7 +288,7 @@ app.post('/eutrcapp/signup', async (req, res) => {
         const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
         let sqlResult = await verify.queryMySQL(query);
         let name = sqlResult[0]['first_name']
-        res.status(200).render('eutrc_app/verification.ejs', {name, email: userEmail, password:userPass, status:3})
+        res.status(200).render('eutrc_app/verification.ejs', {name, email: userEmail, password:userPassword, status:3})
       }
     } else {
       //email is not @exeter.ac.uk
