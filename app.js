@@ -850,7 +850,7 @@ app.get('/eutrcapp/trainings/availability.json', async (req, res) => {
 //link for EUTRC signin page
 app.get('/eutrc/app/signin', async (req, res) => {
   console.log('/eutrc/app/signin reached! Sending login page.');
-  res.sendFile('/public/eutrc/app/signin/signin.html', dirName)
+  res.status(200).render('eutrc_app/signin')
 })
 
 app.get('/eutrc/app/signup', async (req, res) => {
