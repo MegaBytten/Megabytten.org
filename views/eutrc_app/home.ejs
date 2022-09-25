@@ -113,38 +113,45 @@
 
                 <div class="hp-training">
                     <h3>High Performance (HP)</h3>
-                    <text>
-                        Date: <%= hpTraining[0] %>/<%= hpTraining[date_month] %>//<%= hpTraining[date_year] %>
-                        Time: <%= hpTraining[time] %>
-                        Location: <%= hpTraining[location] %> 
-                        Drills: <%= hpTraining[drills] %>
-                    </text>
+                    <% if (hpTraining['date_day'] != 'none') { %>
+                        <text>
+                            Date: <%= hpTraining['date_day'] %>/<%= hpTraining['date_month'] %>//<%= hpTraining['date_year'] %>
+                            Time: <%= hpTraining['time'] %>
+                            Location: <%= hpTraining['location'] %> 
+                            Drills: <%= hpTraining['drills'] %>
+                        </text>
+                    <% else { %> 
+                        <p>There is no High Performance training within the next week.</p>
+                    <% } %> 
                 </div>
 
                 <div class="dv-training">
                     <h3>Development (DV)</h3>
-                    <text>
-                        Date: <%= dvTraining[date_day] %>/<%= dvTraining[date_month] %>//<%= dvTraining[date_year] %>
-                        Time: <%= dvTraining[time] %>
-                        Location: <%= dvTraining[location] %> 
-                        Drills: <%= dvTraining[drills] %>
-                    </text>
+                    <% if (dvTraining['date_day'] != 'none') { %>
+                        <text>
+                            Date: <%= dvTraining['date_day'] %>/<%= dvTraining['date_month'] %>//<%= dvTraining['date_year'] %>
+                            Time: <%= dvTraining['time'] %>
+                            Location: <%= dvTraining['location'] %> 
+                            Drills: <%= dvTraining['drills'] %>
+                        </text>
+                    <% else { %> 
+                        <p>There is no Development training within the next week.</p>
+                    <% } %> 
                 </div>
 
                 <div class="cb-training">
                     <h3>Club (CB)</h3>
-                    <text>
-                        Date: <%= cbTraining[date_day] %>/<%= cbTraining[date_month] %>//<%= cbTraining[date_year] %>
-                        Time: <%= cbTraining[time] %>
-                        Location: <%= cbTraining[location] %> 
-                        Drills: <%= cbTraining[drills] %>
-                    </text>
+                    <% if (cbTraining['date_day'] != 'none') { %>
+                        <text>
+                            Date: <%= cbTraining['date_day'] %>/<%= cbTraining['date_month'] %>//<%= cbTraining['date_year'] %>
+                            Time: <%= cbTraining['time'] %>
+                            Location: <%= cbTraining['location'] %> 
+                            Drills: <%= cbTraining['drills'] %>
+                        </text>
+                    <% else { %> 
+                        <p>There is no Club training within the next week.</p>
+                    <% } %> 
                 </div>
-
-                
-                
-                
-
             </div>
         </div>
     </div>
