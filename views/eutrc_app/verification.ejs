@@ -129,8 +129,11 @@
             //redirected after submitting form, incorrect verif code
             enterCode()
             let header = document.getElementById('header')
-            header.textContent = 'Incorrect verificationc code.'
-            
+            header.textContent = 'Incorrect verification code.'
+        } else if (statusCode == 3) {
+            //redirected after signing up, no verification though
+            let header = document.getElementById('header')
+            header.textContent = '<%=name%>, your account has been registered. Please verify your email below.'
         }
 
         function enterCode(){

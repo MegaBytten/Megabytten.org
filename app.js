@@ -275,7 +275,23 @@ app.post('/eutrcapp/signup', async (req, res) => {
       let userSQLResult = await verify.queryMySQL(query);
       let sqlQueryResult = JSON.stringify(userSQLResult[0]);
       console.log("User added to DB!");
-      res.status(200).send("added")
+
+      //check user's verification
+      const verify = require('./EUTRCApp/verification.js');
+      let verif = await checkUserVerif(userEmail, userPassword)
+      if (verif == null){
+        console.log('user verif was == null. Sending server error.');
+        res.status(500).send("server error: added user's verif == null.")
+      } else if (verif == 1){
+        console.log('user is verified! Sending to app.home');
+        res.status(200).render('eutrc_app/home.ejs', {name:'Ethan'})
+      } else {
+        console.log('user has not yet been verified! Sending to app.verif');
+        const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
+        let sqlResult = await verify.queryMySQL(query);
+        let name = sqlResult[0]['first_name']
+        res.status(200).render('eutrc_app/verification.ejs', {name, email: userEmail, password:userPass, status:3})
+      }
     } else {
       //email is not @exeter.ac.uk
       console.log("Non @exeter.ac.uk email posted! Sending error message");
@@ -850,7 +866,7 @@ app.get('/eutrcapp/trainings/availability.json', async (req, res) => {
 //link for EUTRC signin page
 app.get('/eutrc/app/signin', async (req, res) => {
   console.log('/eutrc/app/signin reached! Sending login page.');
-  res.status(200).render('eutrc_app/signin')
+  res.status(200).render('eutrc_app/signin', {status:0})
 })
 
 app.get('/eutrc/app/signup', async (req, res) => {
