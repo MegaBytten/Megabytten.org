@@ -256,6 +256,9 @@
                     <div class="cells-container">
                         <% for (x=0; x < 42; x++) { %> 
                             <text class="cells" id="cell-<%=x+1%>" name="cell-<%=x+1%>">Cell<%=x+1%></text>
+                            <script>
+                                console.log('id="cell-<%=x+1%>"');
+                            </script> 
                         <% } %> 
 
                     </div>
