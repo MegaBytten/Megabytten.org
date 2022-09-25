@@ -121,6 +121,7 @@ async function getName(userEmail){
   const verify = require('./EUTRCApp/verification.js');
   const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
   let sqlResult = await verify.queryMySQL(query);
+  console.log(`getName function: ${sqlResult[0]['first_name']}`);
   return sqlResult[0]['first_name']
 }
 
