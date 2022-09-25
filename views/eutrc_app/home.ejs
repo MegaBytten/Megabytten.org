@@ -95,16 +95,12 @@
 
         /* Exclusively calendar stuff */
         .wrapper {
-            margin: 15px auto;
-            max-width: 1100px;
+            width: 100%;
         }
 
         .container-calendar {
-            background: #ffffff;
+            background: #505050;
             padding: 15px;
-            max-width: 475px;
-            margin: 0 auto;
-            overflow: auto;
         }
 
         .button-container-calendar button {
@@ -139,15 +135,13 @@
             border-bottom: 2px solid currentColor;
         }
 
-        /* sunday */
-        .date-picker:nth-child(1) {
-        color: red;
+        
+        /* .date-picker:nth-child(1) { // sunday 
+        color: rgb(99, 16, 16);
         }
-
-        /* friday */
-        .date-picker:nth-child(6) {
-        color: green;
-        }
+        .date-picker:nth-child(6) { // friday 
+        color: rgb(10, 69, 10);
+        } */
 
         #monthAndYear {
             text-align: center;
@@ -171,7 +165,7 @@
 
         .footer-container-calendar {
             margin-top: 1em;
-            border-top: 1px solid #dadada;
+            border-top: 1px solid #585252;
             padding: 10px 0;
         }
 
@@ -369,7 +363,6 @@
         var months =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-
         var $dataHead = "<tr>";
         for (dhead in days) {
             $dataHead += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
@@ -382,8 +375,6 @@
 
         monthAndYear = document.getElementById("monthAndYear");
         showCalendar(currentMonth, currentYear);
-
-
 
         function next() {
             currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
