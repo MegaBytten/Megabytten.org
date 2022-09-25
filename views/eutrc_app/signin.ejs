@@ -91,18 +91,30 @@
 
     <div class="signin-container">
         <h4 name="error-msg" id="error-msg" style="text-align: center;">
-            This email has already been registered. Try signing in instead.
+            
         </h4>
 
         <script>
             let statusCode = '<%=status%>'
             console.log(statusCode);
             if (statusCode == 0){
+                //natural state, freshly joining page
                 let errorMsg = document.getElementById('error-msg')
                 errorMsg.style.display = "none"
             } else if (statusCode == 1){
+                //email not recognised error
                 let errorMsg = document.getElementById('error-msg')
-                errorMsg.style.display = "block"
+                errorMsg.textContent = "Email not recognised. Are you sure you have signed up?"
+
+            } else if (statusCode == 2){
+                //incorrect password error
+                let errorMsg = document.getElementById('error-msg')
+                errorMsg.textContent = "Incorrect password. Please try again."
+
+            } else if (statusCode == 3){
+                //redirected from signup page; email already linked to an account
+                let errorMsg = document.getElementById('error-msg')
+                errorMsg.textContent = "This email has already been registered. Try signing in instead."
             }
         </script>
 
