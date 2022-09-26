@@ -113,7 +113,7 @@
         }
 
         .month-buttons {
-            font-size: 600px;
+            font-size: 200px;
         }
 
         .weekday-labels-container {
@@ -287,7 +287,8 @@
                         }
 
                         function updateCalendar(date) {
-                            var month = date.getMonth()
+                            var monthName = new Intl.DateTimeFormat("en-US", { month: "long" }).format;
+                            var longName = monthName(date);
                             var h3 = document.getElementById('month')
                             h3.textContent = month;
 
