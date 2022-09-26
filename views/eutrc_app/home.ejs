@@ -112,12 +112,17 @@
             border-color: antiquewhite;
         }
 
+        .month-buttons {
+            font-size: 600px;
+        }
+
         .weekday-labels-container {
             display: flex;
             flex-direction: row;
         }
 
         .weekday-labels {
+            text-align: center;
             flex: 1;
             padding: 5px;
             border-top: 1px;
@@ -147,6 +152,7 @@
             <a 
                 class="icon-btns"
                 href="/"
+                target="_blank"
             >
                 <img 
                     class="icon-imgs"
@@ -238,9 +244,15 @@
                 <!-- This is the calendar! -->
                 <div class="calendar-wrapper">
                     <div class="title-section">
-                        <button>&#8592</button>
-                        <h3>MONTH</h3>
-                        <button>&#8594</button>
+                        <button onclick="lastMonth()" class="month-buttons">
+                            &#8592
+                        </button>
+                        <h3 id="month">
+                            MONTH
+                        </h3>
+                        <button onclick="nextMonth()" class="month-buttons">
+                            &#8594
+                        </button>
                     </div>
 
                     <div class="weekday-labels-container">
@@ -261,64 +273,80 @@
                     </div>
 
                     <script>
-                        console.log('script launched');
-                        const date = new Date();
-                        const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
-                        let x = 0;
-                        console.log('firstDay = ' + firstDayCurrentMonth);
+                        selectedDate = new Date()
+                        updateCalendar(selectedDate)
 
-                        switch (firstDayCurrentMonth) {
-                            case 0:
-                                //sunday
-                                x = 7
-                                break;
-                            case 1:
-                                //monday
-                                x = 1
-                                break;
-                            case 2:
-                                //tuesday
-                                x = 2
-                                break;
-                            case 3:
-                                //wednesday
-                                x = 3
-                                break;
-                            case 4:
-                                //thursday
-                                x = 4
-                                console.log('x=4');
-                                break;
-                            case 5:
-                                //friday
-                                x = 5
-                                break;
-                            case 6:
-                                //saturday
-                                x = 6
-                                break;
-                            default:
-                                break;
+                        function nextMonth(){
+                            selectedDate.nextMonth()
+                            updateCalendar(selectedDate)
                         }
 
-                        for (y=1; y < x; y++){
-                            let cell = document.getElementById('cell' + y)
-                            cell.style.visibility = 'hidden'
+                        function lastMonth(){
+                            selectedDate.lastMonth()
+                            updateCalendar(selectedDate)
                         }
 
-                        var today = new Date();
-                        var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
-                        for (var day = 1; day <=lastDayOfMonth; day++){
-                            let cell = document.getElementById('cell' + x)
-                            cell.textContent = day
-                            x++;
+                        function updateCalendar(date) {
+                            var month = date.getMonth()
+                            var h3 = document.getElementById('month')
+                            h3.textContent = month;
+
+                            const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
+                            let x = 0;
+                            switch (firstDayCurrentMonth) {
+                                case 0:
+                                    //sunday
+                                    x = 7
+                                    break;
+                                case 1:
+                                    //monday
+                                    x = 1
+                                    break;
+                                case 2:
+                                    //tuesday
+                                    x = 2
+                                    break;
+                                case 3:
+                                    //wednesday
+                                    x = 3
+                                    break;
+                                case 4:
+                                    //thursday
+                                    x = 4
+                                    console.log('x=4');
+                                    break;
+                                case 5:
+                                    //friday
+                                    x = 5
+                                    break;
+                                case 6:
+                                    //saturday
+                                    x = 6
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            for (y=1; y < x; y++){
+                                let cell = document.getElementById('cell' + y)
+                                cell.style.visibility = 'hidden'
+                            }
+
+                            var lastDayOfMonth = new Date(date.getFullYear(), today.getMonth()+1, 0).getDate();
+                            for (var day = 1; day <=lastDayOfMonth; day++){
+                                let cell = document.getElementById('cell' + x)
+                                cell.textContent = day
+                                x++;
+                            }
+
+                            for (lastDayOfMonth; lastDayOfMonth <= 46; lastDayOfMonth++){
+                                let cell = document.getElementById('cell' + x)
+                                cell.style.visibility = 'hidden'
+                                x++
+                            }
                         }
 
-                        for (lastDayOfMonth; lastDayOfMonth <= 46; lastDayOfMonth++){
-                            let cell = document.getElementById('cell' + x)
-                            cell.style.visibility = 'hidden'
-                            x++
-                        }
+                        
 
                     </script>
 
