@@ -335,6 +335,7 @@
                             var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
                             for (var day = 1; day <=lastDayOfMonth; day++){
                                 let cell = document.getElementById('cell' + x)
+                                cell.style.visibility = 'visible'
                                 cell.textContent = day
                                 x++;
                             }
