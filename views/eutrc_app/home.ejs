@@ -277,12 +277,12 @@
                         updateCalendar(selectedDate)
 
                         function nextMonth(){
-                            selectedDate.nextMonth()
+                            selectedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth()+1, 1);
                             updateCalendar(selectedDate)
                         }
 
                         function lastMonth(){
-                            selectedDate.lastMonth()
+                            selectedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth()-1, 1);
                             updateCalendar(selectedDate)
                         }
 
