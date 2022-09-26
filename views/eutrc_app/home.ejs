@@ -290,7 +290,7 @@
                             var monthName = new Intl.DateTimeFormat("en-US", { month: "long" }).format;
                             var longName = monthName(date);
                             var h3 = document.getElementById('month')
-                            h3.textContent = longName;
+                            h3.textContent = longName + " " + date.getFullYear;
 
                             const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
                             let x = 0;
