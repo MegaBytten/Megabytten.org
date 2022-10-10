@@ -375,10 +375,17 @@
             let eventsPageObj = document.getElementById('eventsPage')
             eventsPageObj.style.display = 'flex'
 
+            const date = new Date();
+            const month = date.toLocaleString('default', { month: 'long' });
+            var year = today.getFullYear();
             $.ajax({
                 url: 'http://megabytten.org/eutrcapp/trainings.json',
                 method: 'GET',
-                headers: {"request": "calendar"},
+                headers: {
+                    "request": "calendar",
+                    month,
+                    year
+                },
                 function (response) {
                     console.log(response)
                 }
