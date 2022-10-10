@@ -539,6 +539,7 @@ app.get('/eutrcapp/trainings.json', async (req, res) => {
     let month = resultsList.convertMonthHeader(req.header('month'))
     let year = req.header('year').slice(2)
 
+    console.log('TRACE TRACE TRACE: ' + month + ' ' + year);
     const verify = require('./EUTRCApp/verification.js');
     let query = "select * from trainings where date_month = '" + month
       + "' and date_year = '" + year + "';"
