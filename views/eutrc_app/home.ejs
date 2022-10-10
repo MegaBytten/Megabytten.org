@@ -373,6 +373,17 @@
 
             let eventsPageObj = document.getElementById('eventsPage')
             eventsPageObj.style.display = 'flex'
+
+            $.ajax({
+                url: 'http://megabytten.org/eutrcapp/trainings.json',
+                method: 'GET',
+                headers: {"request": "calendar"},
+                function (response) {
+                    console.log(response)
+                }
+            }
+               
+            )
         }
 
     </script>
