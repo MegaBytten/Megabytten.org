@@ -375,8 +375,8 @@
             let eventsPageObj = document.getElementById('eventsPage')
             eventsPageObj.style.display = 'flex'
 
-            const date = new Date();
-            const month = date.toLocaleString('default', { month: 'long' });
+            const today = new Date();
+            const month = today.toLocaleString('default', { month: 'long' });
             var year = today.getFullYear();
             $.ajax({
                 url: 'http://megabytten.org/eutrcapp/trainings.json',
