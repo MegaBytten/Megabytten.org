@@ -118,6 +118,7 @@ function resetDate(){
 }
 
 function convertMonthHeader(month){
+  month = month.toUpperCase()
   switch (month) {
     case 'JANUARY':
       return '01';
