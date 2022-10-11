@@ -147,6 +147,14 @@
             min-height: 35px;
         }
 
+        .cell-date-day {
+            font-size: small;
+        }
+
+        .cell-training-info {
+            font-size: smaller;
+        }
+
     </style>
 </head>
 <body>
@@ -271,7 +279,15 @@
 
                     <div class="cells-container">
                         <% for (x=0; x < 42; x++) { %> 
-                            <text class="cells" id="cell<%=x+1%>" name="cell<%=x+1%>">Cell<%=x+1%></text>
+                            <div class="cells" id="cell<%=x+1%>" name="cell<%=x+1%>">
+                                <span class="cell-date-day" id="cell-date-<%=x+1%>" name="cell-date-<%=x+1%>">
+                                    Cell<%=x+1%>
+                                </span>
+                                <span class="cell-training-info" id="cell-training-<%=x+1%>" name="cell-training-<%=x+1%>">
+
+                                </span>
+                            </div>
+                            <!-- <text class="cells" id="cell<%=x+1%>" name="cell<%=x+1%>">Cell<%=x+1%></text> -->
                         <% } %> 
 
                     </div>
@@ -297,24 +313,28 @@
                             var h3 = document.getElementById('month')
                             h3.textContent = longName + " " + date.getFullYear();
 
-                            //these two saves the 
+                            //these obtains the first day of the month
                             const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
                             let x = getFirstDayInt(firstDayCurrentMonth)
                             
+                            // this hides the cells up until the first date
                             for (y=1; y < x; y++){
                                 let cell = document.getElementById('cell' + y)
                                 cell.style.visibility = 'hidden'
                             }
 
+                            // this sets all cells from the starting date until the last day of the month as visible
                             var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
                             for (var day = 1; day <=lastDayOfMonth; day++){
                                 let cell = document.getElementById('cell' + x)
                                 cell.style.visibility = 'visible'
-                                cell.textContent = day
+                                
+                                // sets the textContent as the day number
+                                let cellHeader = document.getElementById('cell-date-' + x)
+                                cellHeader.textContent = day
                                 x++;
                             }
 
-                            // x = getFirstDayInt(firstDayCurrentMonth) //reset X before recalibrating
                             for (lastDayOfMonth; lastDayOfMonth <= 46; lastDayOfMonth++){
                                 let cell = document.getElementById('cell' + x)
                                 cell.style.visibility = 'hidden'
@@ -361,9 +381,8 @@
                             trainingArrayJson.forEach(training => {
                                 const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
                                 var dateInt = Number(training['date_day'])  + (getFirstDayInt(firstDayCurrentMonth)-1) //THEYRE STRINGS
-                                var trainingDayCell = document.getElementById('cell' + dateInt)
-                                console.log(training['team']);
-                                trainingDayCell.innerHTML = trainingDayCell.textContent + "<br>" + training['team']
+                                var trainingDayCell = document.getElementById('cell-training-' + dateInt)
+                                trainingDayCell.innerHTML = trainingDayCell.textContent + training['team'] + "<br>"
                             });
 
                         }
