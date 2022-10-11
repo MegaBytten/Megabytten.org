@@ -285,7 +285,9 @@
 
                     <div class="cells-container">
                         <% for (x=0; x < 42; x++) { %> 
-                            <% console.log('creating cell with id: ' + x) %> 
+                            <script>
+                                console.log('creating cell with id: ' + x)
+                            </script>
 
                             <div class="cells" id="cell<%=x+1%>" name="cell<%=x+1%>">
                                 <span class="cell-date-day" id="cell-date-<%=x+1%>" name="cell-date-<%=x+1%>">
