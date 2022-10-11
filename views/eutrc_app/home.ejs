@@ -458,7 +458,7 @@
             if (this.innerHTML == ''){
                 console.log("no training to view!");
             } else {
-                // $('.expanded-training-info').innerHTML('') //resets HTML
+                $('.expanded-training-info').empty() //resets HTML
 
                 var trainingJSON = $('#'+clickedEl.id).data()
                 for (var training in trainingJSON) {
