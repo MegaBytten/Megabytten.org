@@ -288,11 +288,13 @@
                         }
 
                         function calendarInit(date) {
+                            //these lines set the H3 text as Month Year on the top of the calendar
                             var monthName = new Intl.DateTimeFormat("en-US", { month: "long" }).format;
                             var longName = monthName(date);
                             var h3 = document.getElementById('month')
                             h3.textContent = longName + " " + date.getFullYear();
 
+                            //these two saves the 
                             const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
                             let x = getFirstDayInt(firstDayCurrentMonth)
                             
@@ -309,7 +311,7 @@
                                 x++;
                             }
 
-                            x = getFirstDayInt(firstDayCurrentMonth) //reset X before recalibrating
+                            // x = getFirstDayInt(firstDayCurrentMonth) //reset X before recalibrating
                             for (lastDayOfMonth; lastDayOfMonth <= 46; lastDayOfMonth++){
                                 let cell = document.getElementById('cell' + x)
                                 cell.style.visibility = 'hidden'
