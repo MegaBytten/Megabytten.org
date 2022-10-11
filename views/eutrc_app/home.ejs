@@ -313,17 +313,6 @@
         selectedDate = new Date()
         var trainingArrayJson = null;
 
-        function loadTrainings(trainingArrayJson, date){
-            $('#cell-training-info').html('') //uses jQuery to reset HTML content within all <span class='cell-training-info'>
-
-            trainingArrayJson.forEach(training => {
-                const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
-                var dateInt = Number(training['date_day'])  + (getFirstDayInt(firstDayCurrentMonth)-1)
-                var trainingDayCell = document.getElementById('cell-training-' + dateInt)
-                trainingDayCell.innerHTML = trainingDayCell.innerHTML + "<br>" + training['team']
-            });
-        }
-
         function showHome(){
             let homePageObj = document.getElementById('homePage')
             homePageObj.style.display = 'flex'
@@ -438,6 +427,18 @@
             }
         }
 
+        function loadTrainings(trainingArrayJson, date){
+            $('.cell-training-info').html('') //uses jQuery to reset HTML content within all <span class='cell-training-info'>
+
+            trainingArrayJson.forEach(training => {
+                const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
+                var dateInt = Number(training['date_day'])  + (getFirstDayInt(firstDayCurrentMonth)-1)
+                var trainingDayCell = document.getElementById('cell-training-' + dateInt)
+                trainingDayCell.innerHTML = trainingDayCell.innerHTML + "<br>" + training['team']
+            });
+        }
+
+        //utility function
         function getFirstDayInt(firstDay){
             switch (firstDay) {
                 case 0:
