@@ -158,12 +158,14 @@
             font-size:medium;
         }
 
-        .cell-training-info {
+        .cell-center-training-info{
+            display: flex;
             justify-content: center;
-            align-content: center;
-            align-self: center;
-            justify-self: center;
             text-align: center;
+        }
+
+        .cell-training-info {
+            color: azure;
             font-size:larger;
         }
 
@@ -295,9 +297,11 @@
                                 <span class="cell-date-day" id="cell-date-<%=x+1%>" name="cell-date-<%=x+1%>">
                                     Cell<%=x+1%>
                                 </span>
-                                <span class="cell-training-info" id="cell-training-<%=x+1%>" name="cell-training-<%=x+1%>">
+                                <div class="cell-center-training-info">
+                                    <span class="cell-training-info" id="cell-training-<%=x+1%>" name="cell-training-<%=x+1%>">
 
-                                </span>
+                                    </span>
+                                </div>
                             </div>
                             <!-- <text class="cells" id="cell<%=x+1%>" name="cell<%=x+1%>">Cell<%=x+1%></text> -->
                         <% } %> 
