@@ -310,7 +310,7 @@
     </div>
 
     <script>
-        var selectedDate;
+        selectedDate = new Date()
         var trainingArrayJson = null;
 
         function loadTrainings(trainingArrayJson, date){
@@ -333,7 +333,6 @@
         }
 
         function showEvents(){
-            selectedDate = new Date()
             calendarInit(selectedDate)
 
             let homePageObj = document.getElementById('homePage')
