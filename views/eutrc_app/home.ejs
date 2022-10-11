@@ -446,7 +446,7 @@
             if (this.innerHTML == ''){
                 console.log("no training to view!");
             } else {
-                console.log('data = ' + $('#'+clickedEl.id).data());
+                console.log('data = ' + JSON.stringify($('#'+clickedEl.id).data()));
             }
         }
 
