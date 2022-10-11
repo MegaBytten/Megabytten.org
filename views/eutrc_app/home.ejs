@@ -284,11 +284,7 @@
                     </div>
 
                     <div class="cells-container">
-                        <% for (x=0; x < 42; x++) { %> 
-                            <script>
-                                console.log('creating cell with id: ' + x)
-                            </script>
-
+                        <% for (x=0; x <= 42; x++) { %> 
                             <div class="cells" id="cell<%=x+1%>" name="cell<%=x+1%>">
                                 <span class="cell-date-day" id="cell-date-<%=x+1%>" name="cell-date-<%=x+1%>">
                                     Cell<%=x+1%>
@@ -431,8 +427,7 @@
                 x++;
             }
 
-            for (lastDayOfMonth; lastDayOfMonth <= 46; lastDayOfMonth++){
-                console.log('able to find: cell' + x);
+            for (lastDayOfMonth; lastDayOfMonth <= 42; lastDayOfMonth++){
                 let cell = document.getElementById('cell' + x)
                 cell.style.visibility = 'hidden'
                 x++
