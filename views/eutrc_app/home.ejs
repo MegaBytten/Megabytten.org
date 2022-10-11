@@ -438,7 +438,15 @@
                 var dateInt = Number(training['date_day'])  + (getFirstDayInt(firstDayCurrentMonth)-1)
                 var trainingDayCell = document.getElementById('cell-training-' + dateInt)
                 trainingDayCell.innerHTML = trainingDayCell.innerHTML + "<br>" + training['team']
-                $('#'+trainingDayCell.id).data(training)
+
+                if ($('#'+trainingDayCell.id).data() != null){
+                    var currentData = $('#'+trainingDayCell.id).data()
+                    currentData[training['id']] = training
+                } else {
+                    var id = training['id']
+                    $('#'+trainingDayCell.id).data({id: training})
+                }
+                
             });
         }
 
