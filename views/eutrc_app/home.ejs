@@ -292,7 +292,7 @@
                                 <span class="cell-date-day" id="cell-date-<%=x+1%>" name="cell-date-<%=x+1%>">
                                     Cell<%=x+1%>
                                 </span>
-                                <span class="cell-training-info" id="cell-training-<%=x+1%>" name="cell-training-<%=x+1%>">
+                                <span class="cell-training-info" id="cell-training-<%=x+1%>" name="cell-training-<%=x+1%>" onclick="viewTraining(this)">
 
                                 </span>
                             </div>
@@ -438,7 +438,16 @@
                 var dateInt = Number(training['date_day'])  + (getFirstDayInt(firstDayCurrentMonth)-1)
                 var trainingDayCell = document.getElementById('cell-training-' + dateInt)
                 trainingDayCell.innerHTML = trainingDayCell.innerHTML + "<br>" + training['team']
+                $('#'+trainingDayCell.id).data(training)
             });
+        }
+
+        function viewTraining(clickedEl){
+            if (this.innerHTML == ''){
+                console.log("no training to view!");
+            } else {
+                console.log('data = ' + $('#'+clickedEl.id).data(training));
+            }
         }
 
         //utility function
