@@ -291,7 +291,7 @@
                     </div>
 
                     <div class="cells-container">
-                        <% for (x=0; x <= 42; x++) { %> 
+                        <% for (x=0; x < 42; x++) { %> 
                             <div class="cells" id="cell<%=x+1%>" name="cell<%=x+1%>">
                                 <span class="cell-date-day" id="cell-date-<%=x+1%>" name="cell-date-<%=x+1%>">
                                     Cell<%=x+1%>
@@ -424,7 +424,7 @@
             }
 
             console.log(lastDayOfMonth);
-            for (lastDayOfMonth; lastDayOfMonth <= 42; lastDayOfMonth++){
+            for (lastDayOfMonth; lastDayOfMonth < 42; lastDayOfMonth++){
                 let cell = document.getElementById('cell' + x)
                 if (cell == null){
                     break;
