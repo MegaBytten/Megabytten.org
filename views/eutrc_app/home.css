@@ -1,0 +1,163 @@
+body {
+    background-color: rgb(25,25,25);
+}
+
+.page {
+    display: flex;
+}
+
+.left-nav-section {
+    width: 80px;
+    padding: 10px;
+    /* padding-left: 10px; */
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    padding-top: 40px;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 1px;
+    border-bottom: 0px;
+    border-style: solid;
+    border-color: black;
+}
+
+.icon-btns {
+    border: none;
+}
+
+.icon-imgs {
+    width: 100%;
+    cursor: pointer;
+}
+
+.right-content-section {
+    flex: 8;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    padding-left: 40px;
+}
+
+.right-content {
+    flex: 8;
+    display: none;
+    flex-direction: column;
+    color: rgb(252, 237, 218);
+}
+
+.trainings-section {
+    display: flex;
+    flex-direction: column;
+    color: bisque;
+    justify-content: center;
+    padding: 10px;
+}
+
+.welcome-msg {
+    text-align:center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px;
+    border-style: solid;
+    border-color: beige;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.hp-training {
+    display: flex;
+    flex-direction: column;
+}
+
+.training-info {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin-bottom: 30px;
+}
+
+/* Exclusively calendar stuff */
+.calendar-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-section{
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    flex-direction: row;
+    padding: 10px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px;
+    border-style: solid;
+    border-color: antiquewhite;
+    font-size: 50px;
+}
+
+.month-buttons {
+    font-size: 100px;
+    background-color: transparent;
+    color: azure;
+    border: none;
+    cursor: pointer;
+}
+
+.weekday-labels-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.weekday-labels {
+    text-align: center;
+    flex: 1;
+    padding: 5px;
+    border-top: 1px;
+    border-left: 1px;
+    border-right: 1px;
+    border-bottom: 1px;
+    border-style: solid;
+    border-color: antiquewhite;
+}
+
+.cells-container {
+    display: grid; 
+    grid-template-columns: repeat(7, 1fr);
+    /* text-align: center; */
+}
+
+.cells {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    min-height: 35px;
+    text-align: center;
+}
+
+.cell-date-day {
+    text-align: left;
+    font-size:medium;
+}
+
+.cell-training-info {
+    color: azure;
+    font-size:larger;
+    font-weight: 500;
+    padding:5px; 
+    cursor:pointer
+}
+
+.expanded-training-info {
+    display:flex;
+    flex-direction: column;
+}
