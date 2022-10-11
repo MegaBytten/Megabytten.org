@@ -354,7 +354,7 @@
 
                         function loadTrainings(trainingArrayJson, date){
                             for (training in trainingArrayJson){
-                                console.log("trainingArrayJson = " + trainingArrayJson);
+                                console.log("trainingArrayJson = " + JSON.stringify(trainingArrayJson));
                                 const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
                                 console.log('training[0]["date_day"] = ' + training[0]['date_day'] );
                                 console.log('-1 = ' + getFirstDayInt(firstDayCurrentMonth)-1);
