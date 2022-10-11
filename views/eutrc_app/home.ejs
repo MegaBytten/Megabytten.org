@@ -164,6 +164,11 @@
             font-size:larger;
         }
 
+        .expanded-training-info {
+            display:flex;
+            flex-direction: column;
+        }
+
     </style>
 </head>
 <body>
@@ -182,7 +187,6 @@
                 >
             </a>
 
-        
             <img 
                 class="icon-imgs"
                 onclick="showHome()"
@@ -298,12 +302,12 @@
                             </div>
                             <!-- <text class="cells" id="cell<%=x+1%>" name="cell<%=x+1%>">Cell<%=x+1%></text> -->
                         <% } %> 
-
                     </div>
 
-                    <script>
-                       
-                    </script>
+
+                    <div class="expanded-training-info">
+
+                    </div>
 
                 </div>
 
@@ -457,8 +461,17 @@
                 var trainingJSON = $('#'+clickedEl.id).data()
                 for (var training in trainingJSON) {
                     console.log(JSON.stringify(trainingJSON[training]));
+                    $('.expanded-training-info').append(
+                        '<div>' +
+                            '<h3>Training #' + training['id']  + '</h3>' +
+                            '<span>Time: ' + training['time'] + '</span>' +
+                            '<span>Team: ' + training['team'] + '</span>' +
+                            '<span>Location: ' + training['location'] + '</span>' +
+                            '<span>Drills: ' + training['drills'] + '</span>' +
+                            '<span>Attendance: ' + training['attendance'] + '</span>' +
+                        '</div>'
+                    )
                 }
-                // console.log(JSON.stringify(Object.values(trainingJSON)[0]));
             }
         }
 
