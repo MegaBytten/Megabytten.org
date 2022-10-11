@@ -456,7 +456,7 @@
             } else {
                 var trainingJSON = $('#'+clickedEl.id).data()
                 for (var training in Object.values(trainingJSON) ){
-                    console.log(training);
+                    console.log(JSON.stringify(training));
                 }
             }
         }
