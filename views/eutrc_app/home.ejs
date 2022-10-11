@@ -357,7 +357,7 @@
                                 const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
                                 dateInt = training['date_day'] + (getFirstDayInt(firstDayCurrentMonth)-1)
                                 trainingDayCell = document.getElementById('cell' + dateInt)
-                                trainingDayCell.textContent =+ "\n" + training['team'].toUpperCase()
+                                trainingDayCell.textContent =+ "\n" + training['team']
                             }
                         }
                         
