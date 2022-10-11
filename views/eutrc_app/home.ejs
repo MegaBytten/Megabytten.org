@@ -455,13 +455,10 @@
                 console.log("no training to view!");
             } else {
                 var trainingJSON = $('#'+clickedEl.id).data()
-                // console.log(Object.values(trainingJSON));
-                // console.log(JSON.stringify(Object.values(trainingJSON)[0]));
-                for (item in Object.values(trainingJSON)){
-                    var training = JSON.parse(item)
-                    console.log(training['id']);
-                    console.log(training[2]);
+                for (var training in trainingJSON) {
+                    console.log(JSON.stringify(trainingJSON[training]));
                 }
+                // console.log(JSON.stringify(Object.values(trainingJSON)[0]));
             }
         }
 
