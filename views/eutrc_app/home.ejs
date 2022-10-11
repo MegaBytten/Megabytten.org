@@ -355,7 +355,7 @@
                         function loadTrainings(trainingArrayJson, date){
                             trainingArrayJson.forEach(training => {
                                 const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
-                                var dateInt = training['date_day'] + (getFirstDayInt(firstDayCurrentMonth)-1)
+                                var dateInt = Number(training['date_day'])  + (getFirstDayInt(firstDayCurrentMonth)-1) //THEYRE STRINGS
                                 var trainingDayCell = document.getElementById('cell' + dateInt)
                                 console.log('cell' + dateInt);
                                 trainingDayCell.textContent = trainingDayCell.textContent + "\n" + training['team']
