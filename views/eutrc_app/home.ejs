@@ -355,9 +355,9 @@
                         function loadTrainings(trainingArrayJson, date){
                             for (training in trainingArrayJson){
                                 const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
-                                console.log('training["date_day" = ' + training['date_day'] );
+                                console.log('training[0]["date_day"] = ' + training[0]['date_day'] );
                                 console.log('-1 = ' + getFirstDayInt(firstDayCurrentMonth)-1);
-                                var dateInt = training['date_day'] + (getFirstDayInt(firstDayCurrentMonth)-1)
+                                var dateInt = training[0]['date_day'] + (getFirstDayInt(firstDayCurrentMonth)-1)
                                 console.log('dateInt = ' + dateInt);
                                 var trainingDayCell = document.getElementById('cell' + dateInt)
                                 console.log(typeof(trainingDayCel));
