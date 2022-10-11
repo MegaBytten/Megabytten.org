@@ -455,6 +455,9 @@
                 console.log("no training to view!");
             } else {
                 var trainingJSON = $('#'+clickedEl.id).data()
+                console.log(Object.values(trainingJSON));
+                console.log(JSON.stringify(Object.values(trainingJSON)));
+
                 for (var training in Object.values(trainingJSON) ){
                     console.log(JSON.stringify(training));
                     console.log(training['id']);
