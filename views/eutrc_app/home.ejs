@@ -353,14 +353,11 @@
                         }
 
                         function loadTrainings(trainingArrayJson, date){
-                            // for (x = 0; x < trainingArrayJson.length; x++){
-                            //     console.log("int loop in trainingArray = " + JSON.stringify(trainingArrayJson[x]));
-                            // }
-
                             trainingArrayJson.forEach(training => {
                                 const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
                                 var dateInt = training['date_day'] + (getFirstDayInt(firstDayCurrentMonth)-1)
                                 var trainingDayCell = document.getElementById('cell' + dateInt)
+                                console.log('cell' + dateInt);
                                 trainingDayCell.textContent = trainingDayCell.textContent + "\n" + training['team']
                             });
 
