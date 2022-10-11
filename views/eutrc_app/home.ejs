@@ -358,7 +358,7 @@
                                 var dateInt = Number(training['date_day'])  + (getFirstDayInt(firstDayCurrentMonth)-1) //THEYRE STRINGS
                                 var trainingDayCell = document.getElementById('cell' + dateInt)
                                 console.log('cell' + dateInt);
-                                trainingDayCell.textContent = trainingDayCell.textContent + "\n" + training['team']
+                                trainingDayCell.textContent = /*trainingDayCell.textContent + "\n"*/ + training['team']
                             });
 
                         }
