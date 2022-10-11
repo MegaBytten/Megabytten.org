@@ -457,6 +457,7 @@
                 var trainingJSON = $('#'+clickedEl.id).data()
                 for (var training in Object.values(trainingJSON) ){
                     console.log(JSON.stringify(training));
+                    console.log(training['id']);
                 }
             }
         }
