@@ -353,12 +353,11 @@
                         }
 
                         function loadTrainings(trainingArrayJson, date){
-                            for (x = 0; x < trainingArrayJson.length; x++){
-                                console.log("int loop in trainingArray = " + JSON.stringify(trainingArrayJson[x]));
-                            }
+                            // for (x = 0; x < trainingArrayJson.length; x++){
+                            //     console.log("int loop in trainingArray = " + JSON.stringify(trainingArrayJson[x]));
+                            // }
 
-
-                            for (training in trainingArrayJson){
+                            trainingArrayJson.forEach(training => {
                                 console.log("training in trainingArray = " + JSON.stringify(training));
                                 console.log("trainingArrayJson = " + JSON.stringify(trainingArrayJson));
                                 const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
@@ -369,7 +368,8 @@
                                 var trainingDayCell = document.getElementById('cell' + dateInt)
                                 console.log(typeof(trainingDayCel));
                                 trainingDayCell.textContent =+ "\n" + training['team']
-                            }
+                            });
+
                         }
                         
 
