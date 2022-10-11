@@ -454,7 +454,10 @@
             if (this.innerHTML == ''){
                 console.log("no training to view!");
             } else {
-                console.log('data = ' + JSON.stringify($('#'+clickedEl.id).data()));
+                var trainingJSON = $('#'+clickedEl.id).data()
+                for (var training in Object.values(trainingJSON) ){
+                    console.log(training);
+                }
             }
         }
 
