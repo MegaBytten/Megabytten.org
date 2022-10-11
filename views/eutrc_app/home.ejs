@@ -151,19 +151,12 @@
             margin-bottom: 10px;
             padding: 5px;
             min-height: 35px;
+            text-align: center;
         }
 
         .cell-date-day {
             text-align: left;
             font-size:medium;
-        }
-
-        .cell-center-training-info{
-            display: flex;
-            justify-content: center;
-            text-align: center;
-            margin: 0px;
-            padding: 0px;
         }
 
         .cell-training-info {
@@ -299,11 +292,9 @@
                                 <span class="cell-date-day" id="cell-date-<%=x+1%>" name="cell-date-<%=x+1%>">
                                     Cell<%=x+1%>
                                 </span>
-                                <div class="cell-center-training-info">
-                                    <span class="cell-training-info" id="cell-training-<%=x+1%>" name="cell-training-<%=x+1%>">
+                                <span class="cell-training-info" id="cell-training-<%=x+1%>" name="cell-training-<%=x+1%>">
 
-                                    </span>
-                                </div>
+                                </span>
                             </div>
                             <!-- <text class="cells" id="cell<%=x+1%>" name="cell<%=x+1%>">Cell<%=x+1%></text> -->
                         <% } %> 
