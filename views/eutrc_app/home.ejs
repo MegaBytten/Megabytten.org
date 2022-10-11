@@ -275,59 +275,27 @@
 
                     <script>
                         selectedDate = new Date()
-                        updateCalendar(selectedDate)
+                        calendarInit(selectedDate)
 
                         function nextMonth(){
                             selectedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth()+1, 1);
-                            updateCalendar(selectedDate)
+                            calendarInit(selectedDate)
                         }
 
                         function lastMonth(){
                             selectedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth()-1, 1);
-                            updateCalendar(selectedDate)
+                            calendarInit(selectedDate)
                         }
 
-                        function updateCalendar(date) {
+                        function calendarInit(date) {
                             var monthName = new Intl.DateTimeFormat("en-US", { month: "long" }).format;
                             var longName = monthName(date);
                             var h3 = document.getElementById('month')
                             h3.textContent = longName + " " + date.getFullYear();
 
                             const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
-                            let x = 0;
-                            switch (firstDayCurrentMonth) {
-                                case 0:
-                                    //sunday
-                                    x = 7
-                                    break;
-                                case 1:
-                                    //monday
-                                    x = 1
-                                    break;
-                                case 2:
-                                    //tuesday
-                                    x = 2
-                                    break;
-                                case 3:
-                                    //wednesday
-                                    x = 3
-                                    break;
-                                case 4:
-                                    //thursday
-                                    x = 4
-                                    break;
-                                case 5:
-                                    //friday
-                                    x = 5
-                                    break;
-                                case 6:
-                                    //saturday
-                                    x = 6
-                                    break;
-                                default:
-                                    break;
-                            }
-
+                            let x = getFirstDayInt(firstDayCurrentMonth)
+                            
                             for (y=1; y < x; y++){
                                 let cell = document.getElementById('cell' + y)
                                 cell.style.visibility = 'hidden'
@@ -341,6 +309,7 @@
                                 x++;
                             }
 
+                            x = getFirstDayInt(firstDayCurrentMonth) //reset X before recalibrating
                             for (lastDayOfMonth; lastDayOfMonth <= 46; lastDayOfMonth++){
                                 let cell = document.getElementById('cell' + x)
                                 cell.style.visibility = 'hidden'
@@ -348,6 +317,49 @@
                             }
                         }
 
+                        function getFirstDayInt(firstDay){
+                            switch (firstDay) {
+                                case 0:
+                                    //sunday
+                                    return 7
+                                    break;
+                                case 1:
+                                    //monday
+                                    return 1
+                                    break;
+                                case 2:
+                                    //tuesday
+                                    return 2
+                                    break;
+                                case 3:
+                                    //wednesday
+                                    return 3
+                                    break;
+                                case 4:
+                                    //thursday
+                                    return 4
+                                    break;
+                                case 5:
+                                    //friday
+                                    return 5
+                                    break;
+                                case 6:
+                                    //saturday
+                                    return 6
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                        function loadTrainings(trainingArrayJson, date){
+                            for (training in trainingArrayJson){
+                                const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
+                                dateInt = training['date_day'] + (getFirstDayInt(firstDayCurrentMonth)-1)
+                                trainingDayCell = document.getElementById('cell' + dateInt)
+                                trainingDayCell.textContent =+ "\n" + training['team'].toUpperCase()
+                            }
+                        }
                         
 
                     </script>
@@ -360,6 +372,8 @@
     </div>
 
     <script>
+        var trainingArrayJson = null;
+
         function showHome(){
             let homePageObj = document.getElementById('homePage')
             homePageObj.style.display = 'flex'
@@ -387,17 +401,11 @@
                     year
                 },
                 success: function (response) {
-                    console.log(response)
+                    console.log('Successfully obtained training info. Loading it into calendar.');
+                    loadTrainings(response, today)
                 }
-            }
-               
-            )
+            })
         }
-
-    </script>
-
-    <!-- Calendar Script! -->
-    <script>
 
     </script>
 
