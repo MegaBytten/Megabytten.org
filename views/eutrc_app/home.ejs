@@ -358,15 +358,9 @@
                             // }
 
                             trainingArrayJson.forEach(training => {
-                                console.log("training in trainingArray = " + JSON.stringify(training));
-                                console.log("trainingArrayJson = " + JSON.stringify(trainingArrayJson));
                                 const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
-                                console.log('training[0]["date_day"] = ' + training[0]['date_day'] );
-                                console.log('-1 = ' + getFirstDayInt(firstDayCurrentMonth)-1);
-                                var dateInt = training[0]['date_day'] + (getFirstDayInt(firstDayCurrentMonth)-1)
-                                console.log('dateInt = ' + dateInt);
+                                var dateInt = training['date_day'] + (getFirstDayInt(firstDayCurrentMonth)-1)
                                 var trainingDayCell = document.getElementById('cell' + dateInt)
-                                console.log(typeof(trainingDayCel));
                                 trainingDayCell.textContent =+ "\n" + training['team']
                             });
 
