@@ -193,3 +193,8 @@ function getFirstDayInt(firstDay){
             break;
     }
 }
+
+
+function showMoves() {
+    console.log('Moves!');
+}
