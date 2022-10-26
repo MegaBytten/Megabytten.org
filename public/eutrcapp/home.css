@@ -166,3 +166,32 @@ h2 {
     width: 960px;
     height: 450px;
 }
+
+.move-content {
+    text-align: center;
+}
+
+.left-button-bar {
+    align-items: center;
+    justify-content: center;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.move-description {
+
+}
+
+.video-container{
+    align-items: center;
+    justify-content: center;
+}
+
+.right-button-bar {
+    align-items: center;
+    justify-content: center;
+}
+
