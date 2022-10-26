@@ -197,4 +197,7 @@ function getFirstDayInt(firstDay){
 
 function showMoves() {
     console.log('Moves!');
+    $('#eventsPage').style.display('none')
+    $('#homePage').style.display('none')
+    $('#movesPage').style.display('flex')
 }
