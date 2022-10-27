@@ -204,5 +204,5 @@ function showMoves() {
 
 function previousSlide(element) {
     console.log(element);
-    this.innerHTML = "Pennies!"
+    this.textContent = 'Pennies!'
 }
