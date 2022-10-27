@@ -175,10 +175,13 @@ h2 {
 }
 
 .button-bar {
-    font-size: large;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.arrow-button {
+    font-size: large;
 }
 
 .main-content {
