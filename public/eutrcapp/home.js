@@ -201,3 +201,8 @@ function showMoves() {
     $('#homePage').css('display', 'none')
     $('#movesPage').css('display', 'flex')
 }
+
+function previousSlide(element) {
+    console.log(element);
+    this.innerHTML = "Pennies!"
+}

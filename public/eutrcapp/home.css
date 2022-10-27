@@ -181,6 +181,7 @@ h2 {
 }
 
 .arrow-button {
+    cursor: pointer;
     font-size: 40px;
 }
 
