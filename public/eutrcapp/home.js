@@ -226,7 +226,7 @@ async function loadSlide (category, index){
             dataType: 'html',
             success: function(data){
                 console.log(`Post AJAX request! Category: ${category}, Index: ${index}!`);
-                console.log(resp);
+                console.log(data);
             }
           })
     )
