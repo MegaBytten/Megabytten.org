@@ -197,6 +197,7 @@ function getFirstDayInt(firstDay){
 // Class wide variables used for showMoves page
 var categories = ['#moves_32', '#moves_mid', '#moves_misc']
 var moves_32_index = 0
+var moves_32_opened, moves_32_loaded = false;
 
 function showMoves() {
     console.log('Moves!');
@@ -206,6 +207,14 @@ function showMoves() {
 }
 
 async function open32Slides(){
+    if (moves_32_loaded){
+        if(moves_32_opened) {
+            $('#32s').hide()
+        } else {
+            $('#32s').show()
+        }
+    }
+
     $('#32s').append(
         await $.ajax({
             url: 'http://megabytten.org/eutrc/app/moves',
@@ -221,6 +230,9 @@ async function open32Slides(){
             }
         })        
     )
+
+    moves_32_opened = true;
+    moves_32_loaded = true;
 }
 
 
@@ -234,6 +246,7 @@ async function loadSlide (category, index){
     console.log('Loading slide: Requesting correct slide from server.'); //have debugged, selector is correctly selecting div.
 
     if (index < 0) {
+        console.log('Index of slide is <0, cancelling request.');
         return;
     }
 
