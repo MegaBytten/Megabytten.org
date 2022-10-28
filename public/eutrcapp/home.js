@@ -210,13 +210,13 @@ async function open32Slides(){
         await $.ajax({
             url: 'http://megabytten.org/eutrc/app/moves',
             headers: {
-                category,
-                index
+                category: categories[0],
+                index: 0
             },
             method: 'get',
             dataType: 'html',
             success: function(data){
-                console.log(`Post AJAX request! Category: ${category}, Index: ${index}!`);
+                console.log(`Post AJAX request! Category: ${categories[0]}, Index: 0!`);
                 console.log(data);
             }
         })        
