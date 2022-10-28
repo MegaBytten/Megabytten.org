@@ -912,7 +912,7 @@ app.get('/eutrc/app/moves', async (req, res) => {
   var category = req.header('category');
   var index = req.header('index');
 
-  var filepath = '/eutrcapp/slides/'
+  var filepath = '/public/eutrcapp/slides/'
 
   switch (category) {
     case '#moves_32':
