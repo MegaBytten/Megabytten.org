@@ -195,8 +195,8 @@ function getFirstDayInt(firstDay){
 }
 
 // Class wide variables used for showMoves page
-categories = ['#moves_32', '#moves_mid', '#moves_misc']
-moves_32_index = 0
+var categories = ['#moves_32', '#moves_mid', '#moves_misc']
+var moves_32_index = 0
 
 function showMoves() {
     console.log('Moves!');
@@ -212,21 +212,24 @@ function change32Slide(change) {
     loadSlide(categories[0], moves_32_index)
 }
 
-function loadSlide (category, index){
-    console.log('Loading slide!');
-    console.log(`Test! Selected element = ${$(category).html()}`);
+async function loadSlide (category, index){
+    console.log('Loading slide: Requesting correct slide from server.'); //have debugged, selector is correctly selecting div.
+    var htmlResponse = await $.get(
+        'http://megabytten.org/eutrc/app/moves',
+        {
+            category,
+            index
+        }, function (resp) {
+            console.log(`Post AJAX request! Category: ${category}, Index: ${index}!`);
+            console.log(resp);
+        }
+    )
+
+    console.log(`HTMl Response = ${htmlResponse}`);
+
 
     $(category).append(
-        $.get(
-            'http://megabytten.org/eutrc/app/moves',
-            {
-                category,
-                index
-            }, function (resp) {
-                console.log(`Post AJAX request! Category: ${category}, Index: ${index}!`);
-                console.log(resp);
-            }
-        )
+        htmlResponse
     )
 }
 
