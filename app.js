@@ -906,6 +906,15 @@ app.get('/eutrc/app/signup', async (req, res) => {
   res.status(200).render('eutrc_app/signup', { })
 })
 
+//web-hook link to obtain slides regarding moves
+app.get('/eutrc/app/moves', async (req, res) => {
+  console.log(`Player requested moves! Sending HTML for category: ${req.header('category')} and slide: ${req.header('index')}`);
+  var index = req.header('category');
+  var index = req.header('index');
+
+  res.send('<br><hr>ADDITION!!!')
+})
+
 
 /*  ################################################################################
     ################################################################################

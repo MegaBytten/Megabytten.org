@@ -194,12 +194,37 @@ function getFirstDayInt(firstDay){
     }
 }
 
+// Class wide variables used for showMoves page
+categories = ['#moves_32', '#moves_mid', '#moves_misc']
+moves_32_index = 0
 
 function showMoves() {
     console.log('Moves!');
     $('#eventsPage').css('display', 'none')
     $('#homePage').css('display', 'none')
     $('#movesPage').css('display', 'flex')
+}
+
+
+function change32Slide(change) {
+    console.log('Change slide called! Change by: ' + change);
+    moves_32_index += change
+    loadSlide(categories[0], moves_32_index)
+}
+
+function loadSlide (category, index){
+    $(category).append(
+        $.get(
+            'http://megabytten.org/eutrc/app/moves',
+            {
+                category,
+                index
+            }, function (resp) {
+                console.log(`Post AJAX request! Category: ${category}, Index: ${index}!`);
+                console.log(resp);
+            }
+        )
+    )
 }
 
 function previousSlide(element) {
