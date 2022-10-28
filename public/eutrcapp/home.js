@@ -214,22 +214,21 @@ function change32Slide(change) {
 
 async function loadSlide (category, index){
     console.log('Loading slide: Requesting correct slide from server.'); //have debugged, selector is correctly selecting div.
-    var htmlResponse = await $.get(
-        'http://megabytten.org/eutrc/app/moves',
-        {
-            category,
-            index
-        }, function (resp) {
-            console.log(`Post AJAX request! Category: ${category}, Index: ${index}!`);
-            console.log(resp);
-        }
-    )
-
-    console.log(`HTMl Response = ${htmlResponse}`);
-
 
     $(category).append(
-        htmlResponse
+        await  $.ajax({
+            url: 'http://megabytten.org/eutrc/app/moves',
+            headers: {
+                category,
+                index
+            },
+            method: 'get',
+            dataType: 'html',
+            success: function(data){
+                console.log(`Post AJAX request! Category: ${category}, Index: ${index}!`);
+                console.log(resp);
+            }
+          })
     )
 }
 
