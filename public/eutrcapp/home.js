@@ -213,6 +213,9 @@ function change32Slide(change) {
 }
 
 function loadSlide (category, index){
+    console.log('Loading slide!');
+    console.log(`Test! Selected element = ${$(category.innerHTML)}`);
+
     $(category).append(
         $.get(
             'http://megabytten.org/eutrc/app/moves',
