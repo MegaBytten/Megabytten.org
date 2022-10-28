@@ -927,7 +927,7 @@ app.get('/eutrc/app/moves', async (req, res) => {
   filepath += index + '.html'
 
   console.log(`Automatic filepath detection: ${filepath}`);
-  res.status(200).sendFile(filepath)
+  res.status(200).sendFile(filepath, dirName)
 })
 
 
