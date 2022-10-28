@@ -250,6 +250,7 @@ async function loadSlide (category, index){
     console.log('Loading slide: Requesting correct slide from server.'); //have debugged, selector is correctly selecting div.
 
     if (index < 0) {
+        moves_32_index = 0
         console.log('Index of slide is <0, cancelling request.');
         return;
     }
