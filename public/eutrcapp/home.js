@@ -214,7 +214,7 @@ function change32Slide(change) {
 
 function loadSlide (category, index){
     console.log('Loading slide!');
-    console.log(`Test! Selected element = ${$(category.innerHTML)}`);
+    console.log(`Test! Selected element = ${JSON.stringify($(category.innerHTML))}`);
 
     $(category).append(
         $.get(
