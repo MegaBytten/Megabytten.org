@@ -909,10 +909,25 @@ app.get('/eutrc/app/signup', async (req, res) => {
 //web-hook link to obtain slides regarding moves
 app.get('/eutrc/app/moves', async (req, res) => {
   console.log(`Player requested moves! Sending HTML for category: ${req.header('category')} and slide: ${req.header('index')}`);
-  var index = req.header('category');
+  var category = req.header('category');
   var index = req.header('index');
 
-  res.send('<br><hr>ADDITION!!!')
+  var filepath = '/eutrcapp/slides/'
+
+  switch (category) {
+    case '#moves_32':
+      filepath += '32/'
+      break;
+    case '#moves_mid':
+      break;
+    case '#moves_misc':
+      break;
+  }
+
+  filepath += index + '.html'
+
+  console.log(`Automatic filepath detection: ${filepath}`);
+  res.status(200).sendFile(filepath)
 })
 
 

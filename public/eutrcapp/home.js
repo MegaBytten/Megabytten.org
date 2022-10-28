@@ -205,6 +205,24 @@ function showMoves() {
     $('#movesPage').css('display', 'flex')
 }
 
+async function open32Slides(){
+    $('#32s').append(
+        await $.ajax({
+            url: 'http://megabytten.org/eutrc/app/moves',
+            headers: {
+                category,
+                index
+            },
+            method: 'get',
+            dataType: 'html',
+            success: function(data){
+                console.log(`Post AJAX request! Category: ${category}, Index: ${index}!`);
+                console.log(data);
+            }
+        })        
+    )
+}
+
 
 function change32Slide(change) {
     console.log('Change slide called! Change by: ' + change);
@@ -214,6 +232,10 @@ function change32Slide(change) {
 
 async function loadSlide (category, index){
     console.log('Loading slide: Requesting correct slide from server.'); //have debugged, selector is correctly selecting div.
+
+    if (index == 0) {
+        return;
+    }
 
     $(category).append(
         await  $.ajax({
@@ -228,8 +250,10 @@ async function loadSlide (category, index){
                 console.log(`Post AJAX request! Category: ${category}, Index: ${index}!`);
                 console.log(data);
             }
-          })
+        })
     )
+
+    //set onclick listeners to arrow keys!
 }
 
 function previousSlide(element) {
