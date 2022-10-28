@@ -210,8 +210,12 @@ async function open32Slides(){
     if (moves_32_loaded){
         if(moves_32_opened) {
             $('#32s').hide()
+            moves_32_opened = false;
+            return;
         } else {
             $('#32s').show()
+            moves_32_opened = true;
+            return;
         }
     }
 
