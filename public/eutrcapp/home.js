@@ -233,7 +233,7 @@ function change32Slide(change) {
 async function loadSlide (category, index){
     console.log('Loading slide: Requesting correct slide from server.'); //have debugged, selector is correctly selecting div.
 
-    if (index == 0) {
+    if (index <= 0) {
         return;
     }
 
