@@ -255,7 +255,7 @@ async function loadSlide (category, index){
         return;
     }
 
-    $(category).append(
+    $(category).html(
         await  $.ajax({
             url: 'http://megabytten.org/eutrc/app/moves',
             headers: {
