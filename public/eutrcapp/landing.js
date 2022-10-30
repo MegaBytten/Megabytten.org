@@ -1,9 +1,16 @@
-function showHome(){
-    let homePageObj = document.getElementById('homePage')
-    homePageObj.style.display = 'flex'
-
-    let eventsPageObj = document.getElementById('eventsPage')
-    eventsPageObj.style.display = 'none'
+async function showHome(){
+    $('#right-panel-container').html(
+        await $.ajax({
+            url: 'http://megabytten.org/eutrc/app/panel',
+            method: 'GET',
+            headers: {
+                'panel': 'home'
+            },
+            success: function (response) {
+                //successfully loaded in events page!
+            }
+        })
+    )
 }
 
 async function showEvents(){
