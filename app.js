@@ -917,7 +917,7 @@ app.get('/eutrc/app/panel', async (req, res) => {
     case 'home':
       resultsList = await resultsList.getNextTrainingsList();
       res.status(200).render(
-        '/panels/home', 
+        'panels/home', 
         { 
           userInfo: {name}, 
           hpTraining: resultsList[0], 
@@ -935,7 +935,7 @@ app.get('/eutrc/app/panel', async (req, res) => {
     default:
       resultsList = await resultsList.getNextTrainingsList();
       res.status(200).render(
-        '/panels/home', 
+        'panels/home', 
         { 
           userInfo: {name}, 
           hpTraining: resultsList[0], 
