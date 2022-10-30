@@ -928,6 +928,7 @@ app.get('/eutrc/app/panel', async (req, res) => {
       break;
   
     case 'events':
+      res.status(200).render('panels/events')
       break;
 
     case 'moves':
