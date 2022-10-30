@@ -42,7 +42,7 @@ body {
 
 .right-content {
     flex: 8;
-    display: none;
+    display: flex;
     flex-direction: column;
     color: rgb(252, 237, 218);
 }
