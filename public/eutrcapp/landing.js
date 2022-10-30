@@ -1,5 +1,3 @@
-var trainingArrayJson = null;
-
 function showHome(){
     let homePageObj = document.getElementById('homePage')
     homePageObj.style.display = 'flex'

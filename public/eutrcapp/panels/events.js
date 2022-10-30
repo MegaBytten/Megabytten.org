@@ -1,6 +1,8 @@
 //class-wide variables
 selectedDate = new Date()
+var trainingArrayJson = null;
 
+//Document INIT when document is ready
 $(document).ready(async function(){
     calendarInit(selectedDate)
 
@@ -22,91 +24,7 @@ $(document).ready(async function(){
 })
 
 
-function nextMonth(){
-    selectedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth()+1, 1);
-    calendarInit(selectedDate)
-    const month = selectedDate.toLocaleString('default', { month: 'long' });
-    var year = selectedDate.getFullYear();
-    $.ajax({
-        url: 'http://megabytten.org/eutrcapp/trainings.json',
-        method: 'GET',
-        headers: {
-            "request": "calendar",
-            month,
-            year
-        },
-        success: function (response) {
-            console.log('Successfully obtained training info. Loading it into calendar.');
-            loadTrainings(response, selectedDate)
-        }
-    })
-}
-
-function lastMonth(){
-    selectedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth()-1, 1);
-    calendarInit(selectedDate)
-    const month = selectedDate.toLocaleString('default', { month: 'long' });
-    var year = selectedDate.getFullYear();
-    $.ajax({
-        url: 'http://megabytten.org/eutrcapp/trainings.json',
-        method: 'GET',
-        headers: {
-            "request": "calendar",
-            month,
-            year
-        },
-        success: function (response) {
-            console.log('Successfully obtained training info. Loading it into calendar.');
-            loadTrainings(response, selectedDate)
-        }
-    })
-}
-
-
-
-function loadTrainings(trainingArrayJson, date){
-    $('.cell-training-info').html('') //uses jQuery to reset HTML content within all <span class='cell-training-info'>
-
-    trainingArrayJson.forEach(training => {
-        const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
-        var dateInt = Number(training['date_day'])  + (getFirstDayInt(firstDayCurrentMonth)-1)
-        var trainingDayCell = document.getElementById('cell-training-' + dateInt)
-        trainingDayCell.innerHTML = trainingDayCell.innerHTML + "<br>" + training['team']
-
-        if ($('#'+trainingDayCell.id).data() != null){
-            var currentData = $('#'+trainingDayCell.id).data()
-            currentData[training['id']] = training
-        } else {
-            var id = training['id']
-            $('#'+trainingDayCell.id).data({id: training})
-        }
-        
-    });
-}
-
-function viewTraining(clickedEl){
-    if (this.innerHTML == ''){
-        console.log("no training to view!");
-    } else {
-        $('.expanded-training-info').empty() //resets HTML
-
-        var trainingJSON = $('#'+clickedEl.id).data()
-        for (var training in trainingJSON) {
-            console.log(JSON.stringify(trainingJSON[training]));
-            $('.expanded-training-info').append(
-                '<div>' +
-                    '<h3>Training #' + trainingJSON[training]['id']  + '</h3>' +
-                    '<span style="display:block">Time: ' + trainingJSON[training]['time'] + '</span>' +
-                    '<span style="display:block">Team: ' + trainingJSON[training]['team'] + '</span>' +
-                    '<span style="display:block">Location: ' + trainingJSON[training]['location'] + '</span>' +
-                    '<span style="display:block">Drills: ' + trainingJSON[training]['drills'] + '</span>' +
-                    '<span style="display:block">Attendance: ' + trainingJSON[training]['attendance'] + '</span>' +
-                '</div>'
-            )
-        }
-    }
-}
-
+//init functions to style and design page (calendar table)
 function calendarInit(date) {
     //these lines set the H3 text as Month Year on the top of the calendar
     var monthName = new Intl.DateTimeFormat("en-US", { month: "long" }).format;
@@ -147,8 +65,91 @@ function calendarInit(date) {
     }
 }
 
+function loadTrainings(trainingArrayJson, date){
+    $('.cell-training-info').html('') //uses jQuery to reset HTML content within all <span class='cell-training-info'>
 
-    
+    trainingArrayJson.forEach(training => {
+        const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
+        var dateInt = Number(training['date_day'])  + (getFirstDayInt(firstDayCurrentMonth)-1)
+        var trainingDayCell = document.getElementById('cell-training-' + dateInt)
+        trainingDayCell.innerHTML = trainingDayCell.innerHTML + "<br>" + training['team']
+
+        if ($('#'+trainingDayCell.id).data() != null){
+            var currentData = $('#'+trainingDayCell.id).data()
+            currentData[training['id']] = training
+        } else {
+            var id = training['id']
+            $('#'+trainingDayCell.id).data({id: training})
+        }
+        
+    });
+}
+
+//functions to add interaction to page
+    //adds next + previous months buttons to cycle through monts
+function nextMonth(){
+    selectedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth()+1, 1);
+    calendarInit(selectedDate)
+    const month = selectedDate.toLocaleString('default', { month: 'long' });
+    var year = selectedDate.getFullYear();
+    $.ajax({
+        url: 'http://megabytten.org/eutrcapp/trainings.json',
+        method: 'GET',
+        headers: {
+            "request": "calendar",
+            month,
+            year
+        },
+        success: function (response) {
+            console.log('Successfully obtained training info. Loading it into calendar.');
+            loadTrainings(response, selectedDate)
+        }
+    })
+}
+function lastMonth(){
+    selectedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth()-1, 1);
+    calendarInit(selectedDate)
+    const month = selectedDate.toLocaleString('default', { month: 'long' });
+    var year = selectedDate.getFullYear();
+    $.ajax({
+        url: 'http://megabytten.org/eutrcapp/trainings.json',
+        method: 'GET',
+        headers: {
+            "request": "calendar",
+            month,
+            year
+        },
+        success: function (response) {
+            console.log('Successfully obtained training info. Loading it into calendar.');
+            loadTrainings(response, selectedDate)
+        }
+    })
+}
+
+    //adds clickability to items IN calendar = view individual training details
+function viewTraining(clickedEl){
+    if (this.innerHTML == ''){
+        console.log("no training to view!");
+    } else {
+        $('.expanded-training-info').empty() //resets HTML
+
+        var trainingJSON = $('#'+clickedEl.id).data()
+        for (var training in trainingJSON) {
+            console.log(JSON.stringify(trainingJSON[training]));
+            $('.expanded-training-info').append(
+                '<div>' +
+                    '<h3>Training #' + trainingJSON[training]['id']  + '</h3>' +
+                    '<span style="display:block">Time: ' + trainingJSON[training]['time'] + '</span>' +
+                    '<span style="display:block">Team: ' + trainingJSON[training]['team'] + '</span>' +
+                    '<span style="display:block">Location: ' + trainingJSON[training]['location'] + '</span>' +
+                    '<span style="display:block">Drills: ' + trainingJSON[training]['drills'] + '</span>' +
+                    '<span style="display:block">Attendance: ' + trainingJSON[training]['attendance'] + '</span>' +
+                '</div>'
+            )
+        }
+    }
+}
+
 
 //utility function
 function getFirstDayInt(firstDay){
