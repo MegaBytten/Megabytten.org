@@ -932,7 +932,9 @@ app.get('/eutrc/app/panel', async (req, res) => {
       break;
 
     case 'moves':
+      res.status(200).render('panels/moves')
       break;
+
     default:
       resultsList = await resultsList.getNextTrainingsList();
       res.status(200).render(
