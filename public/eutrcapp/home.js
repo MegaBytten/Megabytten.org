@@ -197,7 +197,10 @@ function getFirstDayInt(firstDay){
 // Class wide variables used for showMoves page
 var categories = ['#moves_32', '#moves_mid', '#moves_misc']
 var moves_32_index = 0
-var moves_32_opened, moves_32_loaded = false;
+var moves_32_opened, moves_32_loaded = false
+
+var moves_mid_index = 0
+var moves_mid_opened, moves_mid_loaded = false
 
 function showMoves() {
     console.log('Moves!');
@@ -230,7 +233,6 @@ async function open32Slides(){
             dataType: 'html',
             success: function(data){
                 console.log(`Post AJAX request! Category: ${categories[0]}, Index: 0!`);
-                console.log(data);
             }
         })        
     )
@@ -239,11 +241,49 @@ async function open32Slides(){
     moves_32_loaded = true;
 }
 
+async function openMidSlides(){
+    if (moves_mid_loaded){
+        if(moves_mid_opened) {
+            $('#mid').hide()
+            moves_mid_opened = false;
+            return;
+        } else {
+            $('#mid').show()
+            moves_mid_opened = true;
+            return;
+        }
+    }
+
+    $('#mid').append(
+        await $.ajax({
+            url: 'http://megabytten.org/eutrc/app/moves',
+            headers: {
+                category: categories[1],
+                index: 0
+            },
+            method: 'get',
+            dataType: 'html',
+            success: function(data){
+                console.log(`Post AJAX request! Category: ${categories[1]}, Index: 0!`);
+            }
+        })        
+    )
+
+    moves_mid_opened = true;
+    moves_mid_loaded = true;
+}
+
 
 function change32Slide(change) {
-    console.log('Change slide called! Change by: ' + change);
+    console.log('Changing 32 slide! Change by: ' + change);
     moves_32_index += change
     loadSlide(categories[0], moves_32_index)
+}
+
+function changeMidSlide(change) {
+    console.log('Changing MID slide! Change by: ' + change);
+    moves_mid_index += change
+    loadSlide(categories[1], moves_mid_index)
 }
 
 async function loadSlide (category, index){
@@ -272,9 +312,4 @@ async function loadSlide (category, index){
     )
 
     //set onclick listeners to arrow keys!
-}
-
-function previousSlide(element) {
-    console.log(element);
-    this.textContent = 'Pennies!'
 }

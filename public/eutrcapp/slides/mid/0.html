@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        .move-videos {
+            width: 960px;
+            height: 450px;
+        }
+
+        .move-content {
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .button-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .arrow-button {
+            cursor: pointer;
+            font-size: 40px;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .move-description {
+            text-align: left;
+        }
+
+        .video-container{
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="move-container" id="moves_32">
+        <div class="move-title">
+            <h4 style="margin-bottom:10px; text-align: center;">
+                Monkey Monkey
+            </h4>
+        </div>
+        <div class="move-content">
+            <div class="button-bar"> 
+                <span class="arrow-button" onclick="changeMidSlide(-1)">&lt;</span>
+            </div>
+            <div class="main-content">
+                <div class="move-description">
+                    <ul>
+                        <li>
+                            Middle stands on outside of aggressive defending middle
+                        </li>
+                        <li>
+                            Other attacking middle runs chopping line behind aggressive middle, to force both middles to collapse
+                        </li>
+                        <li>
+                            Chopping middle dumps between mids and splits (with momentum) to outside. 
+                            Original middle scoops with momentum, challenging defender corner
+                        </li>
+                        <li>
+                            Lots of attacking options. Scooping middle can step back in, short side and long side options open.
+                            Most important option is inside ball back to chopping/splitting middle!
+                        </li>
+                        <li>
+                            Attacks a rigid, disciplined corners/shuts defence where middles rely on their corners and arent fast enough getting onside
+                        </li>
+                    </ul>
+                </div>
+                <div class="video-container">
+                    <video controls autoplay muted loop
+                    class="move-videos"
+                    src="/website images/eutrc app/moves/move_mid_monkey.mp4"
+                    type="video/mp4"
+                    >
+                        Your Web-browser couldnt support this!
+                    </video>
+                </div>
+            </div>
+            <div class="button-bar">
+                <span class="arrow-button" onclick="changeMidSlide(1)">&gt;</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -919,6 +919,7 @@ app.get('/eutrc/app/moves', async (req, res) => {
       filepath += '32/'
       break;
     case '#moves_mid':
+      filepath += 'mid/'
       break;
     case '#moves_misc':
       break;
