@@ -207,7 +207,7 @@ app.post('/eutrcapp/verify', async (req, res) => {
         console.log("\nSending json object to client side: " + JSON.stringify(resultsList));
         let name = await getName(userEmail)
 
-        res.status(200).render('eutrc_app/home', 
+        res.status(200).render('eutrc_app/landing', 
           {userInfo: {name, isCoach: isCoach(userEmail), email: userEmail, password: userPass}, 
           hpTraining: resultsList[0], dvTraining: resultsList[1], cbTraining: resultsList[2]})
 
@@ -302,7 +302,7 @@ app.post('/eutrcapp/signup', async (req, res) => {
         res.status(500).send("server error: added user's verif == null.")
       } else if (verif == 1){
         console.log('user is verified! Sending to app.home');
-        res.status(200).render('eutrc_app/home.ejs', {name:'Ethan'})
+        res.status(200).render('eutrc_app/landing.ejs', {name:'Ethan'})
       } else {
         console.log('user has not yet been verified! Sending to app.verif');
         const query = `SELECT first_name FROM users WHERE email = '${userEmail}';`
@@ -352,7 +352,7 @@ app.post('/eutrcapp/login', async (req, res) => {
         console.log("\nSending json object to client side: " + JSON.stringify(resultsList));
         let name = await getName(userEmail)
 
-        res.status(200).render('eutrc_app/home', 
+        res.status(200).render('eutrc_app/landing', 
           {userInfo: {name, isCoach: isCoach(userEmail), email: userEmail, password: userPass}, 
           hpTraining: resultsList[0], dvTraining: resultsList[1], cbTraining: resultsList[2]})
       } else {
@@ -514,10 +514,10 @@ app.post('/eutrcapp/checkverif', async (req, res) => {
       res.status(500).send("server error.")
     } else if (verif == 1){
       console.log('user is verified! Sending to app.home');
-      res.status(200).render('./eutrc_app/home.ejs')
+      res.status(200).render('eutrc_app/landing')
     } else {
       console.log('user has not yet been verified! Sending to app.verif');
-      res.status(998).render('./eutrc_app/verification.ejs')
+      res.status(998).render('eutrc_app/verification')
     }
 
   } else {
