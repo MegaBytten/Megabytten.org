@@ -8,9 +8,9 @@ function showHome(){
     eventsPageObj.style.display = 'none'
 }
 
-function showEvents(){
+async function showEvents(){
     $('#right-panel-container').html(
-        $.ajax({
+        await $.ajax({
             url: 'http://megabytten.org/eutrc/app/panel',
             method: 'GET',
             headers: {
@@ -34,7 +34,7 @@ $(document).ready(async function () {
             method: 'get',
             dataType: 'html',
             success: function(data){
-                console.log(`Post AJAX request! Loading home (default) panel!`);
+                console.log(`Landing page loaded. Requesting default (home) panel!`);
             }
         })
     )
