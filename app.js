@@ -906,6 +906,47 @@ app.get('/eutrc/app/signup', async (req, res) => {
   res.status(200).render('eutrc_app/signup', { })
 })
 
+//web-hook link to obtain different content panes!
+app.get('/eutrc/app/panel', async (req, res) => {
+  console.log(`User requesting different content panel! Obtaining content pane: ${req.header('panel')}`);
+  var panel = req.header('panel')
+  var name = req.header('name')
+  switch (panel) {
+    case 'home':
+      let resultsList = require('./EUTRCApp/get-next-training.js');
+      resultsList = await resultsList.getNextTrainingsList();
+      res.status(200).render(
+        '/public/eutrcapp/panels/home', 
+        { 
+          userInfo: {name}, 
+          hpTraining: resultsList[0], 
+          dvTraining: resultsList[1], 
+          cbTraining: resultsList[2]
+        }
+      )
+      break;
+  
+    case 'events':
+      break;
+
+    case 'moves':
+      break;
+    default:
+      let resultsList = require('./EUTRCApp/get-next-training.js');
+      resultsList = await resultsList.getNextTrainingsList();
+      res.status(200).render(
+        '/public/eutrcapp/panels/home', 
+        { 
+          userInfo: {name}, 
+          hpTraining: resultsList[0], 
+          dvTraining: resultsList[1], 
+          cbTraining: resultsList[2]
+        }
+      )
+      break;
+  }
+})
+
 //web-hook link to obtain slides regarding moves
 app.get('/eutrc/app/moves', async (req, res) => {
   console.log(`Player requested moves! Sending HTML for category: ${req.header('category')} and slide: ${req.header('index')}`);

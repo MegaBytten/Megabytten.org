@@ -313,3 +313,20 @@ async function loadSlide (category, index){
 
     //set onclick listeners to arrow keys!
 }
+
+$(document).ready(async function () {
+    var name = $('input:hidden').val()
+    $('#right-panel-container').html(
+        await $.ajax({
+            url: 'http://megabytten.org/eutrc/app/panel',
+            headers: {
+                name
+            },
+            method: 'get',
+            dataType: 'html',
+            success: function(data){
+                console.log(`Post AJAX request! Loading home (default) panel!`);
+            }
+        })
+    )
+})

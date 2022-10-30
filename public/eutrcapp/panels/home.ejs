@@ -1,0 +1,61 @@
+<html>
+     <link rel="stylesheet" href="home.css">
+
+
+    <div class="right-content" name="homePage" id="homePage" style="display:flex;"> 
+        <h1 style="text-align:center ;">
+            EUTRC Home
+        </h1>
+    
+        <text class="welcome-msg">Welcome back <%=userInfo['name']%></text>
+    
+        <div class="trainings-section">
+            <h2>Upcoming EUTRC Trainings</h2>
+    
+            <div class="hp-training">
+                <h3>High Performance (HP)</h3>
+                <% if (hpTraining['date_day'] != 'none') { %>
+                    <div class="training-info">
+                        <text>Date: <%= hpTraining['date_day'] %>/<%= hpTraining['date_month'] %>/<%= hpTraining['date_year'] %></text>
+                        <text>Time: <%= hpTraining['time'] %></text>
+                        <text>Location: <%= hpTraining['location'] %></text>
+                        <text>Drills: <%= hpTraining['drills'] %></text>
+                    </div>
+                <% } else { %> 
+                    <p style="margin-left: 10px;margin-bottom: 20px;">There is no High Performance training within the next week.</p>
+                <% } %> 
+            </div>
+    
+            <div class="dv-training">
+                <h3>Development (DV)</h3>
+                <% if (dvTraining['date_day'] != 'none') { %>
+                    <div class="training-info">
+                        <text>Date: <%= dvTraining['date_day'] %>/<%= dvTraining['date_month'] %>//<%= dvTraining['date_year'] %></text>
+                        <text>Time: <%= dvTraining['time'] %></text>
+                        <text>Location: <%= dvTraining['location'] %></text>
+                        <text>Drills: <%= dvTraining['drills'] %></text>
+                    </div>
+                <% } else { %> 
+                    <p style="margin-left: 10px;margin-bottom: 20px;">There is no Development training within the next week.</p>
+                <% } %> 
+            </div>
+    
+            <div class="cb-training">
+                <h3>Club (CB)</h3>
+                <% if (cbTraining['date_day'] != 'none') { %>
+                    <div class="training-info">
+                        <text>Date: <%= cbTraining['date_day'] %>/<%= cbTraining['date_month'] %>//<%= cbTraining['date_year'] %></text>
+                        <text>Time: <%= cbTraining['time'] %></text>
+                        <text>Location: <%= cbTraining['location'] %> </text>
+                        <text>Drills: <%= cbTraining['drills'] %></text>
+                    </div>
+                <% } else { %> 
+                    <p style="margin-left: 10px;margin-bottom: 20px;">There is no Club training within the next week.</p>
+                <% } %> 
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="home.js"></script>
+</html>

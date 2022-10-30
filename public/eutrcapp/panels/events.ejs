@@ -1,0 +1,63 @@
+<html>
+    <link rel="stylesheet" href="home.css">
+    <!-- This div holds all the page information for the EVENTS page -->
+    <div class="right-content" name="eventsPage" id="eventsPage"> 
+        <h1 style="text-align:center ;">
+            EUTRC Events
+        </h1>
+
+        <!-- This is the calendar! -->
+        <div class="calendar-wrapper">
+            <div class="title-section">
+                <button onclick="lastMonth()" class="month-buttons">
+                    &#8592
+                </button>
+                <h3 id="month">
+                    MONTH
+                </h3>
+                <button onclick="nextMonth()" class="month-buttons">
+                    &#8594
+                </button>
+            </div>
+
+            <div class="weekday-labels-container">
+                <text class="weekday-labels">Monday</text>
+                <text class="weekday-labels">Tuesday</text>
+                <text class="weekday-labels">Wednesday</text>
+                <text class="weekday-labels">Thursday</text>
+                <text class="weekday-labels">Friday</text>
+                <text class="weekday-labels">Saturday</text>
+                <text class="weekday-labels">Sunday</text>
+            </div>
+
+            <div class="cells-container">
+                <% for (x=0; x < 42; x++) { %> 
+                    <div class="cells" id="cell<%=x+1%>" name="cell<%=x+1%>">
+                        <span class="cell-date-day" id="cell-date-<%=x+1%>" name="cell-date-<%=x+1%>">
+                            Cell<%=x+1%>
+                        </span>
+                        <span 
+                            class="cell-training-info" 
+                            id="cell-training-<%=x+1%>" 
+                            name="cell-training-<%=x+1%>" 
+                            onclick="viewTraining(this)"
+                            >
+
+                        </span>
+                    </div>
+                    <!-- <text class="cells" id="cell<%=x+1%>" name="cell<%=x+1%>">Cell<%=x+1%></text> -->
+                <% } %> 
+            </div>
+
+
+            <div class="expanded-training-info">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="home.js"></script>
+</html>
