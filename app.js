@@ -911,9 +911,10 @@ app.get('/eutrc/app/panel', async (req, res) => {
   console.log(`User requesting different content panel! Obtaining content pane: ${req.header('panel')}`);
   var panel = req.header('panel')
   var name = req.header('name')
+
+  let resultsList = require('./EUTRCApp/get-next-training.js');
   switch (panel) {
     case 'home':
-      let resultsList = require('./EUTRCApp/get-next-training.js');
       resultsList = await resultsList.getNextTrainingsList();
       res.status(200).render(
         '/public/eutrcapp/panels/home', 
@@ -932,7 +933,6 @@ app.get('/eutrc/app/panel', async (req, res) => {
     case 'moves':
       break;
     default:
-      let resultsList = require('./EUTRCApp/get-next-training.js');
       resultsList = await resultsList.getNextTrainingsList();
       res.status(200).render(
         '/public/eutrcapp/panels/home', 
