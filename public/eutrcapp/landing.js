@@ -1,9 +1,14 @@
 async function showHome(){
+    var name = $('input:hidden').val()
     $('#right-panel-container').html(
         await $.ajax({
             url: 'http://megabytten.org/eutrc/app/panel',
             method: 'GET',
+            headers: {
+                'panel': 'home'
+            },
             success: function (response) {
+                console.log('Successfully obtained Home panel.');
                 //successfully loaded in events page!
             }
         })
@@ -19,6 +24,7 @@ async function showEvents(){
                 'panel': 'events'
             },
             success: function (response) {
+                console.log('Successfully obtained Events panel.');
                 //successfully loaded in events page!
             }
         })
@@ -34,6 +40,7 @@ async function showMoves(){
                 'panel': 'moves'
             },
             success: function (response) {
+                console.log('Successfully obtained Moves panel.');
                 //successfully loaded in moves page!
             }
         })
