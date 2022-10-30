@@ -3,9 +3,6 @@ async function showHome(){
         await $.ajax({
             url: 'http://megabytten.org/eutrc/app/panel',
             method: 'GET',
-            headers: {
-                'panel': 'home'
-            },
             success: function (response) {
                 //successfully loaded in events page!
             }
