@@ -53,7 +53,6 @@ function calendarInit(date) {
         x++;
     }
 
-    console.log(lastDayOfMonth);
     for (lastDayOfMonth; lastDayOfMonth < 42; lastDayOfMonth++){
         let cell = document.getElementById('cell' + x)
         if (cell == null){
