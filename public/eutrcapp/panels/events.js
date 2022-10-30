@@ -1,6 +1,5 @@
 //class-wide variables
 selectedDate = new Date()
-var trainingArrayJson = null;
 
 //Document INIT when document is ready
 $(document).ready(async function(){
@@ -67,6 +66,11 @@ function calendarInit(date) {
 
 function loadTrainings(trainingArrayJson, date){
     $('.cell-training-info').html('') //uses jQuery to reset HTML content within all <span class='cell-training-info'>
+
+    if (trainingArrayJson == 'null') {
+        //no trainings this month, no need to loadTrainings()
+        return;
+    }
 
     trainingArrayJson.forEach(training => {
         const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
