@@ -1,4 +1,3 @@
-selectedDate = new Date()
 var trainingArrayJson = null;
 
 function showHome(){
@@ -10,29 +9,18 @@ function showHome(){
 }
 
 function showEvents(){
-    calendarInit(selectedDate)
-
-    let homePageObj = document.getElementById('homePage')
-    homePageObj.style.display = 'none'
-
-    let eventsPageObj = document.getElementById('eventsPage')
-    eventsPageObj.style.display = 'flex'
-
-    const month = selectedDate.toLocaleString('default', { month: 'long' });
-    var year = selectedDate.getFullYear();
-    $.ajax({
-        url: 'http://megabytten.org/eutrcapp/trainings.json',
-        method: 'GET',
-        headers: {
-            "request": "calendar",
-            month,
-            year
-        },
-        success: function (response) {
-            console.log('Successfully obtained training info. Loading it into calendar.');
-            loadTrainings(response, selectedDate)
-        }
-    })
+    $('#right-panel-container').html(
+        $.ajax({
+            url: 'http://megabytten.org/eutrc/app/panel',
+            method: 'GET',
+            headers: {
+                'panel': 'events'
+            },
+            success: function (response) {
+                //successfully loaded in events page!
+            }
+        })
+    )
 }
 
 $(document).ready(async function () {

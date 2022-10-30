@@ -1,3 +1,25 @@
+//class-wide variables
+selectedDate = new Date()
+
+$(document).ready(async function(){
+    calendarInit(selectedDate)
+
+    const month = selectedDate.toLocaleString('default', { month: 'long' });
+    var year = selectedDate.getFullYear();
+    $.ajax({
+        url: 'http://megabytten.org/eutrcapp/trainings.json',
+        method: 'GET',
+        headers: {
+            "request": "calendar",
+            month,
+            year
+        },
+        success: function (response) {
+            console.log('Successfully obtained training info. Loading it into calendar.');
+            loadTrainings(response, selectedDate)
+        }
+    })
+})
 
 
 function nextMonth(){
@@ -40,45 +62,7 @@ function lastMonth(){
     })
 }
 
-function calendarInit(date) {
-    //these lines set the H3 text as Month Year on the top of the calendar
-    var monthName = new Intl.DateTimeFormat("en-US", { month: "long" }).format;
-    var longName = monthName(date);
-    var h3 = document.getElementById('month')
-    h3.textContent = longName + " " + date.getFullYear();
 
-    //these obtains the first day of the month
-    const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
-    let x = getFirstDayInt(firstDayCurrentMonth)
-    
-    // this hides the cells up until the first date
-    for (y=1; y < x; y++){
-        let cell = document.getElementById('cell' + y)
-        cell.style.visibility = 'hidden'
-    }
-
-    // this sets all cells from the starting date until the last day of the month as visible
-    var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
-    for (var day = 1; day <=lastDayOfMonth; day++){
-        let cell = document.getElementById('cell' + x)
-        cell.style.visibility = 'visible'
-        
-        // sets the textContent as the day number
-        let cellHeader = document.getElementById('cell-date-' + x)
-        cellHeader.textContent = day
-        x++;
-    }
-
-    console.log(lastDayOfMonth);
-    for (lastDayOfMonth; lastDayOfMonth < 42; lastDayOfMonth++){
-        let cell = document.getElementById('cell' + x)
-        if (cell == null){
-            break;
-        }
-        cell.style.visibility = 'hidden'
-        x++
-    }
-}
 
 function loadTrainings(trainingArrayJson, date){
     $('.cell-training-info').html('') //uses jQuery to reset HTML content within all <span class='cell-training-info'>
@@ -122,6 +106,49 @@ function viewTraining(clickedEl){
         }
     }
 }
+
+function calendarInit(date) {
+    //these lines set the H3 text as Month Year on the top of the calendar
+    var monthName = new Intl.DateTimeFormat("en-US", { month: "long" }).format;
+    var longName = monthName(date);
+    var h3 = document.getElementById('month')
+    h3.textContent = longName + " " + date.getFullYear();
+
+    //these obtains the first day of the month
+    const firstDayCurrentMonth = new Date(date.getFullYear(),  date.getMonth(), 1).getDay();
+    let x = getFirstDayInt(firstDayCurrentMonth)
+    
+    // this hides the cells up until the first date
+    for (y=1; y < x; y++){
+        let cell = document.getElementById('cell' + y)
+        cell.style.visibility = 'hidden'
+    }
+
+    // this sets all cells from the starting date until the last day of the month as visible
+    var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
+    for (var day = 1; day <=lastDayOfMonth; day++){
+        let cell = document.getElementById('cell' + x)
+        cell.style.visibility = 'visible'
+        
+        // sets the textContent as the day number
+        let cellHeader = document.getElementById('cell-date-' + x)
+        cellHeader.textContent = day
+        x++;
+    }
+
+    console.log(lastDayOfMonth);
+    for (lastDayOfMonth; lastDayOfMonth < 42; lastDayOfMonth++){
+        let cell = document.getElementById('cell' + x)
+        if (cell == null){
+            break;
+        }
+        cell.style.visibility = 'hidden'
+        x++
+    }
+}
+
+
+    
 
 //utility function
 function getFirstDayInt(firstDay){
