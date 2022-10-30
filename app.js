@@ -529,7 +529,7 @@ app.post('/eutrcapp/checkverif', async (req, res) => {
 
 //link used to retrieve upcoming trainings
 app.get('/eutrcapp/trainings.json', async (req, res) => {
-  console.log("\n\n/eutrcapp/trainings reached! Getting training schedule...");
+  console.log("\n\n/eutrcapp/trainings.json reached! Getting training schedule...");
 
   let resultsList = require('./EUTRCApp/get-next-training.js');
 
